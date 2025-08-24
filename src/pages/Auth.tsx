@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/hooks/useAuth';
-import ferdyFox from '@/assets/ferdy-fox.png';
+// import ferdyFox from '@/assets/ferdy-fox.png'; // Fox image will be added
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -37,8 +37,8 @@ const Auth = () => {
     <div className="min-h-screen ferdy-gradient-hero flex items-center justify-center p-4">
       <div className="bg-card w-full max-w-md rounded-3xl ferdy-shadow-card p-8">
         <div className="text-center">
-          <div className="w-48 h-48 mx-auto mb-6 flex items-center justify-center">
-            <img src={ferdyFox} alt="Ferdy der Fuchs" className="w-full h-full object-contain" />
+          <div className="w-48 h-48 mx-auto mb-6 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-6xl">
+            🦊
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-6">
             {isLogin ? 'Willkommen zurück!' : 'Jetzt registrieren!'}
