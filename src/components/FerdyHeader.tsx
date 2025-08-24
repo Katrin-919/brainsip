@@ -44,6 +44,12 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
         {/* Navigation - Desktop */}
         <nav className="hidden md:flex gap-8">
           <button 
+            onClick={() => navigate('/')}
+            className="text-secondary-foreground font-semibold hover:text-accent hover:-translate-y-1 transition-all duration-300"
+          >
+            Startseite
+          </button>
+          <button 
             onClick={() => scrollToSection('games')}
             className="text-secondary-foreground font-semibold hover:text-accent hover:-translate-y-1 transition-all duration-300"
           >
@@ -117,6 +123,12 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
       {isMenuOpen && (
         <div className="md:hidden mt-4 bg-secondary rounded-lg p-4">
           <nav className="flex flex-col gap-4 mb-4">
+            <button 
+              onClick={() => navigate('/')}
+              className="text-secondary-foreground font-semibold text-left"
+            >
+              Startseite
+            </button>
             <button 
               onClick={() => scrollToSection('games')}
               className="text-secondary-foreground font-semibold text-left"

@@ -28,25 +28,25 @@ const Losungsorientierung = () => {
     {
       title: "DenkWeiser",
       hint: "Ideen sammeln & vergleichen",
-      image: "/lovable-uploads/d9c83ee8-6505-4c51-abd6-2b2efc751fb6.png",
+      image: "/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png",
       route: "/denkweiser"
     },
     {
       title: "ErzählZauber", 
       hint: "Geschichten & Lösungen verknüpfen",
-      image: "/lovable-uploads/d9c83ee8-6505-4c51-abd6-2b2efc751fb6.png",
+      image: "/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png",
       route: "/erzaehlzauber"
     },
     {
       title: "WortEntdecker",
       hint: "Begriffe ordnen & erklären", 
-      image: "/lovable-uploads/d9c83ee8-6505-4c51-abd6-2b2efc751fb6.png",
+      image: "/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png",
       route: "/wortentdecker"
     },
     {
       title: "TaktikTüftler",
       hint: "Strategien planen & testen",
-      image: "/lovable-uploads/d9c83ee8-6505-4c51-abd6-2b2efc751fb6.png", 
+      image: "/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png", 
       route: "/taktiktueftler"
     }
   ];
@@ -168,11 +168,15 @@ const Losungsorientierung = () => {
                   onClick={() => window.location.href = game.route}
                 >
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-24 mb-4 rounded-full overflow-hidden border-4 border-foreground">
+                    <div className="w-32 h-32 mb-4 rounded-full overflow-hidden">
                       <img 
                         src={game.image}
                         alt={game.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
+                        style={{
+                          clipPath: `polygon(${25 + index * 25}% 0%, ${50 + index * 25}% 0%, ${50 + index * 25}% 100%, ${25 + index * 25}% 100%)`,
+                          objectPosition: `${-index * 25}% 0%`
+                        }}
                       />
                     </div>
                     <h3 className="text-lg font-bold text-foreground mb-2">{game.title}</h3>
