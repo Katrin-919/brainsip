@@ -150,7 +150,7 @@ const Denkweiser = () => {
                     <p className="text-sm text-muted-foreground mb-2">Welche Antwort ist lösungsorientiert?</p>
                     <ul className="text-sm text-muted-foreground space-y-1">
                       <li>• „Ich weiß, dass ich zu spät bin – lass uns sehen, wie wir jetzt das Beste aus der Zeit machen."</li>
-                      <li>• Statt zu meckern, überlegst du gemeinsam, wie ihr den restlichen Termin optimal nutzt.</li>
+                      <li>• Statt zu meckern, überlegst du gemeinsam, wie ihr den restlichen Tag optimal nutzt.</li>
                     </ul>
                   </div>
 
@@ -160,7 +160,7 @@ const Denkweiser = () => {
                       <li>• Lies die Frage aufmerksam</li>
                       <li>• Wähle die passendere Antwort aus den 2 Optionen</li>
                       <li>• Klicke auf <strong>„Weiter"</strong> und erhalte Feedback</li>
-                      <li>• Spiele alle Fragen bis zur Auswertung</li>
+                      <li>• Spiele 10 Fragen bis zur Auswertung</li>
                     </ul>
                   </div>
 
@@ -193,7 +193,7 @@ const Denkweiser = () => {
                   <img 
                     src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_dancearound.gif"
                     alt="Ferdy Maskottchen"
-                    className="w-32 h-40 mx-auto rounded-lg object-cover"
+                    className="w-60 h-75 mx-auto rounded-lg object-cover"
                   />
                 </div>
 
