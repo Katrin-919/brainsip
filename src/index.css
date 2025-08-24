@@ -2,56 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Ferdy der Fuchs Design System - All colors, gradients, fonts, etc defined here. 
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Ferdy Color Palette */
+    --background: 180 22% 89%; /* Equivalent to #e0e5e5 */
+    --foreground: 210 25% 23%; /* Equivalent to #2c3e50 */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 25% 23%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 25% 23%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 122 39% 49%; /* Equivalent to #4CAF50 - Ferdy green accent */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 194 33% 78%; /* Equivalent to #a3c5d3 - Ferdy blue */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 200 40% 94%; /* Equivalent to #eef3f7 - light blue-gray */
+    --muted-foreground: 210 25% 23%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 122 39% 49%; /* Same as primary - Ferdy green */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 122 39% 49%;
 
     --radius: 0.5rem;
 
+    /* Ferdy specific gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
+    --gradient-section: linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
+    
+    /* Ferdy shadows */
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 15px 40px rgba(0, 0, 0, 0.2);
+    --shadow-elegant: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -101,5 +107,52 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  /* Ferdy specific utilities */
+  .ferdy-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .ferdy-gradient-section {
+    background: var(--gradient-section);
+  }
+  
+  .ferdy-shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .ferdy-shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  
+  .ferdy-transition {
+    transition: var(--transition-smooth);
+  }
+  
+  /* Animation keyframes */
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-fade-in-left {
+    animation: fadeInLeft 1s ease-out;
+  }
+  
+  .animate-fade-in-left-delay {
+    animation: fadeInLeft 1.2s ease-out;
+  }
+  
+  .animate-fade-in-left-delay-2 {
+    animation: fadeInLeft 1.4s ease-out;
   }
 }

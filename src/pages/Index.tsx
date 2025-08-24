@@ -1,12 +1,27 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { FerdyHeader } from "@/components/FerdyHeader";
+import { FerdyHero } from "@/components/FerdyHero";
+import { FerdyAbout } from "@/components/FerdyAbout";
+import { FerdyGames } from "@/components/FerdyGames";
+import { FerdyParents } from "@/components/FerdyParents";
+import { FerdyTestimonials } from "@/components/FerdyTestimonials";
+import { FerdyCTA } from "@/components/FerdyCTA";
 
 const Index = () => {
+  // TODO: Implement actual authentication state
+  const isLoggedIn = false;
+  const displayName = "";
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
+      <main>
+        <FerdyHero />
+        <FerdyAbout />
+        <FerdyGames />
+        <FerdyParents />
+        <FerdyTestimonials />
+        <FerdyCTA />
+      </main>
     </div>
   );
 };
