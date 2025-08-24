@@ -1,9 +1,16 @@
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export const FerdyHero = () => {
+  const navigate = useNavigate();
+  
   const scrollToGames = () => {
     const gamesSection = document.getElementById('games');
     gamesSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleStartClick = () => {
+    navigate('/losungsorientierung');
   };
 
   return (
@@ -41,7 +48,7 @@ export const FerdyHero = () => {
           </div>
 
           <Button 
-            onClick={scrollToGames}
+            onClick={handleStartClick}
             size="lg"
             className="bg-green-500 hover:bg-green-600 text-white rounded-full px-6 py-4 text-base font-bold animate-fade-in-left-delay-2 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
             style={{ boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)' }}
