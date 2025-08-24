@@ -50,15 +50,6 @@ export const FerdyHero = () => {
           </Button>
         </div>
       </div>
-
-      {/* Dancing Ferdy GIF */}
-      <div className="absolute bottom-4 right-4 z-10">
-        <img 
-          src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_dancearound.gif"
-          alt="Ferdy tanzt herum"
-          className="w-24 h-24 md:w-32 md:h-32 animate-bounce"
-        />
-      </div>
     </section>
   );
 };
