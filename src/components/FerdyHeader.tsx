@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 interface FerdyHeaderProps {
   isLoggedIn?: boolean;
@@ -8,10 +10,21 @@ interface FerdyHeaderProps {
 
 export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
+    setIsMenuOpen(false);
+  };
+
+  const handleAuthAction = (action: 'login' | 'register' | 'logout') => {
+    if (action === 'logout') {
+      signOut();
+    } else {
+      navigate('/auth');
+    }
     setIsMenuOpen(false);
   };
 
@@ -63,16 +76,28 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
               <span className="text-secondary-foreground font-semibold mr-3">
                 Willkommen, {displayName}
               </span>
-              <Button variant="default" className="rounded-full">
+              <Button 
+                variant="default" 
+                className="rounded-full"
+                onClick={() => handleAuthAction('logout')}
+              >
                 Logout
               </Button>
             </>
           ) : (
             <>
-              <Button variant="outline" className="rounded-full">
+              <Button 
+                variant="outline" 
+                className="rounded-full"
+                onClick={() => handleAuthAction('register')}
+              >
                 Registrieren
               </Button>
-              <Button variant="default" className="rounded-full">
+              <Button 
+                variant="default" 
+                className="rounded-full"
+                onClick={() => handleAuthAction('login')}
+              >
                 Login
               </Button>
             </>
@@ -124,16 +149,28 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
                 <span className="text-secondary-foreground font-semibold">
                   Willkommen, {displayName}
                 </span>
-                <Button variant="default" className="rounded-full w-full">
+                <Button 
+                  variant="default" 
+                  className="rounded-full w-full"
+                  onClick={() => handleAuthAction('logout')}
+                >
                   Logout
                 </Button>
               </>
             ) : (
               <>
-                <Button variant="outline" className="rounded-full w-full">
+                <Button 
+                  variant="outline" 
+                  className="rounded-full w-full"
+                  onClick={() => handleAuthAction('register')}
+                >
                   Registrieren
                 </Button>
-                <Button variant="default" className="rounded-full w-full">
+                <Button 
+                  variant="default" 
+                  className="rounded-full w-full"
+                  onClick={() => handleAuthAction('login')}
+                >
                   Login
                 </Button>
               </>
