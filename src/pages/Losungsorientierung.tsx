@@ -26,28 +26,22 @@ const Losungsorientierung = () => {
 
   const games = [
     {
-      title: "DenkWeiser",
-      hint: "Ideen sammeln & vergleichen",
-      image: "/lovable-uploads/d9c83ee8-6505-4c51-abd6-2b2efc751fb6.png",
-      route: "/denkweiser"
+      title: "Lösungsorientierung",
+      hint: "Löse knifflige Rätsel und werde Meister der Problemlösung!",
+      image: "/images/loesungsorientierung.png",
+      route: "/loesungsorientierung"
     },
     {
-      title: "ErzählZauber", 
-      hint: "Geschichten & Lösungen verknüpfen",
-      image: "/lovable-uploads/d9c83ee8-6505-4c51-abd6-2b2efc751fb6.png",
-      route: "/erzaehlzauber"
+      title: "Mindset", 
+      hint: "Stärke deine Denkweise mit spannenden interaktiven Spielen!",
+      image: "/images/mindset.jpg",
+      route: "/mindset"
     },
     {
-      title: "WortEntdecker",
-      hint: "Begriffe ordnen & erklären", 
-      image: "/lovable-uploads/d9c83ee8-6505-4c51-abd6-2b2efc751fb6.png",
-      route: "/wortentdecker"
-    },
-    {
-      title: "TaktikTüftler",
-      hint: "Strategien planen & testen",
-      image: "/lovable-uploads/d9c83ee8-6505-4c51-abd6-2b2efc751fb6.png", 
-      route: "/taktiktueftler"
+      title: "Konfliktlösung",
+      hint: "Hol dir smarte Tipps, um Konflikte besser zu lösen!", 
+      image: "/images/konflikt.png",
+      route: "/konfliktloesung"
     }
   ];
 
@@ -160,23 +154,33 @@ const Losungsorientierung = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {games.map((game, index) => (
                 <Card 
                   key={index}
-                  className="p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card"
-                  onClick={() => {/* TODO: Navigate to game */}}
+                  className="overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card bg-white"
+                  onClick={() => {
+                    if (game.route !== '#') {
+                      window.location.href = game.route;
+                    }
+                  }}
                 >
-                  <div className="flex flex-col items-center">
-                    <div className="w-24 h-24 mb-4 rounded-full overflow-hidden border-4 border-foreground">
-                      <img 
-                        src={game.image}
-                        alt={game.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={game.image}
+                      alt={game.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-4">
                     <h3 className="text-lg font-bold text-foreground mb-2">{game.title}</h3>
-                    <p className="text-sm text-muted-foreground">{game.hint}</p>
+                    <p className="text-sm text-muted-foreground mb-4">{game.hint}</p>
+                    <Button 
+                      className="w-full rounded-full font-bold"
+                      variant="default"
+                    >
+                      Start
+                    </Button>
                   </div>
                 </Card>
               ))}
