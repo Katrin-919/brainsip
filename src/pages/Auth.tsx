@@ -39,7 +39,7 @@ const Auth = () => {
         <div className="text-center">
           <div className="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden ferdy-shadow-card">
             <img 
-              src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_login" 
+              src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_login.png" 
               alt="Ferdy der Fuchs" 
               className="w-full h-full object-cover"
             />
