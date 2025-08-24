@@ -6,7 +6,7 @@ const games = [
     id: 'loesungsorientierung',
     title: 'Lösungsorientierung',
     description: 'Löse knifflige Rätsel und werde Meister der Problemlösung!',
-    icon: '🧩',
+    image: 'https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/loesungsorientierung.png',
     available: true,
     route: '/loesungsorientierung'
   },
@@ -14,7 +14,7 @@ const games = [
     id: 'mindset',
     title: 'Mindset',
     description: 'Stärke deine Denkweise mit spannenden interaktiven Spielen!',
-    icon: '🧠',
+    image: 'https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/mindset.jpg',
     available: true,
     route: '/mindset'
   },
@@ -22,7 +22,7 @@ const games = [
     id: 'konfliktloesung',
     title: 'Konfliktlösung',
     description: 'Hol dir smarte Tipps, um Konflikte besser zu lösen!',
-    icon: '🤝',
+    image: 'https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/konflikt.png',
     available: true,
     route: '/conflictsolution'
   },
@@ -53,9 +53,17 @@ export const FerdyGames = () => {
               key={game.id}
               className="bg-white border-0 overflow-hidden ferdy-shadow-card hover:ferdy-shadow-card-hover hover:-translate-y-2 hover:scale-105 ferdy-transition group"
             >
-              {/* Game Icon */}
-              <div className="h-48 bg-gradient-to-br from-accent/20 to-accent/40 flex items-center justify-center border-b-4 border-accent">
-                <span className="text-6xl">{game.icon}</span>
+              {/* Game Image */}
+              <div className="h-48 bg-gradient-to-br from-accent/20 to-accent/40 flex items-center justify-center border-b-4 border-accent overflow-hidden">
+                {game.image ? (
+                  <img 
+                    src={game.image} 
+                    alt={game.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-6xl">{game.icon}</span>
+                )}
               </div>
 
               <CardContent className="p-6">
