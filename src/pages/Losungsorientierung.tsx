@@ -165,7 +165,7 @@ const Losungsorientierung = () => {
                 <Card 
                   key={index}
                   className="p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card"
-                  onClick={() => {/* TODO: Navigate to game */}}
+                  onClick={() => window.location.href = game.route}
                 >
                   <div className="flex flex-col items-center">
                     <div className="w-24 h-24 mb-4 rounded-full overflow-hidden border-4 border-foreground">
