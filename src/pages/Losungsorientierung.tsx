@@ -28,19 +28,19 @@ const Losungsorientierung = () => {
     {
       title: "Lösungsorientierung",
       hint: "Löse knifflige Rätsel und werde Meister der Problemlösung!",
-      image: "/images/loesungsorientierung.png",
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/loesungsorientierung.png",
       route: "/loesungsorientierung"
     },
     {
       title: "Mindset", 
       hint: "Stärke deine Denkweise mit spannenden interaktiven Spielen!",
-      image: "/images/mindset.jpg",
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/mindset.jpg",
       route: "/mindset"
     },
     {
       title: "Konfliktlösung",
       hint: "Hol dir smarte Tipps, um Konflikte besser zu lösen!", 
-      image: "/images/konflikt.png",
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/konflikt.png",
       route: "/konfliktloesung"
     }
   ];
