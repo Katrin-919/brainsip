@@ -152,8 +152,8 @@ const SolutionStory = () => {
                     "SolutionStory" – Worum geht's?
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    Du bekommst alltagsnahe Aufgaben mit <strong>begrenzten Ressourcen</strong>.
-                    Deine Mission: clever planen, Prioritäten setzen und mit Einfallsreichtum eine gute Lösung finden.
+                    Du bekommst alltagsnahe Aufgaben mit <strong>begrenzten Ressourcen</strong>.</p>
+                    <p>Deine Mission: clever planen, Prioritäten setzen und mit Einfallsreichtum eine gute Lösung finden.</p>
                   </p>
                 </div>
 
