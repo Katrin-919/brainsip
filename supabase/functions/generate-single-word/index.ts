@@ -24,18 +24,19 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-5-mini-2025-08-07',
+        model: 'gpt-4o-mini',
         messages: [
           { 
             role: 'system', 
-            content: 'Du generierst einzelne deutsche Substantive (Nominativ Singular, ohne Artikel). Antworte nur mit einem Wort - einem greifbaren Alltagsgegenstand.' 
+            content: 'Du antwortest nur mit einem einzigen deutschen Substantiv - einem greifbaren Gegenstand.' 
           },
           { 
             role: 'user', 
-            content: 'Nenne einen greifbaren Gegenstand, den 10-jährige Kinder kennen. Antworte nur mit dem Substantiv ohne weitere Erklärung.' 
+            content: 'Nenne einen Gegenstand für Kinder (z.B. "Bleistift")' 
           }
         ],
-        max_completion_tokens: 10,
+        max_tokens: 5,
+        temperature: 1.0,
       }),
     });
 
