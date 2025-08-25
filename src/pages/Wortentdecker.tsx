@@ -110,11 +110,15 @@ const Wortentdecker = () => {
           <Card>
             <CardContent className="p-6">
               <div className="text-center mb-6">
-                <img 
-                  src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/game-assets/ferdy_sing.gif" 
-                  alt="Schlauer Fuchs" 
+                <video 
+                  src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_sing.mp4" 
+                  autoPlay
+                  loop
+                  muted
                   className="w-56 h-72 mx-auto rounded-lg object-cover"
-                />
+                >
+                  Your browser does not support the video tag.
+                </video>
               </div>
 
               <h1 className="text-lg font-bold text-foreground mb-6 text-left">
