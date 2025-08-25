@@ -156,7 +156,7 @@ const SumUp = () => {
                   <img 
                     src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_main.png"
                     alt="Ferdy der Fuchs"
-                    className="w-60 h-75 mx-auto rounded-lg object-cover"
+                    className="w-65 h-80 mx-auto rounded-lg object-cover"
                   />
                 </div>
 
