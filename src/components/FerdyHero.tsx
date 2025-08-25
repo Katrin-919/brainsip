@@ -19,7 +19,7 @@ export const FerdyHero = () => {
       <div 
         className="absolute inset-0"
         style={{
-          background: `url('https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_startseite.png') no-repeat left center / 110% auto`
+          background: `url('https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_dancearound.gif') no-repeat left center / 110% auto`
         }}
       />
       
