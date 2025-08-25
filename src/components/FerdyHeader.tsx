@@ -33,9 +33,11 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
       <div className="flex justify-between items-center flex-wrap">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-            🦊
-          </div>
+          <img 
+            src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_goodbye.png"
+            alt="Ferdy der Fuchs"
+            className="w-12 h-12 rounded-full object-cover"
+          />
           <span className="text-xl md:text-2xl font-extrabold text-secondary-foreground uppercase tracking-wide">
             Ferdy der Fuchs
           </span>
