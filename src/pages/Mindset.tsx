@@ -1,5 +1,6 @@
 
 
+
 import { FerdyHeader } from "@/components/FerdyHeader";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -84,40 +85,11 @@ const Mindset = () => {
               </div>
               
               <div className="bg-white rounded-3xl p-8 ferdy-shadow-card">
-                <div className="aspect-square flex items-center justify-center">
+                <div className="aspect-square rounded-2xl overflow-hidden">
                   <img 
                     src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_halelu.gif"
                     alt="Ferdy jubelt"
-                    className="w-full h-full object-contain rounded-2xl"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Wer ist Ferdy Section */}
-        <section className="py-20 md:py-32 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-4 md:px-12">
-            <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-              <div className="space-y-6">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                  Wer ist Ferdy der Fuchs?
-                </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  Ferdy ist ein neugieriger, schlauer Fuchs, der Kinder auf ihren Lernabenteuern begleitet. Mit seinen großen Augen und dem buschigen Schwanz ist er immer bereit, neue Herausforderungen zu meistern und wichtige Fähigkeiten zu entdecken.
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Unser fuchsstarker Freund hilft dir, spielerisch zu lernen – mit Geschichten, Rätseln und Aufgaben, die richtig Spaß machen. Er zeigt dir, wie du Probleme mutig anpackst, ruhig bleibst, wenn's knifflig wird, und mehrere Ideen findest, statt nur eine. Mal knobelst du, mal erzählst du Geschichten, mal baust du kreative Lösungen – und jedes Mal wirst du ein Stückchen besser.
-                </p>
-              </div>
-              
-              <div className="bg-white rounded-3xl p-8 ferdy-shadow-card">
-                <div className="aspect-square flex items-center justify-center">
-                  <img 
-                    src="/lovable-uploads/baed1d19-cefc-427e-9413-c5bb9584cb84.png"
-                    alt="Ferdy der Fuchs"
-                    className="w-full h-full object-contain rounded-2xl"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
@@ -221,3 +193,4 @@ const Mindset = () => {
 };
 
 export default Mindset;
+
