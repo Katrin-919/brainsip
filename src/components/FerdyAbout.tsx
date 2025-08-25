@@ -27,8 +27,12 @@ export const FerdyAbout = () => {
 
           {/* Image placeholder */}
           <div className="bg-white rounded-3xl p-8 ferdy-shadow-card">
-            <div className="aspect-square bg-gradient-to-br from-orange-400 via-orange-500 to-red-500 rounded-2xl flex items-center justify-center">
-              <span className="text-8xl">🦊</span>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img 
+                src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_dancearound.gif"
+                alt="Ferdy der Fuchs tanzt"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
