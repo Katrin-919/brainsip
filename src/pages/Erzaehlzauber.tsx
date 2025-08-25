@@ -110,7 +110,7 @@ const Erzaehlzauber = () => {
                   <p className="text-muted-foreground">
                     Du bekommst drei zufällige Begriffe angezeigt. Deine Aufgabe ist es, daraus eine Geschichte zu erfinden –
                     lustig, spannend oder völlig verrückt. So trainierst du freies Schreiben, Sprache und Kreativität.
-                    Für Bonuspunkte schreibe <strong>mindestens 50 Wörter</strong> und verwende alle drei Begriffe in deiner Geschichte.
+                    Schreibe <strong>mindestens 50 Wörter</strong> und verwende alle drei Begriffe in deiner Geschichte.
                   </p>
 
                   <div className="bg-muted/50 p-4 rounded-lg">
