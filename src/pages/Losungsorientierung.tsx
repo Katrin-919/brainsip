@@ -170,15 +170,11 @@ const Losungsorientierung = () => {
                   onClick={() => navigate(game.route)}
                 >
                   <div className="flex flex-col items-center">
-                    <div className="w-32 h-32 mb-4 rounded-full overflow-hidden">
+                    <div className="w-32 h-32 mb-4 rounded-full overflow-hidden bg-white">
                       <img 
                         src={game.image}
                         alt={game.title}
-                        className="w-full h-full object-contain"
-                        style={{
-                          clipPath: `polygon(${25 + index * 25}% 0%, ${50 + index * 25}% 0%, ${50 + index * 25}% 100%, ${25 + index * 25}% 100%)`,
-                          objectPosition: `${-index * 25}% 0%`
-                        }}
+                        className="w-full h-full object-cover"
                       />
                     </div>
                     <h3 className="text-lg font-bold text-foreground mb-2">{game.title}</h3>
