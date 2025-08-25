@@ -111,7 +111,7 @@ const Wortentdecker = () => {
             <CardContent className="p-6">
               <div className="text-center mb-6">
                 <img 
-                  src="/lovable-uploads/ferdy_sing.gif" 
+                  src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/game-assets/ferdy_sing.gif" 
                   alt="Schlauer Fuchs" 
                   className="w-56 h-72 mx-auto rounded-lg object-cover"
                 />
