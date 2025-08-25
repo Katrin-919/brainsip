@@ -50,8 +50,12 @@ export const FerdyParents = () => {
 
           {/* Center - Donut Image */}
           <div className="row-span-2 flex items-center justify-center">
-            <div className="w-full max-w-md aspect-square bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl flex items-center justify-center ferdy-shadow-card">
-              <span className="text-8xl">📚</span>
+            <div className="w-full max-w-md aspect-square rounded-2xl overflow-hidden ferdy-shadow-card">
+              <img 
+                src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/parents_donut.png"
+                alt="Ferdy Donut Grafik"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
@@ -90,8 +94,12 @@ export const FerdyParents = () => {
         <div className="lg:hidden space-y-6">
           {/* Image first on mobile */}
           <div className="flex justify-center">
-            <div className="w-80 h-80 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl flex items-center justify-center ferdy-shadow-card">
-              <span className="text-8xl">📚</span>
+            <div className="w-80 h-80 rounded-2xl overflow-hidden ferdy-shadow-card">
+              <img 
+                src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/parents_donut.png"
+                alt="Ferdy Donut Grafik"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
