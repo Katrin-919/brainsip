@@ -178,7 +178,7 @@ const SolutionStory = () => {
                     💡 Tipp
                   </h3>
                   <p className="text-muted-foreground italic">
-                    Frag dich: \"Was ist jetzt der <strong>nächstbeste</strong> machbare Schritt mit dem, was ich habe?\"
+                    Frag dich: Was ist jetzt der <strong>nächstbeste</strong> machbare Schritt mit dem, was ich habe?
                   </p>
                 </div>
 
