@@ -175,7 +175,7 @@ const Denkweiser = () => {
                   </div>
 
                   <Button 
-                    onClick={() => navigate('/losungsorientierung')}
+                    onClick={() => navigate('/loesungsorientierung')}
                     variant="outline"
                     className="w-full"
                   >

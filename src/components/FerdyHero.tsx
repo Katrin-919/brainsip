@@ -10,7 +10,7 @@ export const FerdyHero = () => {
   };
 
   const handleStartClick = () => {
-    navigate('/losungsorientierung');
+    navigate('/loesungsorientierung');
   };
 
   return (
