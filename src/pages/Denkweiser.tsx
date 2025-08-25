@@ -193,7 +193,7 @@ const Denkweiser = () => {
                   <img 
                     src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_halelu.gif"
                     alt="Ferdy Maskottchen"
-                    className="w-60 h-75 mx-auto rounded-lg object-cover"
+                    className="w-75 h-90 mx-auto rounded-lg object-cover"
                   />
                 </div>
 
