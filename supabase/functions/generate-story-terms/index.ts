@@ -31,7 +31,7 @@ serve(async (req) => {
           messages: [
             { 
               role: 'user', 
-              content: 'Erfinde ein kreatives, kniffliges Logikrätsel in Form einer kurzen Geschichte mit maximal 300 Worten. Das Rätsel soll für Kinder im Alter von 10 bis 14 Jahren geeignet sein. Das Rätsel soll in einem realistischen oder fantasievollen Szenario spielen und klare Regeln enthalten, die zu beachten sind. Es soll möglich sein, das Problem durch Nachdenken und geschicktes Planen zu lösen. Am Ende des Szenarios schreibe: „Finde eine Lösung für das beschriebene Problem."' 
+              content: 'Erstelle ein Ressourcen-Management Problem für Kinder (10-14 Jahre) mit maximal 200 Worten. Das Problem soll EINE klare, eindeutige Lösung haben, die in 1-3 Schritten beschreibbar ist. Beispiele: "Du hast 5€ und musst 3 Geschenke kaufen", "Du hast 2 Stunden Zeit für 4 Aufgaben", "Du hast nur 3 Zutaten für ein Rezept". Gib konkrete Zahlen, Mengen und Einschränkungen an. Am Ende schreibe: "Finde die beste Lösung für das Problem."' 
             }
           ],
           max_tokens: 500,
@@ -59,7 +59,7 @@ serve(async (req) => {
           messages: [
             { 
               role: 'user', 
-              content: `Hier ist ein kniffliges Logikrätsel: ${question}\n\nGib bitte eine **knappe und verständliche Lösung in höchstens 5 kurzen Schritten**. Verwende klare, einfache Sprache für Kinder ab 10 Jahren. Verzichte auf lange Einleitungen oder Wiederholungen. Konzentriere dich direkt auf die Lösung.` 
+              content: `Hier ist ein Ressourcen-Problem: ${question}\n\nGib EINE konkrete, optimale Lösung in höchstens 3 kurzen Schritten. Die Lösung muss eindeutig und nachvollziehbar sein. Beginne direkt mit der Lösung, keine Einleitung. Beispiel: "1. Kaufe Geschenk A für 2€, 2. Kaufe Geschenk B für 1,50€, 3. Kaufe Geschenk C für 1,50€"` 
             }
           ],
           max_tokens: 500,

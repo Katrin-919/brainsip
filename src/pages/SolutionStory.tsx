@@ -96,16 +96,10 @@ const SolutionStory = () => {
         description: "Gute Arbeit!",
         variant: "default",
       });
-    } else if (correctAnswer) {
-      toast({
-        title: "Beispielantwort",
-        description: correctAnswer,
-        duration: 8000,
-      });
     } else {
       toast({
-        title: "Hinweis",
-        description: "Noch keine Beispielantwort verfügbar. Klicke zuerst \"Aufgabe generieren\".",
+        title: "Nicht ganz richtig",
+        description: "Versuche es noch einmal oder schaue dir die Beispielantwort an.",
         variant: "destructive",
       });
     }
