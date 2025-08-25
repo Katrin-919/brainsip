@@ -28,14 +28,14 @@ serve(async (req) => {
         messages: [
           { 
             role: 'system', 
-            content: 'Du bist ein hilfreicher Assistent, der einzelne, zufällige Substantive generiert.' 
+            content: 'Du generierst einzelne deutsche Substantive (Nominativ Singular, ohne Artikel). Antworte nur mit einem Wort - einem greifbaren Alltagsgegenstand.' 
           },
           { 
             role: 'user', 
-            content: 'Bilde ein Wort, das einen greifbaren Gegenstand darstellt und für 10-jährige Kinder geeignet ist. Antworte nur mit dem einzelnen Wort, ohne weitere Erklärung.' 
+            content: 'Nenne einen greifbaren Gegenstand, den 10-jährige Kinder kennen. Antworte nur mit dem Substantiv ohne weitere Erklärung.' 
           }
         ],
-        max_completion_tokens: 50,
+        max_completion_tokens: 10,
       }),
     });
 
