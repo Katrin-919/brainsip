@@ -43,7 +43,15 @@ const Wortentdecker = () => {
   const countIdeas = () => {
     const text = alternativeUses.trim();
     const items = text ? text.split(/\n|,|;|\.|\s{2,}/).filter(Boolean) : [];
-    setResult(`Anzahl deiner Ideen: ${items.length}`);
+    const count = items.length;
+    
+    let resultText = `Anzahl deiner Ideen: ${count}`;
+    
+    if (count >= 15) {
+      resultText += " 🎉 BONUSPUNKTE! Super kreativ!";
+    }
+    
+    setResult(resultText);
   };
 
   return (
