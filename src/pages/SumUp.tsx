@@ -151,21 +151,13 @@ const SumUp = () => {
             {/* Right Game Area */}
             <div className="md:col-span-8">
               <Card className="p-8 ferdy-shadow-card">
-                
-                {/* Game Description */}
-                <div className="bg-white/80 p-6 rounded-2xl mb-8 border-l-4 border-primary">
-                  <h3 className="text-lg font-bold text-foreground mb-3">Worum geht es in diesem Spiel?</h3>
-                  <p className="text-muted-foreground mb-3">
-                    Schau dir das Video an. Es erklärt dir, was ein <strong>Growth Mindset</strong> und was ein <strong>Fixed Mindset</strong> ist. 
-                    Deine Aufgabe ist es, genau hinzuhören und danach in deinen eigenen Worten zusammenzufassen, was du gelernt hast.
-                  </p>
-                  <p className="text-muted-foreground mb-3">
-                    Wozu das Ganze? Wenn du über Mindsets nachdenkst und versuchst, sie mit eigenen Worten zu erklären, 
-                    verankerst du das Wissen viel besser in deinem Gehirn.
-                  </p>
-                  <p className="text-sm font-semibold text-primary">
-                    Schreibe mindestens 50 Worte. Wenn dein Text sinnvoll und passend ist, bekommst du Punkte!
-                  </p>
+                {/* Header with Ferdy */}
+                <div className="text-center mb-6">
+                  <img 
+                    src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_main.png"
+                    alt="Ferdy der Fuchs"
+                    className="w-70 h-85 mx-auto rounded-lg object-cover"
+                  />
                 </div>
 
                 {/* Video Container */}
@@ -184,26 +176,16 @@ const SumUp = () => {
                 </div>
 
                 {/* Input Section */}
-                <div className="grid md:grid-cols-3 gap-6 items-start">
-                  <div className="md:col-span-1 flex justify-center">
-                    <img 
-                      src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_main.png"
-                      alt="Ferdy the Fox"
-                      className="w-full max-w-[240px] rounded-xl object-cover"
-                    />
-                  </div>
+                <div className="max-w-3xl mx-auto">
+                  <Textarea
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    placeholder="Trage hier ein, was du aus dem Video zum Thema Growth Mindset und Fixed Mindset gelernt hast..."
+                    className="min-h-[250px] resize-y text-base w-full"
+                  />
                   
-                  <div className="md:col-span-2">
-                    <Textarea
-                      value={userInput}
-                      onChange={(e) => setUserInput(e.target.value)}
-                      placeholder="Trage hier ein, was du aus dem Video zum Thema Growth Mindset und Fixed Mindset gelernt hast..."
-                      className="min-h-[250px] resize-y text-base"
-                    />
-                    
-                    <div className="mt-4 text-sm text-muted-foreground">
-                      Aktuelle Wortanzahl: {userInput.trim().split(/\s+/).filter(word => word.length > 0).length} / 50 mindestens
-                    </div>
+                  <div className="mt-4 text-sm text-muted-foreground">
+                    Aktuelle Wortanzahl: {userInput.trim().split(/\s+/).filter(word => word.length > 0).length} / 50 mindestens
                   </div>
                 </div>
 
