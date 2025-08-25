@@ -161,7 +161,7 @@ const Erzaehlzauber = () => {
                   <img 
                     src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_blink.gif"
                     alt="Ferdy Maskottchen"
-                    className="w-60 h-75 mx-auto rounded-lg object-cover"
+                    className="w-50 h-65 mx-auto rounded-lg object-cover"
                   />
                 </div>
 
