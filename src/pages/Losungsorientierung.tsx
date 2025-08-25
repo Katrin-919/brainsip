@@ -30,25 +30,25 @@ const Losungsorientierung = () => {
     {
       title: "DenkWeiser",
       hint: "Ideen sammeln & vergleichen",
-      image: "/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png",
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/Denkweiser.jpg",
       route: "/denkweiser"
     },
     {
       title: "ErzählZauber", 
       hint: "Geschichten & Lösungen verknüpfen",
-      image: "/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png",
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/Erzaehlzauber.jpg",
       route: "/erzaehlzauber"
     },
     {
       title: "WortEntdecker",
       hint: "Begriffe ordnen & erklären", 
-      image: "/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png",
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/Wortentdecker.jpg",
       route: "/wortentdecker"
     },
     {
       title: "TaktikTüftler",
       hint: "Strategien planen & testen",
-      image: "/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png", 
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/Taktiktueftler.jpg", 
       route: "/taktiktueftler"
     }
   ];
