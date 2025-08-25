@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FerdyHeader } from "@/components/FerdyHeader";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,14 +17,19 @@ interface PairCard {
 }
 
 export default function PaareFinden() {
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const isLoggedIn = !!user;
+  const displayName = user?.email?.split('@')[0] || "";
+
   const [pairs, setPairs] = useState<MindsetPair[]>([]);
   const [allCards, setAllCards] = useState<PairCard[]>([]);
   const [selectedFixed, setSelectedFixed] = useState<string | null>(null);
   const [selectedGrowth, setSelectedGrowth] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isGameLoading, setIsGameLoading] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
 
   const shuffle = (array: any[]) => {
     const shuffled = [...array];
@@ -35,7 +41,7 @@ export default function PaareFinden() {
   };
 
   const loadPairs = async () => {
-    setLoading(true);
+    setIsGameLoading(true);
     setSelectedFixed(null);
     setSelectedGrowth(null);
     
@@ -60,12 +66,13 @@ export default function PaareFinden() {
       }));
       
       setAllCards(shuffle([...fixedCards, ...growthCards]));
+      setGameStarted(true);
     } catch (error) {
       console.error('Fehler beim Laden der Aussagen:', error);
       setPopupMessage('Fehler beim Laden der Aussagen.');
       setShowPopup(true);
     } finally {
-      setLoading(false);
+      setIsGameLoading(false);
     }
   };
 
@@ -106,132 +113,176 @@ export default function PaareFinden() {
     }, 300);
   };
 
-  useEffect(() => {
-    loadPairs();
-  }, []);
+  const resetGame = () => {
+    setGameStarted(false);
+    setSelectedFixed(null);
+    setSelectedGrowth(null);
+    setAllCards([]);
+    setPairs([]);
+  };
 
   const canSubmit = selectedFixed && selectedGrowth;
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-foreground">Lade...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <FerdyHeader />
+    <div className="min-h-screen bg-background">
+      <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
       
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          {/* Left Column - Instructions */}
-          <div className="space-y-6">
-            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
-              <CardContent className="p-6">
+      <main className="mt-20 px-4 md:px-12 py-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-8">
+            {/* Left Info Panel */}
+            <div className="md:col-span-4">
+              <Card className="p-6 ferdy-shadow-card sticky top-24">
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                    ℹ️ Spiel-Info
-                  </h3>
-                  <h2 className="text-xl font-bold text-gray-800">
-                    „Mindset‑Paare finden" – Worum geht's?
-                  </h2>
-                  <p className="text-gray-700 leading-relaxed">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-2xl">ℹ️</span>
+                    <h3 className="text-lg font-bold text-foreground">Spiel-Info</h3>
+                  </div>
+                  
+                  <h2 className="text-xl font-bold text-foreground">„Mindset‑Paare finden" – Worum geht's?</h2>
+                  
+                  <p className="text-muted-foreground">
                     Du lernst, hinderliche Gedanken (<em>Fixed Mindset</em>) zu erkennen
                     und sie mit ermutigenden Gedanken (<em>Growth Mindset</em>) zu ersetzen.
                     Finde die Aussagen, die zusammengehören.
                   </p>
-                  
-                  <h3 className="text-lg font-semibold text-primary mt-6">So spielst du</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Klicke auf <strong>„Neue Paare laden"</strong> (passiert automatisch beim Start)
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Wähle einen <strong>hinderlichen</strong> und danach die passende <strong>positive</strong> Aussage
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Klicke auf <strong>„Antwort prüfen"</strong>
-                    </li>
-                  </ul>
-                  
-                  <h3 className="text-lg font-semibold text-primary mt-6">Warum das wichtig ist</h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    Dein Denken beeinflusst dein Handeln. Mit dem richtigen Mindset löst du
-                    Probleme konstruktiver – und lernst schneller.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Button 
-              onClick={() => navigate("/mindset")}
-              variant="outline"
-              className="w-full lg:w-auto"
-            >
-              Zurück zur Übersicht
-            </Button>
-          </div>
 
-          {/* Right Column - Game */}
-          <div className="space-y-6">
-            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
-              <CardContent className="p-6">
+                  <div>
+                    <h3 className="font-bold text-foreground mb-2">So spielst du</h3>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Klicke auf <strong>„Neue Paare laden"</strong> (passiert automatisch beim Start)</li>
+                      <li>• Wähle einen <strong>hinderlichen</strong> und danach die passende <strong>positive</strong> Aussage</li>
+                      <li>• Klicke auf <strong>„Antwort prüfen"</strong></li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span>💡</span>
+                      <span className="font-semibold text-foreground">Warum das wichtig ist</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Dein Denken beeinflusst dein Handeln. Mit dem richtigen Mindset löst du
+                      Probleme konstruktiver – und lernst schneller.
+                    </p>
+                  </div>
+
+                  <Button 
+                    onClick={() => navigate('/mindset')}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Zurück
+                  </Button>
+                </div>
+              </Card>
+            </div>
+
+            {/* Right Game Area */}
+            <div className="md:col-span-8">
+              <Card className="p-8 ferdy-shadow-card">
+                {/* Header with Ferdy */}
                 <div className="text-center mb-6">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-orange-200 to-orange-300 flex items-center justify-center">
-                    <img 
-                      src="/lovable-uploads/baed1d19-cefc-427e-9413-c5bb9584cb84.png" 
-                      alt="Ferdy Puzzle" 
-                      className="w-28 h-28 object-cover rounded-lg"
-                    />
-                  </div>
-                  <h1 className="text-2xl font-bold text-gray-800 mb-2">
-                    Finde passende Aussagen
-                  </h1>
-                  <p className="text-gray-600">
-                    Wähle jeweils ein Paar: ein hinderlicher Gedanke und die passende positive Einstellung.
-                  </p>
+                  <img 
+                    src="/lovable-uploads/baed1d19-cefc-427e-9413-c5bb9584cb84.png" 
+                    alt="Ferdy Puzzle"
+                    className="w-70 h-85 mx-auto rounded-lg object-cover"
+                  />
                 </div>
 
-                {loading ? (
-                  <div className="text-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-                    <p className="mt-2 text-gray-600">Lade neue Aussagen...</p>
+                {/* Loading State */}
+                {isGameLoading && (
+                  <div className="text-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                    <p className="text-muted-foreground">Lade neue Aussagen...</p>
                   </div>
-                ) : (
-                  <>
+                )}
+
+                {/* Start Screen */}
+                {!gameStarted && !isGameLoading && (
+                  <div className="text-center space-y-6">
+                    <h1 className="text-2xl font-bold text-foreground">
+                      Finde passende Aussagen
+                    </h1>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      Wähle jeweils ein Paar: ein hinderlicher Gedanke und die passende positive Einstellung.
+                    </p>
+                    <Button 
+                      onClick={loadPairs}
+                      size="lg"
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      Neue Paare laden
+                    </Button>
+                  </div>
+                )}
+
+                {/* Game Display */}
+                {gameStarted && !isGameLoading && (
+                  <div className="space-y-6">
+                    <div className="text-center">
+                      <h1 className="text-2xl font-bold text-foreground mb-2">
+                        Finde passende Aussagen
+                      </h1>
+                      <p className="text-muted-foreground">
+                        Wähle jeweils ein Paar: ein hinderlicher Gedanke und die passende positive Einstellung.
+                      </p>
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                       {allCards.map((card, index) => (
-                        <Card
+                        <button
                           key={index}
-                          className={`cursor-pointer transition-all duration-200 border-2 ${
+                          onClick={() => handleCardClick(card)}
+                          className={`p-4 text-left border rounded-lg transition-all duration-200 ${
                             (card.type === 'fixed' && selectedFixed === card.text) ||
                             (card.type === 'growth' && selectedGrowth === card.text)
-                              ? 'bg-green-100 border-green-500 shadow-md'
-                              : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                              ? 'border-primary bg-primary/10'
+                              : 'border-border hover:border-primary/50 hover:bg-muted/50'
                           }`}
-                          onClick={() => handleCardClick(card)}
                         >
-                          <CardContent className="p-4">
-                            <p className="text-sm text-gray-800 leading-relaxed">
-                              {card.text}
-                            </p>
-                          </CardContent>
-                        </Card>
+                          <p className="text-sm text-foreground leading-relaxed">
+                            {card.text}
+                          </p>
+                        </button>
                       ))}
                     </div>
 
-                    <Button
-                      onClick={checkAnswer}
-                      disabled={!canSubmit}
-                      className="w-full"
-                      size="lg"
-                    >
-                      Antwort prüfen
-                    </Button>
-                  </>
+                    <div className="flex gap-4">
+                      <Button
+                        onClick={checkAnswer}
+                        disabled={!canSubmit}
+                        className="bg-primary hover:bg-primary/90 flex-1"
+                        size="lg"
+                      >
+                        Antwort prüfen
+                      </Button>
+                      
+                      <Button
+                        onClick={resetGame}
+                        variant="outline"
+                      >
+                        Neu starten
+                      </Button>
+                    </div>
+                  </div>
                 )}
-              </CardContent>
-            </Card>
+              </Card>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
 
       {/* Popup */}
       {showPopup && (
