@@ -195,7 +195,7 @@ export default function PaareFinden() {
                 {/* Header with Ferdy */}
                 <div className="text-center mb-6">
                   <img 
-                    src="/lovable-uploads/baed1d19-cefc-427e-9413-c5bb9584cb84.png" 
+                    src="/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png" 
                     alt="Ferdy Puzzle"
                     className="w-70 h-85 mx-auto rounded-lg object-cover"
                   />
@@ -245,11 +245,11 @@ export default function PaareFinden() {
                         <button
                           key={index}
                           onClick={() => handleCardClick(card)}
-                          className={`p-4 text-left border rounded-lg transition-all duration-200 ${
+                          className={`p-4 text-left border-2 rounded-lg transition-all duration-200 ${
                             (card.type === 'fixed' && selectedFixed === card.text) ||
                             (card.type === 'growth' && selectedGrowth === card.text)
                               ? 'border-primary bg-primary/10'
-                              : 'border-border hover:border-primary/50 hover:bg-muted/50'
+                              : 'border-muted-foreground/30 hover:border-primary/50 hover:bg-muted/50'
                           }`}
                         >
                           <p className="text-sm text-foreground leading-relaxed">
