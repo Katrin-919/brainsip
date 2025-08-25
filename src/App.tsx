@@ -9,6 +9,7 @@ import Losungsorientierung from "./pages/Losungsorientierung";
 import Denkweiser from "./pages/Denkweiser";
 import Erzaehlzauber from "./pages/Erzaehlzauber";
 import Wortentdecker from "./pages/Wortentdecker";
+import SolutionStory from "./pages/SolutionStory";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/denkweiser" element={<Denkweiser />} />
           <Route path="/erzaehlzauber" element={<Erzaehlzauber />} />
           <Route path="/wortentdecker" element={<Wortentdecker />} />
+          <Route path="/solutionstory" element={<SolutionStory />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

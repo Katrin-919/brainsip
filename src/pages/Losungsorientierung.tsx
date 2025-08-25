@@ -49,7 +49,7 @@ const Losungsorientierung = () => {
       title: "TaktikTüftler",
       hint: "Strategien planen & testen",
       image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/Taktiktueftler.jpg", 
-      route: "/taktiktueftler"
+      route: "/solutionstory"
     }
   ];
 
