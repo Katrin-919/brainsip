@@ -160,10 +160,10 @@ const SolutionStory = () => {
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">So spielst du</h3>
                   <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                    <li>Klicke auf <strong>\"Aufgabe generieren\"</strong></li>
+                    <li>Klicke auf <strong>"Aufgabe generieren"</strong></li>
                     <li>Lies die Situation aufmerksam</li>
                     <li>Schreibe deine Lösung <em>knapp und konkret</em> ins Feld</li>
-                    <li>Klicke auf <strong>\"Fertig\"</strong> – und vergleiche mit der Beispielantwort</li>
+                    <li>Klicke auf <strong>"Fertig"</strong> – und vergleiche mit der Beispielantwort</li>
                   </ul>
                 </div>
 
