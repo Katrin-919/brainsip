@@ -140,7 +140,7 @@ const Erzaehlzauber = () => {
           <div className="space-y-6">
             <div className="text-center">
               <img 
-                src="/public/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png" 
+                src="/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png" 
                 alt="Schlauer Fuchs" 
                 className="w-[220px] h-[280px] mx-auto rounded-lg object-cover"
               />
