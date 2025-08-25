@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { FerdyHeader } from "@/components/FerdyHeader";
 
 const Wortentdecker = () => {
   const [generatedWord, setGeneratedWord] = useState<string>("");
@@ -56,6 +57,7 @@ const Wortentdecker = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
+      <FerdyHeader />
       <div className="container mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           {/* Left Column - Instructions */}
