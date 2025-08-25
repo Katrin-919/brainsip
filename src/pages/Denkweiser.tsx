@@ -190,9 +190,11 @@ const Denkweiser = () => {
               <Card className="p-8 ferdy-shadow-card">
                 {/* Header with Ferdy */}
                 <div className="text-center mb-6">
-                  <div className="w-60 h-75 mx-auto bg-gradient-to-br from-orange-400 via-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                    <span className="text-8xl">🦊</span>
-                  </div>
+                  <img 
+                    src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_halelu.gif"
+                    alt="Ferdy Maskottchen"
+                    className="w-60 h-75 mx-auto rounded-lg object-cover"
+                  />
                 </div>
 
                 {/* Progress Bar */}
