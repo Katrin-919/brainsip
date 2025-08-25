@@ -13,6 +13,7 @@ import Erzaehlzauber from "./pages/Erzaehlzauber";
 import Wortentdecker from "./pages/Wortentdecker";
 import SolutionStory from "./pages/SolutionStory";
 import SumUp from "./pages/SumUp";
+import PaareFinden from "./pages/PaareFinden";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/wortentdecker" element={<Wortentdecker />} />
           <Route path="/solutionstory" element={<SolutionStory />} />
           <Route path="/sumup" element={<SumUp />} />
+          <Route path="/paare-finden" element={<PaareFinden />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
