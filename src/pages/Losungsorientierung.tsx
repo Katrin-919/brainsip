@@ -2,9 +2,11 @@ import { FerdyHeader } from "@/components/FerdyHeader";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 const Losungsorientierung = () => {
   const { user, loading } = useAuth();
+  const navigate = useNavigate();
   const isLoggedIn = !!user;
   const displayName = user?.email?.split('@')[0] || "";
 
@@ -165,7 +167,7 @@ const Losungsorientierung = () => {
                 <Card 
                   key={index}
                   className="p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card"
-                  onClick={() => window.location.href = game.route}
+                  onClick={() => navigate(game.route)}
                 >
                   <div className="flex flex-col items-center">
                     <div className="w-32 h-32 mb-4 rounded-full overflow-hidden">
