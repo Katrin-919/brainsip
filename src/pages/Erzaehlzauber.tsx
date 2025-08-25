@@ -93,103 +93,129 @@ const Erzaehlzauber = () => {
     <div className="min-h-screen bg-background">
       <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
       
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          {/* Left Column - Instructions */}
-          <div className="space-y-6">
-            <div className="bg-card p-6 rounded-lg border">
-              <h3 className="text-lg font-semibold text-primary mb-4">Spiel-Info</h3>
-              <h2 className="text-xl font-bold mb-4">„Erzählzauber" – Worum geht's?</h2>
-              <p className="mb-4 text-muted-foreground">
-                Du bekommst drei zufällige Begriffe angezeigt. Deine Aufgabe ist es, daraus eine kurze Geschichte zu erfinden –
-                lustig, spannend oder völlig verrückt. So trainierst du freies Schreiben, Sprache und Kreativität.
-                Für Bonuspunkte schreibe <strong>mindestens 50 Wörter</strong> und verwende alle drei Begriffe in deiner Geschichte.
-              </p>
+      <main className="mt-20 px-4 md:px-12 py-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-8">
+            {/* Left Info Panel */}
+            <div className="md:col-span-4">
+              <Card className="p-6 ferdy-shadow-card sticky top-24">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-2xl">ℹ️</span>
+                    <h3 className="text-lg font-bold text-foreground">Spiel-Info</h3>
+                  </div>
+                  
+                  <h2 className="text-xl font-bold text-foreground">„Erzählzauber" – Worum geht's?</h2>
+                  
+                  <p className="text-muted-foreground">
+                    Du bekommst drei zufällige Begriffe angezeigt. Deine Aufgabe ist es, daraus eine kurze Geschichte zu erfinden –
+                    lustig, spannend oder völlig verrückt. So trainierst du freies Schreiben, Sprache und Kreativität.
+                    Für Bonuspunkte schreibe <strong>mindestens 50 Wörter</strong> und verwende alle drei Begriffe in deiner Geschichte.
+                  </p>
 
-              <h3 className="text-lg font-semibold mb-2">Beispiel</h3>
-              <p className="mb-4 text-muted-foreground">
-                Begriffe: <em>Drache</em>, <em>Eiscreme</em>, <em>Schule</em><br/>
-                „An einem heißen Tag landete ein Drache auf dem Schulhof und verteilte Eiscreme in den verrücktesten Sorten …
-                sogar Frau Müller lachte!"
-              </p>
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                    <p className="font-semibold text-foreground mb-2">Beispiel:</p>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Begriffe: <em>Drache</em>, <em>Eiscreme</em>, <em>Schule</em><br/>
+                      „An einem heißen Tag landete ein Drache auf dem Schulhof und verteilte Eiscreme in den verrücktesten Sorten …
+                      sogar Frau Müller lachte!"
+                    </p>
+                  </div>
 
-              <h3 className="text-lg font-semibold mb-2">So spielst du</h3>
-              <ol className="list-decimal list-inside space-y-2 mb-4 text-muted-foreground">
-                <li>Klicke auf <strong>„Begriffe generieren"</strong>.</li>
-                <li>Erfinde eine Geschichte, in der alle drei Wörter vorkommen.</li>
-                <li>Schreibe mindestens 50 Wörter.</li>
-                <li>Klicke auf <strong>„Fertig"</strong> für die Auswertung.</li>
-              </ol>
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-2">So spielst du</h3>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Klicke auf <strong>„Begriffe generieren"</strong>.</li>
+                      <li>• Erfinde eine Geschichte, in der alle drei Wörter vorkommen.</li>
+                      <li>• Schreibe mindestens 50 Wörter.</li>
+                      <li>• Klicke auf <strong>„Fertig"</strong> für die Auswertung.</li>
+                    </ul>
+                  </div>
 
-              <h3 className="text-lg font-semibold mb-2">Tipp</h3>
-              <p className="mb-4 text-muted-foreground">
-                Beugungen sind okay (z. B. „Hund", „Hunde", „Hündchen"). Je kreativer die Kombination, desto besser.
-              </p>
-
-              <Button 
-                variant="outline" 
-                onClick={() => navigate("/loesungsorientierung")}
-                className="w-full"
-              >
-                Zurück
-              </Button>
-            </div>
-          </div>
-
-          {/* Right Column - Game */}
-          <div className="space-y-6">
-            <div className="text-center">
-              <img 
-                src="/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png" 
-                alt="Schlauer Fuchs" 
-                className="w-[220px] h-[280px] mx-auto rounded-lg object-cover"
-              />
-            </div>
-
-            <h1 className="text-xl font-bold text-center mb-6">
-              Erfinde eine Geschichte mit diesen drei Begriffen …
-            </h1>
-
-            <Button 
-              onClick={generateTerms} 
-              disabled={isGenerating}
-              className="w-full mb-4"
-            >
-              {isGenerating ? "Generiere..." : "Begriffe generieren"}
-            </Button>
-
-            <div className="flex gap-3 flex-wrap">
-              {terms.map((term, index) => (
-                <Card key={index} className="flex-1 min-w-[160px]">
-                  <CardContent className="p-4 text-center">
-                    <div className="font-bold text-lg">
-                      {term}
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span>💡</span>
+                      <span className="font-semibold text-foreground">Tipp</span>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    <p className="text-sm text-muted-foreground">
+                      Beugungen sind okay (z. B. „Hund", „Hunde", „Hündchen"). Je kreativer die Kombination, desto besser.
+                    </p>
+                  </div>
+
+                  <Button 
+                    onClick={() => navigate("/loesungsorientierung")}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Zurück
+                  </Button>
+                </div>
+              </Card>
             </div>
 
-            <Textarea
-              value={story}
-              onChange={(e) => setStory(e.target.value)}
-              placeholder="Schreibe hier deine Geschichte …"
-              className="min-h-[200px] resize-y"
-            />
+            {/* Right Game Area */}
+            <div className="md:col-span-8">
+              <Card className="p-8 ferdy-shadow-card">
+                {/* Header with Ferdy */}
+                <div className="text-center mb-6">
+                  <img 
+                    src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_blink.gif"
+                    alt="Ferdy Maskottchen"
+                    className="w-70 h-85 mx-auto rounded-lg object-cover"
+                  />
+                </div>
 
-            <Button 
-              onClick={checkStory}
-              variant="default"
-              className="w-full bg-green-600 hover:bg-green-700"
-            >
-              Fertig
-            </Button>
+                <div className="text-center space-y-6">
+                  <h1 className="text-lg font-bold text-foreground leading-relaxed">
+                    Erfinde eine Geschichte mit diesen drei Begriffen …
+                  </h1>
 
-            {result && (
-              <div className="text-center font-bold text-sm bg-muted p-4 rounded-lg">
-                {result}
-              </div>
-            )}
+                  <Button 
+                    onClick={generateTerms} 
+                    disabled={isGenerating}
+                    size="lg"
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    {isGenerating ? "Generiere..." : "Begriffe generieren"}
+                  </Button>
+
+                  <div className="flex gap-3 flex-wrap justify-center">
+                    {terms.map((term, index) => (
+                      <Card key={index} className="flex-1 min-w-[160px] max-w-[180px]">
+                        <CardContent className="p-4 text-center">
+                          <div className="font-bold text-lg text-foreground">
+                            {term}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+
+                  <Textarea
+                    value={story}
+                    onChange={(e) => setStory(e.target.value)}
+                    placeholder="Schreibe hier deine Geschichte …"
+                    className="min-h-[200px] resize-y text-left"
+                  />
+
+                  <Button 
+                    onClick={checkStory}
+                    size="lg"
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    Fertig
+                  </Button>
+
+                  {result && (
+                    <div className="bg-muted p-4 rounded-lg">
+                      <div className="font-bold text-sm text-foreground">
+                        {result}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            </div>
           </div>
         </div>
       </main>
