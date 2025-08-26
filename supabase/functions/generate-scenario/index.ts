@@ -28,19 +28,31 @@ serve(async (req) => {
       throw new Error('OpenAI API key not configured');
     }
 
-    const prompt = `Erstelle eine kurze, einfache Alltagssituation für Kinder im Alter von 10-12 Jahren, die zu negativen Gedanken führen könnte. Die Situation sollte:
-    
-    - Realistisch und altersgerecht sein
-    - In 1-2 Sätzen beschrieben werden
-    - Sich auf Schule, Familie, Freundschaften oder Hobbys beziehen
-    - Raum für negative, aber auch positive Gedanken lassen
-    
-    Beispiele:
-    "Du hast dich in Mathe vertippt und bekommst eine falsche Lösung heraus."
-    "Eine Freundin antwortet heute noch nicht auf deine Nachricht."
-    "Du hast beim Sport eine Übung nicht geschafft."
-    
-    Erstelle eine neue, ähnliche Situation.`;
+    const prompt = `Erstelle ein kreatives Alltagsszenario mit maximal 300 Wörtern, in dem eine Person einen negativen, selbstabwertenden Gedanken hat.
+
+⚠️ Wichtig: Es ist zwingend erforderlich, dass ein klar formulierter, selbstabwertender Gedanke als **wörtlicher Satz** im Text enthalten ist – z. B. als innerer Monolog, Selbstgespräch oder laut ausgesprochener Satz.
+
+Beispiele für solche Gedanken:
+- „Ich bin zu dumm."
+- „Ich bin zu dick."
+- „Ich bin nicht gut genug."
+- „Ich schaffe das sowieso nicht."
+- „Ich bin hässlich."
+- „Ich gehöre nicht dazu."
+
+💡 Der Gedanke muss **genau so oder sinngemäß in einfacher Alltagssprache** vorkommen – in **Anführungszeichen** oder deutlich als wörtlich formuliert.
+
+Zusätzlich soll das Szenario:
+- eine konkrete Alltagssituation beschreiben
+- Umgebungsdetails enthalten (Ort, Geräusche, Licht etc.)
+- Körpersprache und emotionale Reaktion der Person schildern
+
+Gib die Antwort exakt in diesem JSON-Format zurück:
+{
+  "scenario": "Beschreibe hier das Szenario.",
+  "negativeThought": "Der wörtlich formulierte negative Gedanke aus dem Text.",
+  "positiveThought": "Eine passende positive Umdeutung dieses Gedankens."
+}`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -53,8 +65,8 @@ serve(async (req) => {
         messages: [
           { role: 'user', content: prompt }
         ],
-        max_tokens: 100,
-        temperature: 0.8
+        max_tokens: 700,
+        temperature: 0.9
       }),
     });
 
@@ -67,15 +79,28 @@ serve(async (req) => {
     const data = await response.json();
     console.log('OpenAI response received');
 
-    const scenario = data.choices[0]?.message?.content?.trim();
+    const responseContent = data.choices[0]?.message?.content?.trim();
     
-    if (!scenario) {
-      throw new Error('No scenario generated');
+    if (!responseContent) {
+      throw new Error('No response content from OpenAI');
     }
 
-    return new Response(JSON.stringify({ scenario }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    // Parse the JSON response from OpenAI
+    const result = JSON.parse(responseContent);
+    
+    if (result && result.scenario && result.negativeThought && result.positiveThought) {
+      return new Response(JSON.stringify({
+        scenario: result.scenario,
+        examples: {
+          negativeThought: result.negativeThought,
+          positiveThought: result.positiveThought
+        }
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    } else {
+      throw new Error('Invalid JSON response structure from OpenAI');
+    }
 
   } catch (error) {
     console.error('Error in generate-scenario function:', error);
