@@ -9,6 +9,8 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  console.log('Generate feeling scenario function called');
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -17,8 +19,13 @@ serve(async (req) => {
   if (!openAIApiKey) {
     console.error('Missing OpenAI API key');
     return new Response(
-      JSON.stringify({ error: 'OpenAI API key not configured' }), 
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      JSON.stringify({ 
+        text: "Lisa hat eine wichtige Klassenarbeit zurückbekommen. Sie schaut auf das Blatt, lächelt breit und springt vor Freude auf. Wie fühlt sich Lisa?",
+        options: ["traurig", "stolz", "ängstlich"],
+        correct: 1,
+        feedback: "Richtig! Lisa ist stolz auf ihr gutes Ergebnis."
+      }), 
+      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 
@@ -116,12 +123,12 @@ Bitte keine weiteren Erklärungen oder Einleitungen. Gib nur den JSON-Block zur�
   } catch (error) {
     console.error('Error in generate-feeling-scenario function:', error);
     
-    // Fallback response
+    // Return fallback scenario instead of error
     const fallbackScenario = {
-      text: "Lisa hat eine wichtige Klassenarbeit zurückbekommen. Sie schaut auf das Blatt, lächelt breit und springt vor Freude auf. Wie fühlt sich Lisa?",
-      options: ["traurig", "stolz", "ängstlich"],
+      text: "Max kommt von der Schule nach Hause und wirft seinen Ranzen in die Ecke. Er verschränkt die Arme und schaut finster drein. Seine Mutter fragt ihn, wie der Tag war, aber er antwortet nicht. Wie fühlt sich Max?",
+      options: ["fröhlich", "wütend", "müde"],
       correct: 1,
-      feedback: "Richtig! Lisa ist stolz auf ihr gutes Ergebnis."
+      feedback: "Genau! Max ist wütend. Du erkennst das an seiner Körpersprache und seinem Verhalten."
     };
 
     return new Response(JSON.stringify(fallbackScenario), {
