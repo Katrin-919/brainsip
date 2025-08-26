@@ -39,10 +39,14 @@ export const FerdyCTA = () => {
             </div>
           </div>
 
-          {/* Image placeholder */}
+          {/* Ferdy party image */}
           <div className="bg-white rounded-3xl p-8 ferdy-shadow-card">
-            <div className="aspect-square bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
-              <span className="text-8xl">🎉</span>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img 
+                src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_party.png" 
+                alt="Ferdy feiert" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
