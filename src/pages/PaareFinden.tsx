@@ -195,7 +195,7 @@ export default function PaareFinden() {
                 {/* Header with Ferdy */}
                 <div className="text-center mb-6">
                   <img 
-                    src="/lovable-uploads/baed1d19-cefc-427e-9413-c5bb9584cb84.png" 
+                    src="/lovable-uploads/d8fa8bd4-9c4f-4ed0-892f-e72f94052db1.png" 
                     alt="Ferdy Puzzle"
                     className="w-70 h-85 mx-auto rounded-lg object-cover"
                   />
