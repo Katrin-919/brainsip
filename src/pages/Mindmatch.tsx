@@ -173,11 +173,11 @@ const Mindmatch = () => {
               <div className="md:col-span-8">
                 <Card className="p-8 ferdy-shadow-card">
                   <div className="text-center">
-                  <img 
-                    src="/ferdy_fragezeichen.png" 
-                    alt="Ferdy" 
-                    className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg mb-6"
-                  />
+                    <img 
+                      src="/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png" 
+                      alt="Ferdy" 
+                      className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg mb-6"
+                    />
                     
                     <div className="space-y-4">
                       <h2 className="text-2xl font-bold text-foreground">Quiz beendet!</h2>
@@ -263,11 +263,11 @@ const Mindmatch = () => {
               <Card className="p-8 ferdy-shadow-card">
                 {/* Header with Ferdy */}
                 <div className="text-center mb-6">
-                  <img 
-                    src="/ferdy_fragezeichen.png" 
-                    alt="Ferdy" 
-                    className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg"
-                  />
+                    <img 
+                      src="/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png" 
+                      alt="Ferdy" 
+                      className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg"
+                    />
                 </div>
 
                 <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
