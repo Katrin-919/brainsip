@@ -89,7 +89,7 @@ const Konfliktloesung = () => {
               <div className="bg-white rounded-3xl p-8 ferdy-shadow-card">
                 <div className="aspect-square rounded-2xl overflow-hidden">
                   <img 
-                    src="/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png" 
+                    src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_both hands up.png" 
                     alt="Ferdy mit beiden Händen oben" 
                     className="w-full h-full object-cover"
                   />
