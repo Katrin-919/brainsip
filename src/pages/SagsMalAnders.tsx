@@ -120,8 +120,11 @@ export default function SagsMalAnders() {
                     </ul>
                   </div>
 
-                  <div>
-                    <h3 className="font-bold text-foreground mb-2">💡 Tipp</h3>
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span>💡</span>
+                      <span className="font-semibold text-foreground">Tipp</span>
+                    </div>
                     <p className="text-sm text-muted-foreground">
                       Nutze Ich‑Botschaften, vermeide Vorwürfe und bleib konkret: 
                       „Ich wünsche mir …", „Können wir …?", „Mir hilft es, wenn …".
