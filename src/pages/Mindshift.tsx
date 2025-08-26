@@ -21,12 +21,14 @@ export default function Mindshift() {
   const [popupMessage, setPopupMessage] = useState("");
   const [isGameLoading, setIsGameLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const loadScenario = async () => {
     setIsGameLoading(true);
     setFeedback("");
     setNegativeThought("");
     setPositiveThought("");
+    setShowFeedback(false);
     
     try {
       const { data, error } = await supabase.functions.invoke('generate-scenario');
@@ -68,11 +70,8 @@ export default function Mindshift() {
       if (error) throw error;
       
       if (data?.isValid) {
-        setPopupMessage(data.feedback || 'Super! Du hast den negativen Gedanken erkannt und positiv umformuliert.');
-        setShowPopup(true);
-        setTimeout(() => {
-          loadScenario();
-        }, 2000);
+        setFeedback(data.feedback || 'Super! Du hast den negativen Gedanken erkannt und positiv umformuliert.');
+        setShowFeedback(true);
       } else {
         setPopupMessage(data?.feedback || 'Überlege noch einmal, ob die Formulierungen wirklich stimmen.');
         setShowPopup(true);
@@ -219,25 +218,37 @@ export default function Mindshift() {
                         />
                       </div>
 
-                      {feedback && (
-                        <p className="font-semibold text-green-600 text-center">{feedback}</p>
+                      {showFeedback && feedback && (
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                          <p className="font-semibold text-green-600">{feedback}</p>
+                        </div>
                       )}
 
                       <div className="flex gap-4">
-                        <Button
-                          onClick={checkAnswer}
-                          disabled={!negativeThought.trim() || !positiveThought.trim()}
-                          className="bg-primary hover:bg-primary/90 flex-1"
-                          size="lg"
-                        >
-                          Weiter
-                        </Button>
+                        {!showFeedback ? (
+                          <Button
+                            onClick={checkAnswer}
+                            disabled={!negativeThought.trim() || !positiveThought.trim()}
+                            className="bg-primary hover:bg-primary/90 flex-1"
+                            size="lg"
+                          >
+                            Weiter
+                          </Button>
+                        ) : (
+                          <Button
+                            onClick={loadScenario}
+                            className="bg-primary hover:bg-primary/90 flex-1"
+                            size="lg"
+                          >
+                            Neue Situation
+                          </Button>
+                        )}
                         
                         <Button
                           onClick={loadScenario}
                           variant="outline"
                         >
-                          Neue Situation
+                          Andere Situation
                         </Button>
                       </div>
                     </div>
