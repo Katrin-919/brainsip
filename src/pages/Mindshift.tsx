@@ -160,7 +160,7 @@ export default function Mindshift() {
                   <img 
                     src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_goodbye.png" 
                     alt="Ferdy Goodbye"
-                    className="w-48 h-32 mx-auto rounded-lg object-cover bg-white shadow-lg"
+                    className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg"
                   />
                 </div>
 
@@ -177,9 +177,9 @@ export default function Mindshift() {
                   <div className="text-center space-y-6">
                     <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
                       <p className="text-lg text-foreground leading-relaxed">
-                        <strong>In diesem Spiel lernst du, wie du negative Gedanken erkennst und in positive, hilfreiche Gedanken umwandeln kannst.
+                        In diesem Spiel lernst du, wie du negative Gedanken erkennst und in positive, hilfreiche Gedanken umwandeln kannst.
                         Du bekommst kleine Alltagssituationen gezeigt und übst, wie du mit deinen Gedanken achtsamer umgehst.
-                        So stärkst du Schritt für Schritt dein mentales Wohlbefinden – spielerisch und mit Leichtigkeit.</strong>
+                        So stärkst du Schritt für Schritt dein mentales Wohlbefinden – spielerisch und mit Leichtigkeit.
                       </p>
                     </div>
                     <Button 
