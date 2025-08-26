@@ -1,14 +1,14 @@
 const testimonials = [
   {
-    name: 'Lisa, 7 Jahre',
+    name: 'Lisa, 9 Jahre',
     quote: 'Ferdy ist mein bester Freund! Die Rätsel machen so viel Spaß und ich lerne jeden Tag etwas Neues!'
   },
   {
-    name: 'Max, 8 Jahre', 
+    name: 'Max, 11 Jahre', 
     quote: 'Seit ich mit Ferdy übe, kann ich viel besser mit meiner Schwester reden, wenn wir uns streiten.'
   },
   {
-    name: 'Emma, 6 Jahre',
+    name: 'Emma, 10 ahre',
     quote: 'Die Geschichten von Ferdy sind so spannend! Und die Spiele helfen mir, nicht so schnell aufzugeben.'
   }
 ];
