@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { FerdyHeader } from '@/components/FerdyHeader';
@@ -78,10 +78,10 @@ export default function SagsMalAnders() {
     loadBadSentence();
   };
 
-  // Load initial sentence
-  useState(() => {
+  // Load initial sentence on component mount
+  useEffect(() => {
     loadBadSentence();
-  });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
