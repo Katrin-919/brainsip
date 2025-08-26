@@ -142,7 +142,7 @@ const Mindmatch = () => {
                     <h2 className="text-xl font-bold text-foreground">„Mindset Quiz" – Worum geht's?</h2>
                     
                     <p className="text-muted-foreground">
-                      Du bekommst kurz Aussagen aus dem Alltag angezeigt. Deine Aufgabe: 
+                      Du bekommst kurze Aussagen aus dem Alltag angezeigt. Deine Aufgabe: 
                       Entscheide, ob die Aussage ein <em>Fixed Mindset</em> (fester Denkstil) 
                       oder ein <em>Growth Mindset</em> (Wachstums‑Denken) zeigt.
                     </p>
@@ -174,7 +174,7 @@ const Mindmatch = () => {
                 <Card className="p-8 ferdy-shadow-card">
                   <div className="text-center">
                     <img 
-                      src="/lovable-uploads/d8fa8bd4-9c4f-4ed0-892f-e72f94052db1.png" 
+                      src="/lovable-uploads/ferdy_fragezeichen.png" 
                       alt="Ferdy" 
                       className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg mb-6"
                     />
@@ -272,9 +272,8 @@ const Mindmatch = () => {
 
                 <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
                   <p className="text-lg text-foreground leading-relaxed">
-                    <strong>Wie denkst du über Herausforderungen?</strong> In diesem Quiz bekommst du Aussagen aus dem Alltag gezeigt.
-                    Du sollst entscheiden: Zeigt diese Aussage ein <em>Fixed Mindset</em> – also einen festen Denkstil –
-                    oder ein <em>Growth Mindset</em>, das offen für Entwicklung ist?
+                    <strong>Welches Mindset kannst du erkennen? </strong> Entscheide, ob diese Aussage ein <em>Fixed Mindset</em> – also einen festen Denkstil –
+                    oder ein <em>Growth Mindset</em>, das offen für Entwicklung ist, zeigt.
                   </p>
                 </div>
 
