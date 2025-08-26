@@ -14,6 +14,7 @@ import Wortentdecker from "./pages/Wortentdecker";
 import SolutionStory from "./pages/SolutionStory";
 import SumUp from "./pages/SumUp";
 import PaareFinden from "./pages/PaareFinden";
+import Mindshift from "./pages/Mindshift";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/solutionstory" element={<SolutionStory />} />
           <Route path="/sumup" element={<SumUp />} />
           <Route path="/paare-finden" element={<PaareFinden />} />
+          <Route path="/mindshift" element={<Mindshift />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

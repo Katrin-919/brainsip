@@ -40,7 +40,7 @@ const Mindset = () => {
       title: "Paare finden", 
       hint: "Zuordnen & verstehen",
       image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/mindsetpaare.png",
-      route: "/mindsetpairs"
+      route: "/paare-finden"
     },
     {
       title: "Mindshift",
