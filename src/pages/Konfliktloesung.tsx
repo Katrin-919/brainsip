@@ -58,141 +58,139 @@ const Konfliktloesung = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100">
+    <div className="min-h-screen bg-background">
       <FerdyHeader />
       
-      {/* Hero Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-                Wie sage ich, was ich denke – ohne andere zu verletzen?
-              </h1>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                In dieser Kategorie lernst du, wie du Konflikte fair löst, freundlich sprichst und deine Gefühle klar ausdrückst. 
-                Worte können Streit beenden – oder ihn schlimmer machen. Mit Ferdy übst du, wie man mit anderen gut klarkommt.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button 
-                  onClick={() => scrollToSection('features')} 
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                >
-                  Jetzt entdecken
-                </Button>
+      <main className="mt-20">
+        {/* Hero Section */}
+        <section className="ferdy-gradient-section py-20 md:py-32">
+          <div className="max-w-7xl mx-auto px-4 md:px-12">
+            <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <div className="space-y-6">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight">
+                  Wie sage ich, was ich denke – ohne andere zu verletzen?
+                </h1>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  In dieser Kategorie lernst du, wie du Konflikte fair löst, freundlich sprichst und deine Gefühle klar ausdrückst. 
+                  Worte können Streit beenden – oder ihn schlimmer machen. Mit Ferdy übst du, wie man mit anderen gut klarkommt.
+                </p>
+                <div className="flex gap-3 flex-wrap">
+                  <Button 
+                    onClick={() => scrollToSection('features')}
+                    size="lg"
+                    className="bg-green-500 hover:bg-green-600 text-white rounded-full px-6 py-4 text-base font-bold hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                    style={{ boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)' }}
+                  >
+                    Jetzt entdecken
+                  </Button>
+                </div>
               </div>
-            </div>
-            <div className="flex justify-center lg:justify-end">
-              <div className="bg-card rounded-3xl p-8 shadow-xl">
-                <img 
-                  src="/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png" 
-                  alt="Ferdy mit beiden Händen oben" 
-                  className="w-80 h-80 object-contain"
-                />
+              
+              <div className="bg-white rounded-3xl p-8 ferdy-shadow-card">
+                <div className="aspect-square rounded-2xl overflow-hidden">
+                  <img 
+                    src="/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png" 
+                    alt="Ferdy mit beiden Händen oben" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-16 px-4 bg-muted/30">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-left mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Deine Superkraft: klare Worte
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-4xl leading-relaxed">
-              Gute Kommunikation bedeutet zuhören, Gefühle benennen und respektvoll bleiben – auch wenn's knifflig wird.
-              Hier trainierst du Techniken, mit denen Gespräche fairer und leichter werden.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="bg-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-6">
+        {/* Features Section */}
+        <section id="features" className="py-20 md:py-32 bg-muted/50">
+          <div className="max-w-7xl mx-auto px-4 md:px-12">
+            <div className="text-left mb-16">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                Deine Superkraft: klare Worte
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl">
+                Gute Kommunikation bedeutet zuhören, Gefühle benennen und respektvoll bleiben – auch wenn's knifflig wird.
+                Hier trainierst du Techniken, mit denen Gespräche fairer und leichter werden.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="p-6 ferdy-shadow-card">
                 <div className="flex items-start gap-4">
-                  <div className="bg-blue-100 p-3 rounded-xl">
+                  <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <MessageSquare className="h-8 w-8 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-2 text-foreground">Ich-Botschaften</h3>
-                    <p className="text-muted-foreground">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Ich-Botschaften</h3>
+                    <p className="text-muted-foreground leading-relaxed">
                       So sagst du, was du fühlst und brauchst – ohne Vorwürfe. Das macht Gespräche ruhiger und verständlicher.
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-6">
+              </Card>
+
+              <Card className="p-6 ferdy-shadow-card">
                 <div className="flex items-start gap-4">
-                  <div className="bg-green-100 p-3 rounded-xl">
+                  <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Ear className="h-8 w-8 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-2 text-foreground">Aktives Zuhören</h3>
-                    <p className="text-muted-foreground">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Aktives Zuhören</h3>
+                    <p className="text-muted-foreground leading-relaxed">
                       Nachfragen, zusammenfassen, verstehen: Du zeigst, dass du wirklich zuhörst – und ihr findet schneller Lösungen.
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-6">
+              </Card>
+
+              <Card className="p-6 ferdy-shadow-card">
                 <div className="flex items-start gap-4">
-                  <div className="bg-purple-100 p-3 rounded-xl">
+                  <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Handshake className="h-8 w-8 text-purple-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-2 text-foreground">Respektvoll sprechen</h3>
-                    <p className="text-muted-foreground">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Respektvoll sprechen</h3>
+                    <p className="text-muted-foreground leading-relaxed">
                       Freundlich bleiben, Grenzen achten, fair argumentieren – so klappt Teamwork und ihr bleibt im guten Miteinander.
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Games Section */}
-      <section id="games" className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Übe Kommunikation im Spiel
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {games.map((game, index) => (
-              <Card 
-                key={index}
-                className="bg-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
-                onClick={() => navigate(game.route)}
-              >
-                <CardContent className="p-6 text-center">
-                  <div className="mb-4">
-                    <img 
-                      src={game.image} 
-                      alt={game.title}
-                      className="w-28 h-28 rounded-full object-cover mx-auto border-4 border-foreground group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2 text-foreground">{game.title}</h3>
-                  <p className="text-muted-foreground text-sm">{game.hint}</p>
-                </CardContent>
               </Card>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Games Section */}
+        <section id="games" className="ferdy-gradient-section py-20 md:py-32">
+          <div className="max-w-7xl mx-auto px-4 md:px-12">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-8">
+                Übe Kommunikation im Spiel
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {games.map((game, index) => (
+                <Card 
+                  key={index}
+                  className="p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card"
+                  onClick={() => navigate(game.route)}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="w-32 h-32 mb-4 rounded-full overflow-hidden bg-white">
+                      <img 
+                        src={game.image}
+                        alt={game.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{game.title}</h3>
+                    <p className="text-sm text-muted-foreground">{game.hint}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 };
