@@ -21,7 +21,7 @@ const games = [
   {
     id: 'konfliktloesung',
     title: 'Konfliktlösung',
-    description: 'Hol dir smarte Tipps, um Konflikte besser zu lösen!',
+    description: 'Hol dir smarte Tipps, um Konflikte im Alltag noch besser zu lösen!',
     image: 'https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/konflikt.png',
     available: true,
     route: '/konfliktloesung'
