@@ -11,6 +11,7 @@ import Mindset from "./pages/Mindset";
 import Konfliktloesung from "./pages/Konfliktloesung";
 import Streitschlichter from "./pages/Streitschlichter";
 import SagsMalAnders from "./pages/SagsMalAnders";
+import IchBotschaften from "./pages/IchBotschaften";
 import Denkweiser from "./pages/Denkweiser";
 import Erzaehlzauber from "./pages/Erzaehlzauber";
 import Wortentdecker from "./pages/Wortentdecker";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/konfliktloesung" element={<Konfliktloesung />} />
           <Route path="/streitschlichter" element={<Streitschlichter />} />
           <Route path="/sags-mal-anders" element={<SagsMalAnders />} />
+          <Route path="/ich-botschaften" element={<IchBotschaften />} />
           <Route path="/denkweiser" element={<Denkweiser />} />
           <Route path="/erzaehlzauber" element={<Erzaehlzauber />} />
           <Route path="/wortentdecker" element={<Wortentdecker />} />

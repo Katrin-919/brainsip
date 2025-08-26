@@ -43,12 +43,12 @@ const Konfliktloesung = () => {
       image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/konfliktspiel2.png",
       route: "/sags-mal-anders"
     },
-    {
-      title: "Ich-Botschaften",
-      hint: "Gefühle klar sagen",
-      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ichbotschaftBild.png",
-      route: "/ich-botschaften"
-    },
+      {
+        title: "Ich-Botschaften",
+        hint: "Gefühle klar sagen",
+        image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ichbotschaftBild.png",
+        route: "/ich-botschaften"
+      },
     {
       title: "Gefühlsradar",
       hint: "Emotionen erkennen",
