@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { FerdyHeader } from '@/components/FerdyHeader';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 
 export default function SagsMalAnders() {
@@ -85,96 +86,105 @@ export default function SagsMalAnders() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-background">
       <FerdyHeader />
       
-      <main className="container mx-auto px-4 py-8 max-w-7xl mt-20">
-        <div className="bg-blue-200/60 rounded-3xl shadow-2xl p-6 flex flex-col lg:flex-row gap-6 min-h-[600px]">
+      <main className="mt-20 px-4 md:px-12 py-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-8">
           
-          {/* Left Info Panel */}
-          <aside className="lg:w-2/5 bg-white rounded-2xl shadow-lg p-6 relative">
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-blue-900 flex items-center gap-2">
-                ℹ️ Spiel-Info
-              </h3>
+            {/* Left Info Panel */}
+            <div className="md:col-span-4">
+              <Card className="p-6 ferdy-shadow-card sticky top-24">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-2xl">ℹ️</span>
+                    <h3 className="text-lg font-bold text-foreground">Spiel-Info</h3>
+                  </div>
               
-              <h2 className="text-2xl font-bold text-slate-800 mb-4">
-                „Sag's mal anders" – Worum geht's?
-              </h2>
+                  <h2 className="text-xl font-bold text-foreground">
+                    „Sag's mal anders" – Worum geht's?
+                  </h2>
               
-              <p className="text-sm text-slate-700 leading-relaxed">
-                Manchmal rutscht uns ein Satz heraus, der andere verletzt. 
-                In diesem Spiel übst du, unfreundliche Formulierungen in freundliche, wertschätzende Sprache zu verwandeln.
-              </p>
+                  <p className="text-muted-foreground">
+                    Manchmal rutscht uns ein Satz heraus, der andere verletzt. 
+                    In diesem Spiel übst du, unfreundliche Formulierungen in freundliche, wertschätzende Sprache zu verwandeln.
+                  </p>
 
-              <div className="space-y-3">
-                <h3 className="text-base font-semibold text-slate-800">So spielst du</h3>
-                <ul className="text-sm space-y-1 text-slate-700 list-disc list-inside">
-                  <li>Lies den roten Beispielsatz.</li>
-                  <li>Formuliere ihn freundlich und respektvoll um.</li>
-                  <li>Klicke auf <strong>„Antwort abschicken"</strong> und lies das Feedback.</li>
-                </ul>
-              </div>
+                  <div>
+                    <h3 className="font-bold text-foreground mb-2">So spielst du</h3>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Lies den roten Beispielsatz.</li>
+                      <li>• Formuliere ihn freundlich und respektvoll um.</li>
+                      <li>• Klicke auf <strong>„Antwort abschicken"</strong> und lies das Feedback.</li>
+                    </ul>
+                  </div>
 
-              <div className="space-y-3">
-                <h3 className="text-base font-semibold text-slate-800">💡 Tipp</h3>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  Nutze Ich‑Botschaften, vermeide Vorwürfe und bleib konkret: 
-                  „Ich wünsche mir …", „Können wir …?", „Mir hilft es, wenn …".
-                </p>
-              </div>
+                  <div>
+                    <h3 className="font-bold text-foreground mb-2">💡 Tipp</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Nutze Ich‑Botschaften, vermeide Vorwürfe und bleib konkret: 
+                      „Ich wünsche mir …", „Können wir …?", „Mir hilft es, wenn …".
+                    </p>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={() => navigate('/konfliktloesung')}
+                  className="absolute bottom-6 left-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  Zurück
+                </Button>
+              </Card>
             </div>
 
-            <Button
-              onClick={() => navigate('/konfliktloesung')}
-              className="absolute bottom-6 left-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
-            >
-              Zurück
-            </Button>
-          </aside>
-
-          {/* Right Game Panel */}
-          <section className="lg:w-3/5 bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center space-y-6">
+            {/* Right Game Panel */}
+            <div className="md:col-span-8">
+              <Card className="p-8 ferdy-shadow-card">
             
-            <div className="flex justify-center">
-              <img 
-                src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_blink.gif" 
-                alt="Schlauer Fuchs" 
-                className="w-44 h-auto rounded-2xl"
-              />
+            <div className="flex flex-col items-center space-y-6">
+                  <div className="flex justify-center">
+                    <img 
+                      src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_blink.gif" 
+                      alt="Schlauer Fuchs" 
+                      className="w-44 h-auto rounded-2xl"
+                    />
+                  </div>
+
+                  <h1 className="text-3xl font-bold text-center text-foreground">
+                    Sag's mal anders
+                  </h1>
+
+                  <p className="text-base text-muted-foreground text-center max-w-2xl">
+                    Formuliere den folgenden Satz freundlich um:
+                  </p>
+
+                  <div className="w-full max-w-2xl bg-red-50 border-2 border-red-200 rounded-lg p-4 text-center">
+                    <div className="text-lg font-bold text-red-700">
+                      {badSentence}
+                    </div>
+                  </div>
+
+                  <div className="w-full max-w-2xl">
+                    <Textarea
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      placeholder="Deine freundliche Version hier..."
+                      className="min-h-32 text-base border-2 border-slate-300 focus:border-blue-500"
+                    />
+                  </div>
+
+                  <Button
+                    onClick={checkRewrite}
+                    disabled={userInput.trim().length === 0 || isSubmitting}
+                    className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-semibold text-base"
+                  >
+                    {isSubmitting ? 'Wird bewertet...' : 'Antwort abschicken'}
+                  </Button>
+                </div>
+              </Card>
             </div>
-
-            <h1 className="text-3xl font-bold text-center text-slate-800">
-              Sag's mal anders
-            </h1>
-
-            <p className="text-base text-slate-700 text-center max-w-2xl">
-              Formuliere den folgenden Satz freundlich um:
-            </p>
-
-            <div className="w-full max-w-2xl bg-red-50 border-2 border-red-200 rounded-lg p-4 text-center">
-              <div className="text-lg font-bold text-red-700">
-                {badSentence}
-              </div>
-            </div>
-
-            <div className="w-full max-w-2xl">
-              <Textarea
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
-                placeholder="Deine freundliche Version hier..."
-                className="min-h-32 text-base border-2 border-slate-300 focus:border-blue-500"
-              />
-            </div>
-
-            <Button
-              onClick={checkRewrite}
-              disabled={userInput.trim().length === 0 || isSubmitting}
-              className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-semibold text-base"
-            >
-              {isSubmitting ? 'Wird bewertet...' : 'Antwort abschicken'}
-            </Button>
-          </section>
+          </div>
         </div>
       </main>
 
