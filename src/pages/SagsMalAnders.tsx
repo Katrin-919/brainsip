@@ -88,7 +88,7 @@ export default function SagsMalAnders() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <FerdyHeader />
       
-      <main className="container mx-auto px-4 py-8 max-w-7xl">
+      <main className="container mx-auto px-4 py-8 max-w-7xl mt-20">
         <div className="bg-blue-200/60 rounded-3xl shadow-2xl p-6 flex flex-col lg:flex-row gap-6 min-h-[600px]">
           
           {/* Left Info Panel */}
@@ -138,7 +138,7 @@ export default function SagsMalAnders() {
             
             <div className="flex justify-center">
               <img 
-                src="/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png" 
+                src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_blink.gif" 
                 alt="Schlauer Fuchs" 
                 className="w-44 h-auto rounded-2xl"
               />
