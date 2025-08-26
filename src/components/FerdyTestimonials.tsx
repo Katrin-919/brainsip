@@ -31,14 +31,6 @@ export const FerdyTestimonials = () => {
               key={index}
               className="bg-white border-2 border-blue-200 rounded-2xl p-6 relative ferdy-shadow-card hover:ferdy-shadow-card-hover ferdy-transition"
             >
-              {/* Quote marks */}
-              <div className="absolute -top-3 left-4 text-4xl text-blue-400 font-bold leading-none">
-                "
-              </div>
-              <div className="absolute -bottom-4 right-4 text-4xl text-blue-400 font-bold leading-none">
-                "
-              </div>
-
               {/* Content */}
               <div className="pt-4 pb-2">
                 <div className="font-bold text-foreground mb-3">
