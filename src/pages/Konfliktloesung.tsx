@@ -51,7 +51,7 @@ const Konfliktloesung = () => {
       },
     {
       title: "Gefühlsradar",
-      hint: "Emotionen erkennen",
+      hint: "Emotionen erkennen", 
       image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/gefuehlsradar_bild.png",
       route: "/gefuehlsradar"
     }

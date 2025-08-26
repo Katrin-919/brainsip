@@ -20,6 +20,7 @@ import SumUp from "./pages/SumUp";
 import PaareFinden from "./pages/PaareFinden";
 import Mindshift from "./pages/Mindshift";
 import Mindmatch from "./pages/Mindmatch";
+import Gefuehlsradar from "./pages/Gefuehlsradar";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/paare-finden" element={<PaareFinden />} />
           <Route path="/mindshift" element={<Mindshift />} />
           <Route path="/mindmatch" element={<Mindmatch />} />
+          <Route path="/gefuehlsradar" element={<Gefuehlsradar />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
