@@ -15,14 +15,6 @@ export default function SagsMalAnders() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState<string>('');
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Lade...</div>
-      </div>
-    );
-  }
-
   const loadBadSentence = async () => {
     try {
       const { data, error } = await supabase.functions.invoke('generate-bad-sentence');
@@ -39,6 +31,19 @@ export default function SagsMalAnders() {
       setBadSentence('Fehler beim Laden.');
     }
   };
+
+  // Load initial sentence on component mount
+  useEffect(() => {
+    loadBadSentence();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Lade...</div>
+      </div>
+    );
+  }
 
   const checkRewrite = async () => {
     if (userInput.trim().length < 5) {
@@ -78,10 +83,6 @@ export default function SagsMalAnders() {
     loadBadSentence();
   };
 
-  // Load initial sentence on component mount
-  useEffect(() => {
-    loadBadSentence();
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
