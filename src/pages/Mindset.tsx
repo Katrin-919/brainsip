@@ -172,7 +172,7 @@ const Mindset = () => {
                   onClick={() => navigate(game.route)}
                 >
                   <div className="flex flex-col items-center">
-                    <div className="w-32 h-32 mb-4 rounded-full overflow-hidden bg-white border-4 border-black">
+                    <div className="w-32 h-32 mb-4 rounded-full overflow-hidden bg-white">
                       <img 
                         src={game.image}
                         alt={game.title}
