@@ -135,7 +135,7 @@ export default function SagsMalAnders() {
                 <Button
                   onClick={() => navigate('/konfliktloesung')}
                   variant="outline"
-                  className="w-full"
+                  className="w-full mt-4"
                 >
                   Zurück
                 </Button>
