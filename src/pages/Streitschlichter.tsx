@@ -257,10 +257,10 @@ const Streitschlichter = () => {
                         <button
                           key={index}
                           onClick={() => handleOptionSelect(index)}
-                          className={`w-full p-4 text-left border rounded-lg transition-all duration-200 ${
+                          className={`w-full p-4 text-left border-2 rounded-lg transition-all duration-200 ${
                             selectedOption === index 
-                              ? 'border-primary bg-primary/10' 
-                              : 'border-border hover:border-primary/50 hover:bg-muted/50'
+                              ? 'border-primary bg-primary/10 border-2' 
+                              : 'border-muted-foreground/30 hover:border-primary/70 hover:bg-muted/50'
                           }`}
                         >
                           <span className="text-foreground">{option}</span>
