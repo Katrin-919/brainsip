@@ -118,8 +118,8 @@ const Mindmatch = () => {
     return (
       <div className="min-h-screen bg-background">
         <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
-        <main className="mt-20 px-4">
-          <div className="max-w-4xl mx-auto">
+        <main className="mt-20 px-4 md:px-12 py-8">
+          <div className="max-w-7xl mx-auto">
             <Button
               variant="ghost"
               onClick={() => navigate("/mindset")}
@@ -129,48 +129,72 @@ const Mindmatch = () => {
               Zurück
             </Button>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4 text-foreground">ℹ️ Spiel-Info</h3>
-                  <h2 className="text-xl font-bold mb-4 text-foreground">„Mindset Quiz" – Worum geht's?</h2>
-                  <p className="mb-4 text-muted-foreground">
-                    Du bekommst Aussagen aus dem Alltag. Deine Aufgabe: 
-                    Entscheide, ob die Aussage ein <em>Fixed Mindset</em> (fester Denkstil) 
-                    oder ein <em>Growth Mindset</em> (Wachstums‑Denken) zeigt.
-                  </p>
-                  
-                  <h3 className="font-semibold mb-2 text-foreground">Warum das wichtig ist</h3>
-                  <p className="text-muted-foreground">
-                    Wer ein Growth Mindset trainiert, bleibt neugierig, probiert aus und lernt 
-                    leichter aus Fehlern – genau darum geht's hier.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-                <CardContent className="p-6 text-center">
-                  <img 
-                    src="/lovable-uploads/d8fa8bd4-9c4f-4ed0-892f-e72f94052db1.png" 
-                    alt="Ferdy" 
-                    className="w-full max-w-xs mx-auto mb-6 rounded-xl"
-                  />
-                  
+            <div className="grid md:grid-cols-12 gap-8">
+              {/* Left Info Panel */}
+              <div className="md:col-span-4">
+                <Card className="p-6 ferdy-shadow-card sticky top-24">
                   <div className="space-y-4">
-                    <h2 className="text-2xl font-bold text-foreground">Quiz beendet!</h2>
-                    <div className="text-3xl font-bold text-primary">
-                      {Math.round((score / totalQuestions) * 100)}% Growth Mindset
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-2xl">ℹ️</span>
+                      <h3 className="text-lg font-bold text-foreground">Spiel-Info</h3>
                     </div>
-                    <p className="text-foreground">
-                      Du hast {score} von {totalQuestions} Aussagen im Sinne eines Growth Mindset erkannt.
+                    
+                    <h2 className="text-xl font-bold text-foreground">„Mindset Quiz" – Worum geht's?</h2>
+                    
+                    <p className="text-muted-foreground">
+                      Du bekommst Aussagen aus dem Alltag. Deine Aufgabe: 
+                      Entscheide, ob die Aussage ein <em>Fixed Mindset</em> (fester Denkstil) 
+                      oder ein <em>Growth Mindset</em> (Wachstums‑Denken) zeigt.
                     </p>
-                    <p className="text-muted-foreground">{getScoreMessage()}</p>
-                    <Button onClick={handleRestart} className="w-full">
-                      Neu starten
+                    
+                    <div className="bg-primary/10 p-4 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span>💡</span>
+                        <span className="font-semibold text-foreground">Warum das wichtig ist</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Wer ein Growth Mindset trainiert, bleibt neugierig, probiert aus und lernt 
+                        leichter aus Fehlern – genau darum geht's hier.
+                      </p>
+                    </div>
+
+                    <Button 
+                      onClick={() => navigate('/mindset')}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      Zurück
                     </Button>
                   </div>
-                </CardContent>
-              </Card>
+                </Card>
+              </div>
+
+              {/* Right Game Area */}
+              <div className="md:col-span-8">
+                <Card className="p-8 ferdy-shadow-card">
+                  <div className="text-center">
+                    <img 
+                      src="/lovable-uploads/d8fa8bd4-9c4f-4ed0-892f-e72f94052db1.png" 
+                      alt="Ferdy" 
+                      className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg mb-6"
+                    />
+                    
+                    <div className="space-y-4">
+                      <h2 className="text-2xl font-bold text-foreground">Quiz beendet!</h2>
+                      <div className="text-3xl font-bold text-primary">
+                        {Math.round((score / totalQuestions) * 100)}% Growth Mindset
+                      </div>
+                      <p className="text-foreground">
+                        Du hast {score} von {totalQuestions} Aussagen im Sinne eines Growth Mindset erkannt.
+                      </p>
+                      <p className="text-muted-foreground">{getScoreMessage()}</p>
+                      <Button onClick={handleRestart} className="w-full">
+                        Neu starten
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              </div>
             </div>
           </div>
         </main>
@@ -182,58 +206,73 @@ const Mindmatch = () => {
     <div className="min-h-screen bg-background">
       <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
       
-      <main className="mt-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/mindset")}
-            className="mb-6 text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Zurück
-          </Button>
+      <main className="mt-20 px-4 md:px-12 py-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-8">
+            {/* Left Info Panel */}
+            <div className="md:col-span-4">
+              <Card className="p-6 ferdy-shadow-card sticky top-24">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-2xl">ℹ️</span>
+                    <h3 className="text-lg font-bold text-foreground">Spiel-Info</h3>
+                  </div>
+                  
+                  <h2 className="text-xl font-bold text-foreground">„Mindset Quiz" – Worum geht's?</h2>
+                  
+                  <p className="text-muted-foreground">
+                    Du bekommst Aussagen aus dem Alltag. Deine Aufgabe: 
+                    Entscheide, ob die Aussage ein <em>Fixed Mindset</em> (fester Denkstil) 
+                    oder ein <em>Growth Mindset</em> (Wachstums‑Denken) zeigt.
+                  </p>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Left Column - Info */}
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-4 text-foreground">ℹ️ Spiel-Info</h3>
-                <h2 className="text-xl font-bold mb-4 text-foreground">„Mindset Quiz" – Worum geht's?</h2>
-                <p className="mb-4 text-muted-foreground">
-                  Du bekommst Aussagen aus dem Alltag. Deine Aufgabe: 
-                  Entscheide, ob die Aussage ein <em>Fixed Mindset</em> (fester Denkstil) 
-                  oder ein <em>Growth Mindset</em> (Wachstums‑Denken) zeigt.
-                </p>
+                  <div>
+                    <h3 className="font-bold text-foreground mb-2">So spielst du</h3>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Lies die Aussage aufmerksam.</li>
+                      <li>• Klicke auf <strong>Fixed</strong> oder <strong>Growth</strong>.</li>
+                      <li>• Sieh dir das Feedback an und klicke <strong>Weiter</strong>.</li>
+                      <li>• Nach 10 Fragen siehst du dein Ergebnis.</li>
+                    </ul>
+                  </div>
 
-                <h3 className="font-semibold mb-2 text-foreground">So spielst du</h3>
-                <ul className="list-disc list-inside space-y-1 mb-4 text-muted-foreground">
-                  <li>Lies die Aussage aufmerksam.</li>
-                  <li>Klicke auf <strong>Fixed</strong> oder <strong>Growth</strong>.</li>
-                  <li>Sieh dir das Feedback an und klicke <strong>Weiter</strong>.</li>
-                  <li>Nach 10 Fragen siehst du dein Ergebnis.</li>
-                </ul>
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span>💡</span>
+                      <span className="font-semibold text-foreground">Warum das wichtig ist</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Wer ein Growth Mindset trainiert, bleibt neugierig, probiert aus und lernt 
+                      leichter aus Fehlern – genau darum geht's hier.
+                    </p>
+                  </div>
 
-                <h3 className="font-semibold mb-2 text-foreground">Warum das wichtig ist</h3>
-                <p className="text-muted-foreground">
-                  Wer ein Growth Mindset trainiert, bleibt neugierig, probiert aus und lernt 
-                  leichter aus Fehlern – genau darum geht's hier.
-                </p>
-              </CardContent>
-            </Card>
+                  <Button 
+                    onClick={() => navigate('/mindset')}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Zurück
+                  </Button>
+                </div>
+              </Card>
+            </div>
 
-            {/* Right Column - Game */}
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-              <CardContent className="p-6">
-                <img 
-                  src="/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png" 
-                  alt="Ferdy" 
-                  className="w-full max-w-xs mx-auto mb-6 rounded-xl"
-                />
+            {/* Right Game Area */}
+            <div className="md:col-span-8">
+              <Card className="p-8 ferdy-shadow-card">
+                {/* Header with Ferdy */}
+                <div className="text-center mb-6">
+                  <img 
+                    src="/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png" 
+                    alt="Ferdy" 
+                    className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg"
+                  />
+                </div>
 
-                <div className="bg-background/60 rounded-xl p-4 mb-6">
-                  <strong className="text-foreground">Wie denkst du über Herausforderungen?</strong>
-                  <p className="text-muted-foreground mt-2">
-                    In diesem Quiz bekommst du Aussagen aus dem Alltag gezeigt.
+                <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+                  <p className="text-lg text-foreground leading-relaxed">
+                    <strong>Wie denkst du über Herausforderungen?</strong> In diesem Quiz bekommst du Aussagen aus dem Alltag gezeigt.
                     Du sollst entscheiden: Zeigt diese Aussage ein <em>Fixed Mindset</em> – also einen festen Denkstil –
                     oder ein <em>Growth Mindset</em>, das offen für Entwicklung ist?
                   </p>
@@ -290,8 +329,8 @@ const Mindmatch = () => {
                     </Button>
                   </CardContent>
                 </Card>
-              </CardContent>
-            </Card>
+              </Card>
+            </div>
           </div>
         </div>
       </main>
