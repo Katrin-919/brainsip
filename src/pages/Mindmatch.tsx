@@ -142,7 +142,7 @@ const Mindmatch = () => {
                     <h2 className="text-xl font-bold text-foreground">„Mindset Quiz" – Worum geht's?</h2>
                     
                     <p className="text-muted-foreground">
-                      Du bekommst Aussagen aus dem Alltag. Deine Aufgabe: 
+                      Du bekommst kurz Aussagen aus dem Alltag angezeigt. Deine Aufgabe: 
                       Entscheide, ob die Aussage ein <em>Fixed Mindset</em> (fester Denkstil) 
                       oder ein <em>Growth Mindset</em> (Wachstums‑Denken) zeigt.
                     </p>
@@ -264,7 +264,7 @@ const Mindmatch = () => {
                 {/* Header with Ferdy */}
                 <div className="text-center mb-6">
                   <img 
-                    src="/lovable-uploads/f402e6b2-cfe9-4c7d-9969-484f52c0ccec.png" 
+                    src="/lovable-uploads/ferdy_fragezeichen.png" 
                     alt="Ferdy" 
                     className="w-64 h-48 mx-auto rounded-lg object-cover bg-white shadow-lg"
                   />
