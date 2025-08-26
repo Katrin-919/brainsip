@@ -158,9 +158,9 @@ export default function Mindshift() {
                 {/* Header with Ferdy */}
                 <div className="text-center mb-6">
                   <img 
-                    src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_sky.jpg" 
-                    alt="Ferdy Sky"
-                    className="w-32 h-32 mx-auto rounded-full object-cover bg-white shadow-lg"
+                    src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_goodbye.png" 
+                    alt="Ferdy Goodbye"
+                    className="w-48 h-32 mx-auto rounded-lg object-cover bg-white shadow-lg"
                   />
                 </div>
 
