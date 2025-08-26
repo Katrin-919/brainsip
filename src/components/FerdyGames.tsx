@@ -22,9 +22,9 @@ const games = [
     id: 'konfliktloesung',
     title: 'Konfliktlösung',
     description: 'Hol dir smarte Tipps, um Konflikte besser zu lösen!',
-    image: 'https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/konflikt.png',
+    image: '/lovable-uploads/2936dcb9-40fa-4d7d-a3da-5c0eaef2e849.png',
     available: true,
-    route: '/conflictsolution'
+    route: '/konfliktloesung'
   },
   {
     id: 'emotionale-intelligenz',

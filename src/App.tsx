@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Losungsorientierung from "./pages/Losungsorientierung";
 import Mindset from "./pages/Mindset";
+import Konfliktloesung from "./pages/Konfliktloesung";
 import Denkweiser from "./pages/Denkweiser";
 import Erzaehlzauber from "./pages/Erzaehlzauber";
 import Wortentdecker from "./pages/Wortentdecker";
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/loesungsorientierung" element={<Losungsorientierung />} />
           <Route path="/mindset" element={<Mindset />} />
+          <Route path="/konfliktloesung" element={<Konfliktloesung />} />
           <Route path="/denkweiser" element={<Denkweiser />} />
           <Route path="/erzaehlzauber" element={<Erzaehlzauber />} />
           <Route path="/wortentdecker" element={<Wortentdecker />} />
