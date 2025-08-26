@@ -34,25 +34,25 @@ const Konfliktloesung = () => {
     {
       title: "Streitschlichter",
       hint: "Konflikte fair lösen",
-      image: "/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png", // Using ferdy image as placeholder
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/konfliktspiel1.png",
       route: "/streitschlichter"
     },
     {
       title: "Sag's mal anders",
       hint: "Worte klug wählen",
-      image: "/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png", // Using ferdy image as placeholder
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/konfliktspiel2.png",
       route: "/sags-mal-anders"
     },
     {
       title: "Ich-Botschaften",
       hint: "Gefühle klar sagen",
-      image: "/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png", // Using ferdy image as placeholder
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ichbotschaftBild.png",
       route: "/ich-botschaften"
     },
     {
       title: "Gefühlsradar",
       hint: "Emotionen erkennen",
-      image: "/lovable-uploads/38c62239-4005-4abd-94da-fc290e476600.png", // Using ferdy image as placeholder
+      image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/gefuehlsradar_bild.png",
       route: "/gefuehlsradar"
     }
   ];
