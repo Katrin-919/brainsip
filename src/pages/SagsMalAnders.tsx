@@ -131,7 +131,8 @@ export default function SagsMalAnders() {
 
                 <Button
                   onClick={() => navigate('/konfliktloesung')}
-                  className="absolute bottom-6 left-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                  variant="outline"
+                  className="w-full"
                 >
                   Zurück
                 </Button>
