@@ -272,8 +272,8 @@ const Mindmatch = () => {
 
                 <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
                   <p className="text-lg text-foreground leading-relaxed">
-                    <strong>Welches Mindset kannst du erkennen? </strong> Entscheide, ob diese Aussage ein <em>Fixed Mindset</em> – also einen festen Denkstil –
-                    oder ein <em>Growth Mindset</em>, das offen für Entwicklung ist, zeigt.
+                    <strong>Welches Mindset kannst du erkennen? </strong> </p> <p>Entscheide, ob diese Aussage ein <em>Fixed Mindset</em> – also einen festen Denkstil –
+                    oder ein <em>Growth Mindset</em>, das offen für Entwicklung ist, zeigt.</p>
                   </p>
                 </div>
 
