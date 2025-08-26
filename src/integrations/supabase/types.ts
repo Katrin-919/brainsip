@@ -14,16 +14,152 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      daily_play_limits: {
+        Row: {
+          free_plays_used: number | null
+          game_category: Database["public"]["Enums"]["game_category"]
+          id: string
+          paid_plays: number | null
+          play_date: string | null
+          user_id: string
+        }
+        Insert: {
+          free_plays_used?: number | null
+          game_category: Database["public"]["Enums"]["game_category"]
+          id?: string
+          paid_plays?: number | null
+          play_date?: string | null
+          user_id: string
+        }
+        Update: {
+          free_plays_used?: number | null
+          game_category?: Database["public"]["Enums"]["game_category"]
+          id?: string
+          paid_plays?: number | null
+          play_date?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      game_payments: {
+        Row: {
+          additional_plays: number | null
+          amount: number
+          created_at: string | null
+          currency: string | null
+          game_category: Database["public"]["Enums"]["game_category"]
+          id: string
+          status: string | null
+          stripe_session_id: string | null
+          user_id: string
+        }
+        Insert: {
+          additional_plays?: number | null
+          amount: number
+          created_at?: string | null
+          currency?: string | null
+          game_category: Database["public"]["Enums"]["game_category"]
+          id?: string
+          status?: string | null
+          stripe_session_id?: string | null
+          user_id: string
+        }
+        Update: {
+          additional_plays?: number | null
+          amount?: number
+          created_at?: string | null
+          currency?: string | null
+          game_category?: Database["public"]["Enums"]["game_category"]
+          id?: string
+          status?: string | null
+          stripe_session_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      game_sessions: {
+        Row: {
+          completed_at: string | null
+          game_category: Database["public"]["Enums"]["game_category"]
+          game_name: string
+          id: string
+          points_earned: number | null
+          score: number | null
+          success: boolean | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          game_category: Database["public"]["Enums"]["game_category"]
+          game_name: string
+          id?: string
+          points_earned?: number | null
+          score?: number | null
+          success?: boolean | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          game_category?: Database["public"]["Enums"]["game_category"]
+          game_name?: string
+          id?: string
+          points_earned?: number | null
+          score?: number | null
+          success?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          display_name: string | null
+          id: string
+          status: string | null
+          total_points: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          display_name?: string | null
+          id?: string
+          status?: string | null
+          total_points?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          display_name?: string | null
+          id?: string
+          status?: string | null
+          total_points?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      can_play_game: {
+        Args: {
+          p_game_category: Database["public"]["Enums"]["game_category"]
+          p_user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      game_category:
+        | "mindset"
+        | "communication"
+        | "problem_solving"
+        | "conflict_resolution"
+        | "emotional_intelligence"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +286,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      game_category: [
+        "mindset",
+        "communication",
+        "problem_solving",
+        "conflict_resolution",
+        "emotional_intelligence",
+      ],
+    },
   },
 } as const
