@@ -115,9 +115,9 @@ export default function Mindshift() {
                   <h2 className="text-xl font-bold text-foreground">„GedankenStopp" – Worum geht's?</h2>
                   
                   <p className="text-muted-foreground">
-                    Du erkennst belastende, negative Gedanken und formulierst sie in 
-                    <strong> positive, hilfreiche</strong> Gedanken um. Du bekommst kurze Alltagssituationen
-                    und übst achtsam, wie du dein Denken in eine konstruktive Richtung lenkst.
+                    In diesem Spiel lernst du, wie du negative Gedanken erkennst und in positive, hilfreiche Gedanken umwandeln kannst.
+                        Du bekommst kleine Alltagssituationen gezeigt und übst, wie du mit deinen Gedanken achtsamer umgehst.
+                        So stärkst du Schritt für Schritt dein mentales Wohlbefinden – spielerisch und mit Leichtigkeit.
                   </p>
 
                   <div>
@@ -176,9 +176,8 @@ export default function Mindshift() {
                   <div className="text-center space-y-6">
                     <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
                       <p className="text-lg text-foreground leading-relaxed">
-                        In diesem Spiel lernst du, wie du negative Gedanken erkennst und in positive, hilfreiche Gedanken umwandeln kannst.
-                        Du bekommst kleine Alltagssituationen gezeigt und übst, wie du mit deinen Gedanken achtsamer umgehst.
-                        So stärkst du Schritt für Schritt dein mentales Wohlbefinden – spielerisch und mit Leichtigkeit.
+                        Du bekommst eine kurze Alltagssituation angezeigt. Erkenne den negativen Gedanken und formuliere ihn in 
+                    <strong> positive, hilfreiche</strong> Gedanken um. So übst du, wie du dein Denken in eine konstruktive Richtung lenkst.
                       </p>
                     </div>
                     <Button 
