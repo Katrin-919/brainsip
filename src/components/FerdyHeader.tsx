@@ -14,8 +14,13 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
   const { signOut } = useAuth();
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    // If we're not on the home page, navigate there first
+    if (window.location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } });
+    } else {
+      const element = document.getElementById(sectionId);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
     setIsMenuOpen(false);
   };
 

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { FerdyHeader } from "@/components/FerdyHeader";
 import { FerdyHero } from "@/components/FerdyHero";
 import { FerdyAbout } from "@/components/FerdyAbout";
@@ -9,8 +11,21 @@ import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
   const { user, loading } = useAuth();
+  const location = useLocation();
   const isLoggedIn = !!user;
   const displayName = user?.email?.split('@')[0] || "";
+
+  useEffect(() => {
+    // Check if we need to scroll to a specific section
+    const state = location.state as { scrollTo?: string } | null;
+    if (state?.scrollTo) {
+      // Small delay to ensure the component is rendered
+      setTimeout(() => {
+        const element = document.getElementById(state.scrollTo!);
+        element?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location.state]);
 
   if (loading) {
     return (
