@@ -153,7 +153,7 @@ const Profile = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
       <FerdyHeader />
       
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto px-4 pt-24 pb-8 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2">Mein Profil</h1>
           <p className="text-muted-foreground">Verfolge deinen Lernfortschritt und deine Erfolge</p>
