@@ -39,8 +39,12 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     display_name: '',
-    email: ''
+    email: '',
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
   });
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -66,7 +70,10 @@ const Profile = () => {
       setProfile(data);
       setEditForm({
         display_name: data?.display_name || '',
-        email: user?.email || ''
+        email: user?.email || '',
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
       });
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -140,12 +147,23 @@ const Profile = () => {
 
   const handleSaveProfile = async () => {
     try {
-      const { error } = await supabase
+      // Update display name
+      const { error: profileError } = await supabase
         .from('profiles')
         .update({ display_name: editForm.display_name })
         .eq('user_id', user?.id);
 
-      if (error) throw error;
+      if (profileError) throw profileError;
+
+      // Update email if changed
+      if (editForm.email !== user?.email) {
+        const { error: emailError } = await supabase.auth.updateUser({
+          email: editForm.email
+        });
+
+        if (emailError) throw emailError;
+        toast.success('Bestätigungs-E-Mail gesendet. Bitte überprüfe dein E-Mail-Postfach.');
+      }
 
       setProfile(prev => prev ? { ...prev, display_name: editForm.display_name } : null);
       setIsEditing(false);
@@ -153,6 +171,38 @@ const Profile = () => {
     } catch (error) {
       console.error('Error updating profile:', error);
       toast.error('Fehler beim Aktualisieren des Profils');
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (editForm.newPassword !== editForm.confirmPassword) {
+      toast.error('Passwörter stimmen nicht überein');
+      return;
+    }
+
+    if (editForm.newPassword.length < 6) {
+      toast.error('Das neue Passwort muss mindestens 6 Zeichen lang sein');
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: editForm.newPassword
+      });
+
+      if (error) throw error;
+
+      setEditForm(prev => ({
+        ...prev,
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      }));
+      setIsChangingPassword(false);
+      toast.success('Passwort erfolgreich geändert');
+    } catch (error) {
+      console.error('Error changing password:', error);
+      toast.error('Fehler beim Ändern des Passworts');
     }
   };
 
@@ -245,13 +295,59 @@ const Profile = () => {
                     <Label htmlFor="email">E-Mail</Label>
                     <Input
                       id="email"
+                      type="email"
                       value={editForm.email}
-                      disabled
-                      className="opacity-60"
+                      onChange={(e) => setEditForm(prev => ({ ...prev, email: e.target.value }))}
+                      placeholder="deine@email.de"
                     />
                     <p className="text-xs text-muted-foreground">
-                      E-Mail kann derzeit nicht geändert werden
+                      Bei einer Änderung erhältst du eine Bestätigungs-E-Mail
                     </p>
+                  </div>
+                  
+                  <div className="border-t pt-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label>Passwort ändern</Label>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setIsChangingPassword(!isChangingPassword)}
+                      >
+                        {isChangingPassword ? 'Abbrechen' : 'Passwort ändern'}
+                      </Button>
+                    </div>
+                    
+                    {isChangingPassword && (
+                      <div className="space-y-3">
+                        <div className="space-y-2">
+                          <Label htmlFor="newPassword">Neues Passwort</Label>
+                          <Input
+                            id="newPassword"
+                            type="password"
+                            value={editForm.newPassword}
+                            onChange={(e) => setEditForm(prev => ({ ...prev, newPassword: e.target.value }))}
+                            placeholder="Neues Passwort"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="confirmPassword">Passwort bestätigen</Label>
+                          <Input
+                            id="confirmPassword"
+                            type="password"
+                            value={editForm.confirmPassword}
+                            onChange={(e) => setEditForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                            placeholder="Passwort bestätigen"
+                          />
+                        </div>
+                        <Button 
+                          onClick={handleChangePassword}
+                          className="w-full"
+                          disabled={!editForm.newPassword || !editForm.confirmPassword}
+                        >
+                          Passwort ändern
+                        </Button>
+                      </div>
+                    )}
                   </div>
                   <Button onClick={handleSaveProfile} className="w-full">
                     Änderungen speichern
