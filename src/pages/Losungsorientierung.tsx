@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { Lock, Star } from "lucide-react";
+import { usePremiumGamePurchase } from "@/hooks/usePremiumGamePurchase";
 
 const Losungsorientierung = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { purchasePremiumGame } = usePremiumGamePurchase();
   const isLoggedIn = !!user;
   const displayName = user?.email?.split('@')[0] || "";
 
@@ -178,8 +180,7 @@ const Losungsorientierung = () => {
                     if (game.isFree) {
                       navigate(game.route);
                     } else {
-                      // TODO: Handle premium game click - redirect to payment
-                      console.log('Premium game clicked');
+                      purchasePremiumGame('problem_solving');
                     }
                   }}
                 >

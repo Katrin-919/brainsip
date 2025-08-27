@@ -4,10 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FerdyHeader } from "@/components/FerdyHeader";
 import { Loader2, MessageSquare, Ear, Handshake, Lock, Star } from "lucide-react";
+import { usePremiumGamePurchase } from "@/hooks/usePremiumGamePurchase";
 
 const Konfliktloesung = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { purchasePremiumGame } = usePremiumGamePurchase();
 
   if (loading) {
     return (
@@ -180,8 +182,7 @@ const Konfliktloesung = () => {
                     if (game.isFree) {
                       navigate(game.route);
                     } else {
-                      // TODO: Handle premium game click - redirect to payment
-                      console.log('Premium game clicked');
+                      purchasePremiumGame('conflict_resolution');
                     }
                   }}
                 >
