@@ -88,4 +88,5 @@ const GameLimitModal = ({ isOpen, onClose, gameCategory, onPurchase }: GameLimit
   );
 };
 
+// Default export
 export default GameLimitModal;

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { useGameProgress } from "@/hooks/useGameProgress";
+// Importing GameLimitModal as default export
 import GameLimitModal from "@/components/GameLimitModal";
 import { toast } from "sonner";
 
