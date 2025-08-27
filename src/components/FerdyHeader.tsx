@@ -75,6 +75,14 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
           >
             Feedback
           </button>
+          {isLoggedIn && (
+            <button 
+              onClick={() => navigate('/profile')}
+              className="text-secondary-foreground font-semibold hover:text-accent hover:-translate-y-1 transition-all duration-300"
+            >
+              Mein Profil
+            </button>
+          )}
         </nav>
 
         {/* Auth Buttons - Desktop */}
@@ -155,6 +163,14 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
             >
               Feedback
             </button>
+            {isLoggedIn && (
+              <button 
+                onClick={() => navigate('/profile')}
+                className="text-secondary-foreground font-semibold text-left"
+              >
+                Mein Profil
+              </button>
+            )}
           </nav>
           
           <div className="flex flex-col gap-2">

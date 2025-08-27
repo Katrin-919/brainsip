@@ -21,6 +21,8 @@ import PaareFinden from "./pages/PaareFinden";
 import Mindshift from "./pages/Mindshift";
 import Mindmatch from "./pages/Mindmatch";
 import Gefuehlsradar from "./pages/Gefuehlsradar";
+import Profile from "./pages/Profile";
+import PaymentSuccess from "./pages/PaymentSuccess";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +51,8 @@ const App = () => (
           <Route path="/mindshift" element={<Mindshift />} />
           <Route path="/mindmatch" element={<Mindmatch />} />
           <Route path="/gefuehlsradar" element={<Gefuehlsradar />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
