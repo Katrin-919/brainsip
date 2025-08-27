@@ -5,6 +5,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
+import { useGameProgress } from "@/hooks/useGameProgress";
+import GameLimitModal from "@/components/GameLimitModal";
+import { toast } from "sonner";
 
 interface MindsetPair {
   fixed: string;
@@ -30,6 +33,10 @@ export default function PaareFinden() {
   const [popupMessage, setPopupMessage] = useState("");
   const [isGameLoading, setIsGameLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [score, setScore] = useState(0);
+  const [correctPairs, setCorrectPairs] = useState(0);
+  const [showLimitModal, setShowLimitModal] = useState(false);
+  const { completeGame, checkPlayLimit } = useGameProgress();
 
   const shuffle = (array: any[]) => {
     const shuffled = [...array];
@@ -41,6 +48,15 @@ export default function PaareFinden() {
   };
 
   const loadPairs = async () => {
+    // Check play limit before starting
+    if (user) {
+      const { canPlay } = await checkPlayLimit('communication');
+      if (!canPlay) {
+        setShowLimitModal(true);
+        return;
+      }
+    }
+
     setIsGameLoading(true);
     setSelectedFixed(null);
     setSelectedGrowth(null);
@@ -67,6 +83,8 @@ export default function PaareFinden() {
       
       setAllCards(shuffle([...fixedCards, ...growthCards]));
       setGameStarted(true);
+      setScore(0);
+      setCorrectPairs(0);
     } catch (error) {
       console.error('Fehler beim Laden der Aussagen:', error);
       setPopupMessage('Fehler beim Laden der Aussagen.');
@@ -91,23 +109,45 @@ export default function PaareFinden() {
     
     if (isCorrect) {
       setPopupMessage('🎉 Richtig zugeordnet!');
+      setScore(prev => prev + 10);
+      setCorrectPairs(prev => prev + 1);
       // Remove the correct pair from cards
       setAllCards(prev => prev.filter(card => 
         card.text !== selectedFixed && card.text !== selectedGrowth
       ));
     } else {
       setPopupMessage('❌ Diese Aussagen gehören nicht zusammen. Versuche es nochmal.');
+      setScore(prev => Math.max(0, prev - 2));
     }
     
     setShowPopup(true);
     setSelectedFixed(null);
     setSelectedGrowth(null);
     
-    // If all pairs found, load new ones
-    setTimeout(() => {
+    // If all pairs found, complete the game and load new ones
+    setTimeout(async () => {
       if (isCorrect && allCards.filter(card => 
         card.text !== selectedFixed && card.text !== selectedGrowth
       ).length === 0) {
+        
+        // Complete the game
+        if (user && correctPairs >= 2) { // Complete when 3 pairs are found (including this one)
+          try {
+            const gameResult = await completeGame({
+              game_name: "Paare Finden",
+              game_category: "communication",
+              score: score + 10, // Include the points from this correct answer
+              success: true
+            });
+            
+            if (gameResult.pointsEarned > 0) {
+              toast.success(`Spiel beendet! Du hast ${gameResult.pointsEarned} Punkte verdient.`);
+            }
+          } catch (error) {
+            console.error('Error completing game:', error);
+          }
+        }
+        
         loadPairs();
       }
     }, 300);
@@ -119,6 +159,8 @@ export default function PaareFinden() {
     setSelectedGrowth(null);
     setAllCards([]);
     setPairs([]);
+    setScore(0);
+    setCorrectPairs(0);
   };
 
   const canSubmit = selectedFixed && selectedGrowth;
@@ -228,7 +270,7 @@ export default function PaareFinden() {
                   </div>
                 )}
 
-                {/* Game Display */}
+                 {/* Game Display */}
                 {gameStarted && !isGameLoading && (
                   <div className="space-y-6">
                     <div className="text-center">
@@ -238,6 +280,16 @@ export default function PaareFinden() {
                       <p className="text-muted-foreground">
                         Wähle jeweils ein Paar: ein hinderlicher Gedanke und die passende positive Einstellung.
                       </p>
+                      <div className="flex justify-center gap-6 mt-4">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-primary">{score}</div>
+                          <div className="text-sm text-muted-foreground">Punkte</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-green-600">{correctPairs}</div>
+                          <div className="text-sm text-muted-foreground">Richtige Paare</div>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
@@ -303,6 +355,16 @@ export default function PaareFinden() {
           </div>
         </>
       )}
+
+      <GameLimitModal
+        isOpen={showLimitModal}
+        onClose={() => setShowLimitModal(false)}
+        gameCategory="communication"
+        onPurchase={() => {
+          setShowLimitModal(false);
+          loadPairs();
+        }}
+      />
     </div>
   );
 }

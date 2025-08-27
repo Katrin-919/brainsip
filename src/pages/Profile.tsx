@@ -5,15 +5,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Trophy, Star, Medal, Clock, Target } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Trophy, Star, Medal, Clock, Target, User, Mail, Edit3, Crown } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { FerdyHeader } from '@/components/FerdyHeader';
+import ferdiFox from '@/assets/ferdi-fox.png';
 
 interface Profile {
   display_name: string;
   total_points: number;
   status: string;
+  user_id: string;
 }
 
 interface GameSession {
@@ -32,6 +36,11 @@ const Profile = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [gameSessions, setGameSessions] = useState<GameSession[]>([]);
   const [loadingProfile, setLoadingProfile] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    display_name: '',
+    email: ''
+  });
 
   useEffect(() => {
     if (!loading && !user) {
@@ -55,6 +64,10 @@ const Profile = () => {
 
       if (error) throw error;
       setProfile(data);
+      setEditForm({
+        display_name: data?.display_name || '',
+        email: user?.email || ''
+      });
     } catch (error) {
       console.error('Error fetching profile:', error);
       toast.error('Fehler beim Laden des Profils');
@@ -125,6 +138,44 @@ const Profile = () => {
     return names[category] || category;
   };
 
+  const handleSaveProfile = async () => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ display_name: editForm.display_name })
+        .eq('user_id', user?.id);
+
+      if (error) throw error;
+
+      setProfile(prev => prev ? { ...prev, display_name: editForm.display_name } : null);
+      setIsEditing(false);
+      toast.success('Profil erfolgreich aktualisiert');
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      toast.error('Fehler beim Aktualisieren des Profils');
+    }
+  };
+
+  const handleStartSubscription = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('purchase-additional-plays', {
+        body: { 
+          game_category: 'premium_subscription',
+          additional_plays: 999 // Unlimited for subscription
+        }
+      });
+
+      if (error) throw error;
+
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (error) {
+      console.error('Error starting subscription:', error);
+      toast.error('Fehler beim Starten des Abonnements');
+    }
+  };
+
   if (loading || loadingProfile) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
@@ -157,6 +208,86 @@ const Profile = () => {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2">Mein Profil</h1>
           <p className="text-muted-foreground">Verfolge deinen Lernfortschritt und deine Erfolge</p>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-3 mb-8">
+          {/* Profile Info Card */}
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <User className="h-5 w-5" />
+                  Profil Informationen
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsEditing(!isEditing)}
+                >
+                  <Edit3 className="h-4 w-4 mr-2" />
+                  {isEditing ? 'Abbrechen' : 'Bearbeiten'}
+                </Button>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {isEditing ? (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="display_name">Name</Label>
+                    <Input
+                      id="display_name"
+                      value={editForm.display_name}
+                      onChange={(e) => setEditForm(prev => ({ ...prev, display_name: e.target.value }))}
+                      placeholder="Dein Name"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">E-Mail</Label>
+                    <Input
+                      id="email"
+                      value={editForm.email}
+                      disabled
+                      className="opacity-60"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      E-Mail kann derzeit nicht geändert werden
+                    </p>
+                  </div>
+                  <Button onClick={handleSaveProfile} className="w-full">
+                    Änderungen speichern
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <User className="h-4 w-4 text-muted-foreground" />
+                    <span className="font-medium">{profile.display_name || 'Nicht gesetzt'}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-muted-foreground">{user?.email}</span>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Ferdi Card */}
+          <Card className="text-center">
+            <CardHeader>
+              <CardTitle className="text-lg">Dein Lernpartner</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <img 
+                src={ferdiFox} 
+                alt="Ferdi der Fuchs"
+                className="w-24 h-24 mx-auto mb-3 rounded-full"
+              />
+              <p className="text-sm text-muted-foreground">
+                Hallo! Ich bin Ferdi und begleite dich auf deiner Lernreise!
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 mb-8">
@@ -198,6 +329,40 @@ const Profile = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Subscription Card */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Crown className="h-5 w-5 text-yellow-500" />
+              Premium Abonnement
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-lg border border-yellow-500/20">
+              <div>
+                <h3 className="font-semibold text-lg">Ferdi Premium</h3>
+                <p className="text-muted-foreground">Unbegrenzter Zugang zu allen Spielen und Features</p>
+                <ul className="text-sm text-muted-foreground mt-2 space-y-1">
+                  <li>• Alle Spiele freigeschalten</li>
+                  <li>• Keine täglichen Limits</li>
+                  <li>• Erweiterte Statistiken</li>
+                  <li>• Prioritäts-Support</li>
+                </ul>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold">€9.99</div>
+                <div className="text-sm text-muted-foreground">pro Monat</div>
+                <Button 
+                  onClick={handleStartSubscription}
+                  className="mt-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
+                >
+                  Jetzt upgraden
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Recent Games */}
         <Card>
