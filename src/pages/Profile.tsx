@@ -377,7 +377,7 @@ const Profile = () => {
               <img 
                 src={`${supabase.storage.from('images').getPublicUrl('ferdy_goodbye.png').data.publicUrl}`}
                 alt="Ferdi der Fuchs"
-                className="w-24 h-24 mx-auto mb-3 rounded-full"
+                className="w-24 h-24 mx-auto mb-3 rounded-full object-cover"
               />
               <p className="text-sm text-muted-foreground">
                 Hallo! Ich bin Ferdi und begleite dich auf deiner Lernreise!
