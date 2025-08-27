@@ -11,7 +11,7 @@ import { Trophy, Star, Medal, Clock, Target, User, Mail, Edit3, Crown } from 'lu
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { FerdyHeader } from '@/components/FerdyHeader';
-import ferdiFox from '@/assets/ferdi-fox.png';
+
 
 interface Profile {
   display_name: string;
@@ -375,7 +375,7 @@ const Profile = () => {
             </CardHeader>
             <CardContent>
               <img 
-                src={ferdiFox} 
+                src={`${supabase.storage.from('images').getPublicUrl('ferdy_goodbye.png').data.publicUrl}`}
                 alt="Ferdi der Fuchs"
                 className="w-24 h-24 mx-auto mb-3 rounded-full"
               />
