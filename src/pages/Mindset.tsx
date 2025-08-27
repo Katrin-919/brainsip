@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { Lock, Star } from "lucide-react";
 
 const Mindset = () => {
   const { user, loading } = useAuth();
@@ -34,25 +35,29 @@ const Mindset = () => {
       title: "SumUp",
       hint: "Wichtiges sammeln & merken",
       image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/summary.jpg",
-      route: "/sumup"
+      route: "/sumup",
+      isFree: true
     },
     {
       title: "Paare finden", 
       hint: "Zuordnen & verstehen",
       image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/mindsetpaare.png",
-      route: "/paare-finden"
+      route: "/paare-finden",
+      isFree: true
     },
     {
       title: "Mindshift",
       hint: "Gedanken lenken & beruhigen", 
       image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/thinking.jpg",
-      route: "/mindshift"
+      route: "/mindshift",
+      isFree: false
     },
     {
       title: "Mindmatch",
       hint: "Aussagen vergleichen",
       image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/mindset.jpg", 
-      route: "/mindmatch"
+      route: "/mindmatch",
+      isFree: false
     }
   ];
 
@@ -168,16 +173,43 @@ const Mindset = () => {
               {games.map((game, index) => (
                 <Card 
                   key={index}
-                  className="p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card"
-                  onClick={() => navigate(game.route)}
+                  className={`p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card relative ${!game.isFree ? 'opacity-75' : ''}`}
+                  onClick={() => {
+                    if (game.isFree) {
+                      navigate(game.route);
+                    } else {
+                      // TODO: Handle premium game click - redirect to payment
+                      console.log('Premium game clicked');
+                    }
+                  }}
                 >
+                  {/* Badge */}
+                  <div className="absolute -top-2 -right-2 z-10">
+                    {game.isFree ? (
+                      <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                        <Star className="w-3 h-3" />
+                        Kostenlos
+                      </div>
+                    ) : (
+                      <div className="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                        <Lock className="w-3 h-3" />
+                        €2,99
+                      </div>
+                    )}
+                  </div>
+
                   <div className="flex flex-col items-center">
-                    <div className="w-32 h-32 mb-4 rounded-full overflow-hidden bg-white">
+                    <div className={`w-32 h-32 mb-4 rounded-full overflow-hidden bg-white relative ${!game.isFree ? 'filter grayscale' : ''}`}>
                       <img 
                         src={game.image}
                         alt={game.title}
                         className="w-full h-full object-cover"
                       />
+                      {!game.isFree && (
+                        <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                          <Lock className="w-8 h-8 text-white" />
+                        </div>
+                      )}
                     </div>
                     <h3 className="text-lg font-bold text-foreground mb-2">{game.title}</h3>
                     <p className="text-sm text-muted-foreground">{game.hint}</p>
