@@ -88,6 +88,27 @@ export const useAuth = () => {
     }
   };
 
+  const resetPassword = async (email: string) => {
+    try {
+      const redirectUrl = `${window.location.origin}/auth`;
+      
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: redirectUrl
+      });
+
+      if (error) {
+        toast.error(error.message);
+        return { error };
+      }
+
+      toast.success('Passwort-Reset-E-Mail wurde versendet!');
+      return { error: null };
+    } catch (error) {
+      toast.error('Ein Fehler ist aufgetreten');
+      return { error };
+    }
+  };
+
   return {
     user,
     session,
@@ -95,5 +116,6 @@ export const useAuth = () => {
     signIn,
     signUp,
     signOut,
+    resetPassword,
   };
 };

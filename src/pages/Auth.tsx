@@ -8,10 +8,11 @@ import { useAuth } from '@/hooks/useAuth';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn, signUp, user } = useAuth();
+  const { signIn, signUp, resetPassword, user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +25,9 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    if (isLogin) {
+    if (isPasswordReset) {
+      await resetPassword(email);
+    } else if (isLogin) {
       await signIn(email, password);
     } else {
       await signUp(email, password);
@@ -45,7 +48,7 @@ const Auth = () => {
             />
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-6">
-            {isLogin ? 'Willkommen zurück!' : 'Jetzt registrieren!'}
+            {isPasswordReset ? 'Passwort zurücksetzen' : (isLogin ? 'Willkommen zurück!' : 'Jetzt registrieren!')}
           </h2>
         </div>
 
@@ -65,39 +68,70 @@ const Auth = () => {
             />
           </div>
 
-          <div>
-            <Label htmlFor="password" className="text-sm font-semibold text-foreground">
-              Passwort
-            </Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Passwort eingeben"
-              required
-              className="mt-2 ferdy-transition"
-            />
-          </div>
+          {!isPasswordReset && (
+            <div>
+              <Label htmlFor="password" className="text-sm font-semibold text-foreground">
+                Passwort
+              </Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Passwort eingeben"
+                required
+                className="mt-2 ferdy-transition"
+              />
+            </div>
+          )}
 
           <Button
             type="submit"
             disabled={loading}
             className="w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-full ferdy-transition"
           >
-            {loading ? 'Bitte warten...' : (isLogin ? 'Anmelden' : 'Registrieren')}
+            {loading ? 'Bitte warten...' : (isPasswordReset ? 'E-Mail senden' : (isLogin ? 'Anmelden' : 'Registrieren'))}
           </Button>
         </form>
 
-        <p className="text-center mt-6 text-sm text-muted-foreground">
-          {isLogin ? 'Noch kein Konto?' : 'Bereits ein Konto?'}{' '}
-          <button
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-primary font-semibold hover:underline ferdy-transition"
-          >
-            {isLogin ? 'Jetzt registrieren' : 'Jetzt anmelden'}
-          </button>
-        </p>
+        <div className="text-center mt-6 space-y-2">
+          {!isPasswordReset && (
+            <p className="text-sm text-muted-foreground">
+              {isLogin ? 'Noch kein Konto?' : 'Bereits ein Konto?'}{' '}
+              <button
+                onClick={() => setIsLogin(!isLogin)}
+                className="text-primary font-semibold hover:underline ferdy-transition"
+              >
+                {isLogin ? 'Jetzt registrieren' : 'Jetzt anmelden'}
+              </button>
+            </p>
+          )}
+          
+          {isLogin && !isPasswordReset && (
+            <p className="text-sm text-muted-foreground">
+              <button
+                onClick={() => setIsPasswordReset(true)}
+                className="text-primary font-semibold hover:underline ferdy-transition"
+              >
+                Passwort vergessen?
+              </button>
+            </p>
+          )}
+          
+          {isPasswordReset && (
+            <p className="text-sm text-muted-foreground">
+              <button
+                onClick={() => {
+                  setIsPasswordReset(false);
+                  setIsLogin(true);
+                }}
+                className="text-primary font-semibold hover:underline ferdy-transition"
+              >
+                Zurück zur Anmeldung
+              </button>
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -13,10 +13,11 @@ interface LoginPromptModalProps {
 
 export const LoginPromptModal = ({ isOpen, onClose, gameName }: LoginPromptModalProps) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, resetPassword } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,9 +28,14 @@ export const LoginPromptModal = ({ isOpen, onClose, gameName }: LoginPromptModal
 
     setIsLoading(true);
     try {
-      const result = isLogin 
-        ? await signIn(email, password)
-        : await signUp(email, password);
+      let result;
+      if (isPasswordReset) {
+        result = await resetPassword(email);
+      } else {
+        result = isLogin 
+          ? await signIn(email, password)
+          : await signUp(email, password);
+      }
       
       if (!result.error) {
         onClose();
@@ -47,6 +53,7 @@ export const LoginPromptModal = ({ isOpen, onClose, gameName }: LoginPromptModal
     setEmail('');
     setPassword('');
     setIsLoading(false);
+    setIsPasswordReset(false);
   };
 
   const handleClose = () => {
@@ -59,13 +66,16 @@ export const LoginPromptModal = ({ isOpen, onClose, gameName }: LoginPromptModal
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center text-xl font-bold">
-            {gameName ? `${gameName} spielen` : 'Anmeldung erforderlich'}
+            {isPasswordReset ? 'Passwort zurücksetzen' : (gameName ? `${gameName} spielen` : 'Anmeldung erforderlich')}
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
           <p className="text-center text-muted-foreground">
-            Du musst angemeldet sein, um Spiele zu spielen.
+            {isPasswordReset 
+              ? 'Gib deine E-Mail-Adresse ein, um ein neues Passwort anzufordern.'
+              : 'Du musst angemeldet sein, um Spiele zu spielen.'
+            }
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -79,39 +89,66 @@ export const LoginPromptModal = ({ isOpen, onClose, gameName }: LoginPromptModal
               />
             </div>
             
-            <div>
-              <Input
-                type="password"
-                placeholder="Passwort"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+            {!isPasswordReset && (
+              <div>
+                <Input
+                  type="password"
+                  placeholder="Passwort"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            )}
 
             <Button 
               type="submit" 
               className="w-full"
               disabled={isLoading}
             >
-              {isLoading ? 'Lädt...' : isLogin ? 'Anmelden' : 'Registrieren'}
+              {isLoading ? 'Lädt...' : (isPasswordReset ? 'E-Mail senden' : (isLogin ? 'Anmelden' : 'Registrieren'))}
             </Button>
           </form>
 
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => {
-                setIsLogin(!isLogin);
-                resetForm();
-              }}
-              className="text-sm text-primary hover:underline"
-            >
-              {isLogin 
-                ? 'Noch kein Account? Jetzt registrieren' 
-                : 'Bereits registriert? Anmelden'
-              }
-            </button>
+          <div className="text-center space-y-2">
+            {!isPasswordReset && (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLogin(!isLogin);
+                  resetForm();
+                }}
+                className="block text-sm text-primary hover:underline mx-auto"
+              >
+                {isLogin 
+                  ? 'Noch kein Account? Jetzt registrieren' 
+                  : 'Bereits registriert? Anmelden'
+                }
+              </button>
+            )}
+            
+            {isLogin && !isPasswordReset && (
+              <button
+                type="button"
+                onClick={() => setIsPasswordReset(true)}
+                className="block text-sm text-primary hover:underline mx-auto"
+              >
+                Passwort vergessen?
+              </button>
+            )}
+            
+            {isPasswordReset && (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsPasswordReset(false);
+                  setIsLogin(true);
+                }}
+                className="block text-sm text-primary hover:underline mx-auto"
+              >
+                Zurück zur Anmeldung
+              </button>
+            )}
           </div>
         </div>
       </DialogContent>
