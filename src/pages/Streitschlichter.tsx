@@ -95,9 +95,15 @@ const Streitschlichter = () => {
   };
 
   const handleNextQuestion = () => {
-    setQuestionCount(prev => prev + 1);
+    const newQuestionCount = questionCount + 1;
+    setQuestionCount(newQuestionCount);
     setShowFeedback(false);
-    loadConflictScenario();
+    
+    if (newQuestionCount >= maxQuestions) {
+      setGameCompleted(true);
+    } else {
+      loadConflictScenario();
+    }
   };
 
   const resetGame = () => {
