@@ -8,11 +8,15 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { Lock, Star } from "lucide-react";
 import { usePremiumGamePurchase } from "@/hooks/usePremiumGamePurchase";
+import { LoginPromptModal } from "@/components/LoginPromptModal";
+import { useState } from "react";
 
 const Mindset = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { purchasePremiumGame } = usePremiumGamePurchase();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<string>('');
   const isLoggedIn = !!user;
   const displayName = user?.email?.split('@')[0] || "";
 
@@ -177,7 +181,10 @@ const Mindset = () => {
                   key={index}
                   className={`p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card relative ${!game.isFree ? 'opacity-75' : ''}`}
                   onClick={() => {
-                    if (game.isFree) {
+                    if (!isLoggedIn) {
+                      setSelectedGame(game.title);
+                      setShowLoginModal(true);
+                    } else if (game.isFree) {
                       navigate(game.route);
                     } else {
                       purchasePremiumGame('mindset');
@@ -221,6 +228,12 @@ const Mindset = () => {
           </div>
         </section>
       </main>
+
+      <LoginPromptModal 
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        gameName={selectedGame}
+      />
     </div>
   );
 };

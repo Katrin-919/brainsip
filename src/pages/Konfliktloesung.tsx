@@ -5,11 +5,15 @@ import { Button } from "@/components/ui/button";
 import { FerdyHeader } from "@/components/FerdyHeader";
 import { Loader2, MessageSquare, Ear, Handshake, Lock, Star } from "lucide-react";
 import { usePremiumGamePurchase } from "@/hooks/usePremiumGamePurchase";
+import { LoginPromptModal } from "@/components/LoginPromptModal";
+import { useState } from "react";
 
 const Konfliktloesung = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { purchasePremiumGame } = usePremiumGamePurchase();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<string>('');
 
   if (loading) {
     return (
@@ -179,7 +183,10 @@ const Konfliktloesung = () => {
                   key={index}
                   className={`p-6 text-center cursor-pointer hover:scale-105 transition-all duration-300 ferdy-shadow-card relative ${!game.isFree ? 'opacity-75' : ''}`}
                   onClick={() => {
-                    if (game.isFree) {
+                    if (!user) {
+                      setSelectedGame(game.title);
+                      setShowLoginModal(true);
+                    } else if (game.isFree) {
                       navigate(game.route);
                     } else {
                       purchasePremiumGame('conflict_resolution');
@@ -223,6 +230,12 @@ const Konfliktloesung = () => {
           </div>
         </section>
       </main>
+
+      <LoginPromptModal 
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        gameName={selectedGame}
+      />
     </div>
   );
 };
