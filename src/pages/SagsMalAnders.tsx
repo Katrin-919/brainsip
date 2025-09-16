@@ -6,10 +6,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
+import { useGameProgress } from '@/hooks/useGameProgress';
 
 export default function SagsMalAnders() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { completeGame } = useGameProgress();
   const [badSentence, setBadSentence] = useState<string>('Lade...');
   const [userInput, setUserInput] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -67,7 +69,23 @@ export default function SagsMalAnders() {
         console.error('Error checking rewrite:', error);
         setPopupMessage('Technischer Fehler. Bitte versuche es erneut.');
       } else {
-        setPopupMessage(data?.feedback || 'Fehler bei der Bewertung.');
+        // Check if the rewrite was successful and award points
+        if (data?.isImproved && user) {
+          const gameResult = await completeGame({
+            game_name: "Sag's mal anders",
+            game_category: "communication", 
+            score: 80,
+            success: true
+          });
+          
+          if (gameResult.pointsEarned > 0) {
+            setPopupMessage(`${data?.feedback || 'Sehr gut!'} Du hast ${gameResult.pointsEarned} Punkte verdient!`);
+          } else {
+            setPopupMessage(data?.feedback || 'Sehr gut!');
+          }
+        } else {
+          setPopupMessage(data?.feedback || 'Fehler bei der Bewertung.');
+        }
       }
     } catch (error) {
       console.error('Error:', error);

@@ -6,10 +6,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
+import { useGameProgress } from '@/hooks/useGameProgress';
 
 export default function IchBotschaften() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { completeGame } = useGameProgress();
   const [accusingSentence, setAccusingSentence] = useState<string>('Lade Satz...');
   const [userInput, setUserInput] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -67,6 +69,15 @@ export default function IchBotschaften() {
         console.error('Error checking rewrite:', error);
         setPopupMessage('Technischer Fehler. Bitte versuche es erneut.');
       } else {
+        // Check if the rewrite was successful and award points
+        if (data?.isIMessage && user) {
+          completeGame({
+            game_name: "Ich-Botschaften",
+            game_category: "conflict_resolution",
+            score: 85,
+            success: true
+          });
+        }
         setPopupMessage(data?.feedback || 'Fehler bei der Bewertung.');
       }
     } catch (error) {

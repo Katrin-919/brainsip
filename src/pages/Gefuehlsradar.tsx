@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FerdyHeader } from "@/components/FerdyHeader";
 import { Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useGameProgress } from "@/hooks/useGameProgress";
 
 interface Scenario {
   text: string;
@@ -17,6 +18,7 @@ interface Scenario {
 const Gefuehlsradar = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { completeGame } = useGameProgress();
   const [scenario, setScenario] = useState<Scenario | null>(null);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -77,6 +79,15 @@ const Gefuehlsradar = () => {
     
     if (wasCorrect) {
       if (currentQuestion >= maxQuestions) {
+        // Game completed - award points
+        if (user) {
+          completeGame({
+            game_name: "Gefühlsradar",
+            game_category: "emotional_intelligence",
+            score: Math.round((currentQuestion / maxQuestions) * 100),
+            success: true
+          });
+        }
         return;
       }
       setCurrentQuestion(prev => prev + 1);

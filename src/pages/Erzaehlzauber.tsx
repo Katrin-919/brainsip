@@ -7,11 +7,13 @@ import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useGameProgress } from "@/hooks/useGameProgress";
 
 const Erzaehlzauber = () => {
   const { user, loading } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { completeGame } = useGameProgress();
   const isLoggedIn = !!user;
   const displayName = user?.email?.split('@')[0] || "";
 
@@ -80,6 +82,16 @@ const Erzaehlzauber = () => {
     
     if (wordCount >= 50 && usedTerms === 3) {
       message += " 🎉 Top! Mindestlänge erreicht & alle Begriffe eingebaut.";
+      
+      // Award points for successful completion
+      if (user) {
+        completeGame({
+          game_name: "Erzählzauber",
+          game_category: "communication",
+          score: 100,
+          success: true
+        });
+      }
     } else if (usedTerms < 3) {
       message += " – baue bitte alle drei Begriffe ein.";
     } else if (wordCount < 50) {

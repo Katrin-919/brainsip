@@ -8,11 +8,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useGameProgress } from "@/hooks/useGameProgress";
 
 const SumUp = () => {
   const { user, loading } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { completeGame } = useGameProgress();
   const [userInput, setUserInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -60,11 +62,29 @@ const SumUp = () => {
       }
 
       if (data?.fixedMindsetCorrect && data?.growthMindsetCorrect && data?.isOnTopic) {
-        toast({
-          title: "Sehr gut!",
-          description: data.feedback || "Deine Eingabe ist gültig und wurde erfolgreich übermittelt.",
-          variant: "default",
-        });
+        // Complete the game and award points
+        if (user) {
+          const gameResult = await completeGame({
+            game_name: "SumUp - Mindset Zusammenfassung",
+            game_category: "mindset",
+            score: 100,
+            success: true
+          });
+          
+          if (gameResult.pointsEarned > 0) {
+            toast({
+              title: "Sehr gut!",
+              description: `${data.feedback || "Deine Eingabe ist gültig und wurde erfolgreich übermittelt."} Du hast ${gameResult.pointsEarned} Punkte verdient!`,
+              variant: "default",
+            });
+          }
+        } else {
+          toast({
+            title: "Sehr gut!",
+            description: data.feedback || "Deine Eingabe ist gültig und wurde erfolgreich übermittelt.",
+            variant: "default",
+          });
+        }
         setUserInput("");
       } else {
         toast({

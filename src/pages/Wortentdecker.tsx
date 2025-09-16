@@ -6,8 +6,12 @@ import { ArrowLeft, RotateCcw } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { FerdyHeader } from "@/components/FerdyHeader";
+import { useAuth } from "@/hooks/useAuth";
+import { useGameProgress } from "@/hooks/useGameProgress";
 
 const Wortentdecker = () => {
+  const { user } = useAuth();
+  const { completeGame } = useGameProgress();
   const [generatedWord, setGeneratedWord] = useState<string>("");
   const [alternativeUses, setAlternativeUses] = useState<string>("");
   const [result, setResult] = useState<string>("");
@@ -50,6 +54,16 @@ const Wortentdecker = () => {
     
     if (count >= 15) {
       resultText += " 🎉 BONUSPUNKTE! Super kreativ!";
+      
+      // Award points for creative thinking
+      if (user) {
+        completeGame({
+          game_name: "Wortentdecker",
+          game_category: "problem_solving",
+          score: Math.min(100, count * 5), // 5 points per idea, max 100
+          success: true
+        });
+      }
     }
     
     setResult(resultText);

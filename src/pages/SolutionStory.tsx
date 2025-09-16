@@ -6,10 +6,12 @@ import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useGameProgress } from "@/hooks/useGameProgress";
 
 const SolutionStory = () => {
   const { user, loading } = useAuth();
   const { toast } = useToast();
+  const { completeGame } = useGameProgress();
   const [question, setQuestion] = useState("Klicke auf \"Aufgabe generieren\", um zu starten.");
   const [userAnswer, setUserAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -91,6 +93,17 @@ const SolutionStory = () => {
     if (gotIt) {
       const newCorrectAnswers = correctAnswers + 1;
       setCorrectAnswers(newCorrectAnswers);
+      
+      // Award points for correct answer
+      if (user) {
+        completeGame({
+          game_name: "Solution Story",
+          game_category: "problem_solving",
+          score: 80,
+          success: true
+        });
+      }
+      
       toast({
         title: "Richtig!",
         description: "Gute Arbeit!",
