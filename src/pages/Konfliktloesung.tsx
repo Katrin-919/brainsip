@@ -64,7 +64,7 @@ const Konfliktloesung = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <FerdyHeader />
+      <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
       
       <main className="mt-20">
         {/* Hero Section */}

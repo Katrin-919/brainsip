@@ -229,7 +229,7 @@ const Profile = () => {
   if (loading || loadingProfile) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
-        <FerdyHeader />
+        <FerdyHeader isLoggedIn={!!user} displayName={user?.email?.split('@')[0] || ""} />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-lg">Lädt...</div>
         </div>
@@ -240,7 +240,7 @@ const Profile = () => {
   if (!profile) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
-        <FerdyHeader />
+        <FerdyHeader isLoggedIn={!!user} displayName={user?.email?.split('@')[0] || ""} />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-lg">Profil nicht gefunden</div>
         </div>
@@ -252,7 +252,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
-      <FerdyHeader />
+      <FerdyHeader isLoggedIn={!!user} displayName={user?.email?.split('@')[0] || ""} />
       
       <div className="container mx-auto px-4 pt-24 pb-8 max-w-4xl">
         <div className="text-center mb-8">

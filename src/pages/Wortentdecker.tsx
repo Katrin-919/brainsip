@@ -12,6 +12,8 @@ import { useGameProgress } from "@/hooks/useGameProgress";
 const Wortentdecker = () => {
   const { user } = useAuth();
   const { completeGame } = useGameProgress();
+  const isLoggedIn = !!user;
+  const displayName = user?.email?.split('@')[0] || "";
   const [generatedWord, setGeneratedWord] = useState<string>("");
   const [alternativeUses, setAlternativeUses] = useState<string>("");
   const [result, setResult] = useState<string>("");
@@ -71,7 +73,7 @@ const Wortentdecker = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
-      <FerdyHeader />
+      <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
       <div className="container mx-auto px-4 py-8 mt-20">
         <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           {/* Left Column - Instructions */}

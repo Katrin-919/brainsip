@@ -12,6 +12,8 @@ export default function IchBotschaften() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { completeGame } = useGameProgress();
+  const isLoggedIn = !!user;
+  const displayName = user?.email?.split('@')[0] || "";
   const [accusingSentence, setAccusingSentence] = useState<string>('Lade Satz...');
   const [userInput, setUserInput] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -97,7 +99,7 @@ export default function IchBotschaften() {
 
   return (
     <div className="min-h-screen bg-background">
-      <FerdyHeader />
+      <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
       
       <main className="mt-20 px-4 md:px-12 py-8">
         <div className="max-w-7xl mx-auto">
