@@ -375,9 +375,9 @@ const Profile = () => {
             </CardHeader>
             <CardContent>
               <img 
-                src={`${supabase.storage.from('images').getPublicUrl('ferdy_goodbye.png').data.publicUrl}`}
-                alt="Ferdi der Fuchs"
-                className="w-24 h-24 mx-auto mb-3 rounded-full object-cover"
+                src="/src/assets/ferdy-child-partner.png"
+                alt="Ferdi der Fuchs mit Kind"
+                className="w-32 h-32 mx-auto mb-3 rounded-lg object-cover"
               />
               <p className="text-sm text-muted-foreground">
                 Hallo! Ich bin Ferdi und begleite dich auf deiner Lernreise!
