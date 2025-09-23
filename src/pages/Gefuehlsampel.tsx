@@ -9,9 +9,12 @@ import { toast } from "sonner";
 
 interface Situation {
   text: string;
-  correctColor: 'green' | 'yellow' | 'red';
-  explanation: string;
-  strategy?: string;
+  responses: {
+    [key in 'green' | 'yellow' | 'red']: {
+      feedback: string;
+      strategy: string;
+    };
+  };
 }
 
 const Gefuehlsampel = () => {
@@ -31,39 +34,105 @@ const Gefuehlsampel = () => {
   const situations: Situation[] = [
     {
       text: "Jemand nimmt dir dein Lieblingsspielzeug weg",
-      correctColor: "red",
-      explanation: "Das macht dich sicher wütend oder traurig - das ist völlig normal!",
-      strategy: "Atme 3-mal tief ein und aus. Dann kannst du ruhig sagen: 'Das ist mein Spielzeug, bitte gib es mir zurück.'"
+      responses: {
+        green: {
+          feedback: "Toll, dass du ruhig bleibst! Das zeigt, dass du sehr stark bist.",
+          strategy: "Bleib ruhig und erkläre freundlich, dass es dein Spielzeug ist."
+        },
+        yellow: {
+          feedback: "Es ist völlig normal, aufgeregt zu werden! Das zeigt, dass dir das Spielzeug wichtig ist.",
+          strategy: "Atme einmal tief durch und erkläre dann ruhig, dass es dein Spielzeug ist."
+        },
+        red: {
+          feedback: "Wut ist ein völlig normales Gefühl! Es zeigt, dass dir etwas wichtig ist.",
+          strategy: "Atme 3-mal tief ein und aus. Dann kannst du ruhig sagen: 'Das ist mein Spielzeug, bitte gib es mir zurück.'"
+        }
+      }
     },
     {
       text: "Du bekommst ein tolles Geschenk",
-      correctColor: "green",
-      explanation: "Geschenke machen uns glücklich und ruhig - wie schön!",
-      strategy: "Genieße dieses schöne Gefühl und vergiss nicht, 'Danke' zu sagen."
+      responses: {
+        green: {
+          feedback: "Wie schön, dass du dich ruhig freust! Das ist ein wunderbares Gefühl.",
+          strategy: "Genieße dieses schöne Gefühl und vergiss nicht, 'Danke' zu sagen."
+        },
+        yellow: {
+          feedback: "Aufregung bei Geschenken ist toll! Das zeigt, wie sehr du dich freust.",
+          strategy: "Lass die Aufregung zu, aber vergiss nicht, dich zu bedanken!"
+        },
+        red: {
+          feedback: "Manchmal kann Freude auch sehr überwältigend sein - das ist okay!",
+          strategy: "Atme tief durch und lass die Freude langsam wirken. Vergiss nicht, 'Danke' zu sagen."
+        }
+      }
     },
     {
       text: "Morgen schreibst du eine wichtige Klassenarbeit",
-      correctColor: "yellow",
-      explanation: "Es ist normal, vor Tests etwas aufgeregt zu sein.",
-      strategy: "Bereite dich gut vor, dann atmest du tief durch und sagst dir: 'Ich schaffe das!'"
+      responses: {
+        green: {
+          feedback: "Super, dass du so ruhig bist! Das zeigt, dass du gut vorbereitet bist.",
+          strategy: "Bleib entspannt und vertraue auf dein Können."
+        },
+        yellow: {
+          feedback: "Ein bisschen Aufregung vor Tests ist völlig normal und kann sogar helfen!",
+          strategy: "Bereite dich gut vor, dann atmest du tief durch und sagst dir: 'Ich schaffe das!'"
+        },
+        red: {
+          feedback: "Nervosität vor Tests kennt jeder! Das zeigt, dass dir gute Noten wichtig sind.",
+          strategy: "Atme tief durch, bereite dich gut vor und denk daran: Du hast schon viel gelernt!"
+        }
+      }
     },
     {
       text: "Dein bester Freund ist heute krank und kann nicht spielen",
-      correctColor: "yellow",
-      explanation: "Enttäuschung macht uns oft unruhig und traurig.",
-      strategy: "Du kannst deinem Freund eine schöne Nachricht schreiben oder malen ihm ein Bild."
+      responses: {
+        green: {
+          feedback: "Schön, dass du so verständnisvoll bist! Das zeigt, was für ein guter Freund du bist.",
+          strategy: "Du kannst deinem Freund eine schöne Nachricht schreiben oder ihm ein Bild malen."
+        },
+        yellow: {
+          feedback: "Enttäuschung ist völlig normal! Das zeigt, wie gerne du mit deinem Freund spielst.",
+          strategy: "Du kannst deinem Freund eine schöne Nachricht schreiben oder ihm ein Bild malen."
+        },
+        red: {
+          feedback: "Traurigkeit ist okay! Das zeigt, wie wichtig dir dein Freund ist.",
+          strategy: "Lass die Traurigkeit zu, aber denk auch daran: Bald ist dein Freund wieder gesund!"
+        }
+      }
     },
     {
       text: "Du hilfst deiner Oma beim Kochen",
-      correctColor: "green",
-      explanation: "Anderen zu helfen macht uns glücklich und zufrieden.",
-      strategy: "Sei stolz auf dich - du hilfst gerne und das ist wunderbar!"
+      responses: {
+        green: {
+          feedback: "Wie wunderbar! Helfen macht uns glücklich und ruhig.",
+          strategy: "Sei stolz auf dich - du hilfst gerne und das ist wunderbar!"
+        },
+        yellow: {
+          feedback: "Aufregung beim Helfen ist toll! Das zeigt, wie gerne du hilfst.",
+          strategy: "Lass die Aufregung zu - es ist schön zu helfen!"
+        },
+        red: {
+          feedback: "Manchmal kann Kochen auch stressig sein - das ist völlig normal!",
+          strategy: "Atme durch und denk daran: Du hilfst gerade jemandem, den du lieb hast!"
+        }
+      }
     },
     {
       text: "Jemand ärgert dich in der Pause",
-      correctColor: "red",
-      explanation: "Ärgern macht uns wütend und manchmal auch traurig.",
-      strategy: "Gehe weg von der Person, atme tief durch und hole dir Hilfe von einem Erwachsenen."
+      responses: {
+        green: {
+          feedback: "Toll, dass du so ruhig bleibst! Das zeigt echte Stärke.",
+          strategy: "Bleib so ruhig und gehe weg von der Person, wenn es dir nicht gut tut."
+        },
+        yellow: {
+          feedback: "Unruhe beim Ärgern ist normal! Das zeigt, dass du merkst, wenn etwas nicht okay ist.",
+          strategy: "Gehe weg von der Person und hole dir Hilfe von einem Erwachsenen."
+        },
+        red: {
+          feedback: "Wut beim Geärgert-werden ist völlig normal! Das zeigt, dass du dich selbst schützen willst.",
+          strategy: "Gehe weg von der Person, atme tief durch und hole dir Hilfe von einem Erwachsenen."
+        }
+      }
     }
   ];
 
@@ -94,12 +163,9 @@ const Gefuehlsampel = () => {
     setSelectedColor(color);
     setShowResult(true);
     
-    if (color === currentSituation?.correctColor) {
-      setScore(score + 20);
-      toast.success("Richtig erkannt! 🎉");
-    } else {
-      toast.info("Nicht ganz richtig, aber gut versucht! 💪");
-    }
+    // Every answer gets points for emotional awareness
+    setScore(score + 20);
+    toast.success("Gut erkannt! Jedes Gefühl ist wichtig! 🎉");
     
     setTimeout(() => {
       setQuestionCount(questionCount + 1);
@@ -109,7 +175,7 @@ const Gefuehlsampel = () => {
 
   const completeGameLogic = async () => {
     setGameCompleted(true);
-    const success = score >= 60; // 3 von 5 richtig
+    const success = true; // Always success - it's about awareness, not correctness
     
     const result = await completeGame({
       game_name: 'Gefühlsampel',
@@ -203,8 +269,6 @@ const Gefuehlsampel = () => {
                   {['red', 'yellow', 'green'].map((color) => {
                     const colorInfo = getColorInfo(color);
                     const isSelected = selectedColor === color;
-                    const isCorrect = showResult && color === currentSituation.correctColor;
-                    const isWrong = showResult && isSelected && color !== currentSituation.correctColor;
                     
                     return (
                       <Button
@@ -215,8 +279,6 @@ const Gefuehlsampel = () => {
                           w-32 h-32 rounded-full text-sm font-bold transition-all duration-300 p-2
                           ${colorInfo.bgColor} ${colorInfo.textColor}
                           ${isSelected ? 'ring-4 ring-blue-400 scale-110' : ''}
-                          ${isCorrect ? 'ring-4 ring-green-400 animate-pulse' : ''}
-                          ${isWrong ? 'ring-4 ring-red-400' : ''}
                           hover:scale-105 disabled:cursor-not-allowed
                         `}
                       >
@@ -231,21 +293,19 @@ const Gefuehlsampel = () => {
               </div>
 
               {/* Result */}
-              {showResult && (
+              {showResult && selectedColor && currentSituation && (
                 <Card className="p-6 bg-muted/50">
                   <CardContent className="text-center space-y-4">
                     <h3 className="text-lg font-bold">
-                      {selectedColor === currentSituation.correctColor ? "Richtig! 🎉" : "Gut versucht! 💪"}
+                      Toll! 🎉
                     </h3>
                     <p className="text-muted-foreground">
-                      {currentSituation.explanation}
+                      {currentSituation.responses[selectedColor as 'green' | 'yellow' | 'red'].feedback}
                     </p>
-                    {currentSituation.strategy && (
-                      <div className="bg-primary/10 p-4 rounded-lg">
-                        <h4 className="font-bold text-primary mb-2">💡 Ferdy's Tipp:</h4>
-                        <p className="text-sm">{currentSituation.strategy}</p>
-                      </div>
-                    )}
+                    <div className="bg-primary/10 p-4 rounded-lg">
+                      <h4 className="font-bold text-primary mb-2">💡 Ferdy's Tipp:</h4>
+                      <p className="text-sm">{currentSituation.responses[selectedColor as 'green' | 'yellow' | 'red'].strategy}</p>
+                    </div>
                   </CardContent>
                 </Card>
               )}
@@ -255,11 +315,9 @@ const Gefuehlsampel = () => {
               <CardContent className="space-y-6">
                 <h2 className="text-2xl font-bold">Spiel beendet! 🎉</h2>
                 <div className="text-lg">
-                  <p>Deine Punktzahl: <span className="font-bold text-primary">{score} von 100</span></p>
+                  <p>Du hast <span className="font-bold text-primary">{score} Punkte</span> gesammelt!</p>
                   <p className="mt-2">
-                    {score >= 80 ? "Fantastisch! Du kennst deine Gefühle sehr gut! 🌟" :
-                     score >= 60 ? "Gut gemacht! Du verstehst deine Emotionen! 👍" :
-                     "Das war ein guter Anfang! Übung macht den Meister! 💪"}
+                    "Fantastisch! Du hast deine Gefühle erkannt und gelernt, wie du mit ihnen umgehen kannst! 🌟 Jedes Gefühl ist wichtig und richtig."
                   </p>
                 </div>
                 <div className="flex gap-4 justify-center">
