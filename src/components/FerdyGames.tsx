@@ -30,10 +30,10 @@ const games = [
   {
     id: 'emotionale-intelligenz',
     title: 'Emotionale Intelligenz',
-    description: 'Modul befindet sich im Aufbau',
+    description: 'Lerne deine Gefühle zu verstehen und zu regulieren!',
     image: 'https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/emotional.png',
-    available: false,
-    route: '#'
+    available: true,
+    route: '/emotionale-intelligenz'
   }
 ];
 
