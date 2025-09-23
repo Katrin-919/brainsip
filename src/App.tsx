@@ -21,6 +21,8 @@ import PaareFinden from "./pages/PaareFinden";
 import Mindshift from "./pages/Mindshift";
 import Mindmatch from "./pages/Mindmatch";
 import Gefuehlsradar from "./pages/Gefuehlsradar";
+import EmotionaleIntelligenz from "./pages/EmotionaleIntelligenz";
+import Gefuehlsampel from "./pages/Gefuehlsampel";
 import Profile from "./pages/Profile";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import NotFound from "./pages/NotFound";
@@ -51,6 +53,8 @@ const App = () => (
           <Route path="/mindshift" element={<Mindshift />} />
           <Route path="/mindmatch" element={<Mindmatch />} />
           <Route path="/gefuehlsradar" element={<Gefuehlsradar />} />
+          <Route path="/emotionale-intelligenz" element={<EmotionaleIntelligenz />} />
+          <Route path="/gefuehlsampel" element={<Gefuehlsampel />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
