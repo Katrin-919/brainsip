@@ -212,7 +212,7 @@ const Gefuehlsampel = () => {
                         onClick={() => handleColorSelect(color)}
                         disabled={showResult}
                         className={`
-                          w-24 h-24 rounded-full text-lg font-bold transition-all duration-300
+                          w-32 h-32 rounded-full text-sm font-bold transition-all duration-300 p-2
                           ${colorInfo.bgColor} ${colorInfo.textColor}
                           ${isSelected ? 'ring-4 ring-blue-400 scale-110' : ''}
                           ${isCorrect ? 'ring-4 ring-green-400 animate-pulse' : ''}
@@ -220,9 +220,9 @@ const Gefuehlsampel = () => {
                           hover:scale-105 disabled:cursor-not-allowed
                         `}
                       >
-                        <div className="text-center">
-                          <div className="text-sm">{colorInfo.name}</div>
-                          <div className="text-xs">{colorInfo.meaning}</div>
+                        <div className="text-center leading-tight">
+                          <div className="font-bold text-base">{colorInfo.name}</div>
+                          <div className="text-xs mt-1 whitespace-normal">{colorInfo.meaning}</div>
                         </div>
                       </Button>
                     );
