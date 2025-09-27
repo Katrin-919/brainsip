@@ -156,31 +156,45 @@ const Gefuehlsradar = () => {
   }
 
   const handleDragStart = (e: React.DragEvent, partId: string) => {
+    console.log('Drag started for:', partId);
     setDraggedPart(partId);
     e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', partId);
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
-    if (!draggedPart) return;
+    console.log('Drop event triggered');
+    
+    if (!draggedPart) {
+      console.log('No dragged part found');
+      return;
+    }
 
     const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
+    if (!rect) {
+      console.log('No canvas rect found');
+      return;
+    }
 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+    console.log('Drop position:', x, y);
 
     setFaceParts(prev => prev.map(part => {
       if (part.id === draggedPart) {
-        // Check if close to correct position (within 60px)
+        // Check if close to correct position (within 80px for easier targeting)
         const distanceX = Math.abs(x - part.correctX);
         const distanceY = Math.abs(y - part.correctY);
+        console.log(`Distance for ${part.id}:`, distanceX, distanceY);
         
-        if (distanceX < 60 && distanceY < 60) {
+        if (distanceX < 80 && distanceY < 80) {
           // Snap to correct position
+          console.log(`Snapping ${part.id} to correct position`);
           return { ...part, x: part.correctX, y: part.correctY, placed: true };
         } else {
           // Move to drop position
+          console.log(`Moving ${part.id} to drop position`);
           return { ...part, x, y };
         }
       }
@@ -192,6 +206,11 @@ const Gefuehlsradar = () => {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
+  };
+
+  const handleDragEnd = (e: React.DragEvent) => {
+    console.log('Drag ended');
+    setDraggedPart(null);
   };
 
   const handleAnswerSelect = (answer: string) => {
@@ -383,6 +402,7 @@ const Gefuehlsradar = () => {
                           }}
                           draggable={!part.placed}
                           onDragStart={(e) => handleDragStart(e, part.id)}
+                          onDragEnd={handleDragEnd}
                         >
                           <div className={`text-3xl p-2 rounded-lg bg-white/80 shadow-lg border-2 ${
                             part.placed ? 'border-green-500 bg-green-50' : 'border-gray-300'
