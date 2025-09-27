@@ -78,7 +78,7 @@ const EmotionaleIntelligenz = () => {
                   <Button 
                     onClick={() => scrollToSection('intro')}
                     size="lg"
-                    className="bg-purple-500 hover:bg-purple-600 text-white rounded-full px-6 py-4 text-base font-bold hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-4 text-base font-bold hover:scale-105 hover:-translate-y-1 transition-all duration-300"
                     style={{ boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)' }}
                   >
                     Jetzt entdecken
