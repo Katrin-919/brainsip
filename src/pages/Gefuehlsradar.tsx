@@ -22,57 +22,152 @@ interface Emotion {
   name: string;
   description: string;
   color: string;
-  parts: {
-    eyes: string;
-    mouth: string;
-    eyebrows: string;
-  };
   feedback: string;
 }
+
+// SVG Face Parts Components
+const EyesComponent = ({ emotion }: { emotion: string }) => {
+  switch (emotion) {
+    case "Freude":
+      return (
+        <svg width="50" height="25" viewBox="0 0 50 25">
+          <circle cx="12" cy="12" r="8" fill="#4A5568" />
+          <circle cx="38" cy="12" r="8" fill="#4A5568" />
+          <circle cx="12" cy="12" r="3" fill="white" />
+          <circle cx="38" cy="12" r="3" fill="white" />
+          <path d="M 4 8 Q 12 4 20 8" stroke="#2D3748" strokeWidth="2" fill="none" />
+          <path d="M 30 8 Q 38 4 46 8" stroke="#2D3748" strokeWidth="2" fill="none" />
+        </svg>
+      );
+    case "Trauer":
+      return (
+        <svg width="50" height="30" viewBox="0 0 50 30">
+          <circle cx="12" cy="15" r="8" fill="#4A5568" />
+          <circle cx="38" cy="15" r="8" fill="#4A5568" />
+          <circle cx="12" cy="15" r="3" fill="white" />
+          <circle cx="38" cy="15" r="3" fill="white" />
+          <path d="M 12 23 L 14 28" stroke="#6B9BD2" strokeWidth="2" />
+          <path d="M 38 23 L 40 28" stroke="#6B9BD2" strokeWidth="2" />
+        </svg>
+      );
+    case "Wut":
+      return (
+        <svg width="50" height="25" viewBox="0 0 50 25">
+          <circle cx="12" cy="12" r="6" fill="#E53E3E" />
+          <circle cx="38" cy="12" r="6" fill="#E53E3E" />
+          <circle cx="12" cy="12" r="2" fill="white" />
+          <circle cx="38" cy="12" r="2" fill="white" />
+        </svg>
+      );
+    case "Überraschung":
+      return (
+        <svg width="50" height="30" viewBox="0 0 50 30">
+          <circle cx="12" cy="15" r="10" fill="#4A5568" />
+          <circle cx="38" cy="15" r="10" fill="#4A5568" />
+          <circle cx="12" cy="15" r="5" fill="white" />
+          <circle cx="38" cy="15" r="5" fill="white" />
+          <circle cx="12" cy="15" r="2" fill="black" />
+          <circle cx="38" cy="15" r="2" fill="black" />
+        </svg>
+      );
+    default:
+      return <div className="w-12 h-6 bg-gray-400 rounded"></div>;
+  }
+};
+
+const MouthComponent = ({ emotion }: { emotion: string }) => {
+  switch (emotion) {
+    case "Freude":
+      return (
+        <svg width="40" height="25" viewBox="0 0 40 25">
+          <path d="M 5 8 Q 20 20 35 8" stroke="#2D3748" strokeWidth="3" fill="none" />
+          <path d="M 8 10 Q 20 18 32 10" stroke="#E53E3E" strokeWidth="2" fill="#E53E3E" />
+        </svg>
+      );
+    case "Trauer":
+      return (
+        <svg width="30" height="20" viewBox="0 0 30 20">
+          <path d="M 5 15 Q 15 5 25 15" stroke="#2D3748" strokeWidth="3" fill="none" />
+        </svg>
+      );
+    case "Wut":
+      return (
+        <svg width="35" height="15" viewBox="0 0 35 15">
+          <path d="M 5 10 L 30 10" stroke="#2D3748" strokeWidth="4" />
+          <path d="M 8 6 L 15 10 L 8 14" stroke="#2D3748" strokeWidth="2" fill="none" />
+          <path d="M 27 6 L 20 10 L 27 14" stroke="#2D3748" strokeWidth="2" fill="none" />
+        </svg>
+      );
+    case "Überraschung":
+      return (
+        <svg width="25" height="30" viewBox="0 0 25 30">
+          <ellipse cx="12.5" cy="15" rx="10" ry="12" stroke="#2D3748" strokeWidth="3" fill="#2D3748" />
+          <ellipse cx="12.5" cy="15" rx="6" ry="8" fill="#E53E3E" />
+        </svg>
+      );
+    default:
+      return <div className="w-8 h-4 bg-gray-400 rounded"></div>;
+  }
+};
+
+const EyebrowsComponent = ({ emotion }: { emotion: string }) => {
+  switch (emotion) {
+    case "Freude":
+      return (
+        <svg width="60" height="15" viewBox="0 0 60 15">
+          <path d="M 5 12 Q 15 5 25 8" stroke="#8B4513" strokeWidth="3" fill="none" />
+          <path d="M 35 8 Q 45 5 55 12" stroke="#8B4513" strokeWidth="3" fill="none" />
+        </svg>
+      );
+    case "Trauer":
+      return (
+        <svg width="60" height="15" viewBox="0 0 60 15">
+          <path d="M 5 8 Q 15 12 25 10" stroke="#8B4513" strokeWidth="3" fill="none" />
+          <path d="M 35 10 Q 45 12 55 8" stroke="#8B4513" strokeWidth="3" fill="none" />
+        </svg>
+      );
+    case "Wut":
+      return (
+        <svg width="60" height="20" viewBox="0 0 60 20">
+          <path d="M 5 15 L 25 5" stroke="#8B4513" strokeWidth="4" />
+          <path d="M 35 5 L 55 15" stroke="#8B4513" strokeWidth="4" />
+        </svg>
+      );
+    case "Überraschung":
+      return (
+        <svg width="60" height="15" viewBox="0 0 60 15">
+          <path d="M 5 10 Q 15 3 25 5" stroke="#8B4513" strokeWidth="3" fill="none" />
+          <path d="M 35 5 Q 45 3 55 10" stroke="#8B4513" strokeWidth="3" fill="none" />
+        </svg>
+      );
+    default:
+      return <div className="w-12 h-3 bg-gray-400 rounded"></div>;
+  }
+};
 
 const emotions: Emotion[] = [
   {
     name: "Freude",
     description: "Ein fröhliches, glückliches Gefühl",
     color: "#FFD700",
-    parts: {
-      eyes: "😊",
-      mouth: "😄",
-      eyebrows: "😊"
-    },
     feedback: "Super! Das ist Freude! Das siehst du an den lachenden Augen und dem breiten Lächeln."
   },
   {
     name: "Trauer",
     description: "Ein trauriges, niedergeschlagenes Gefühl",
     color: "#87CEEB",
-    parts: {
-      eyes: "😢",
-      mouth: "😞",
-      eyebrows: "😔"
-    },
     feedback: "Richtig! Das ist Trauer. Die hängenden Mundwinkel und Tränen zeigen die Traurigkeit."
   },
   {
     name: "Wut",
     description: "Ein ärgerliches, zorniges Gefühl",
     color: "#FF6B6B",
-    parts: {
-      eyes: "😡",
-      mouth: "😠",
-      eyebrows: "😤"
-    },
     feedback: "Genau! Das ist Wut! Die zusammengezogenen Augenbrauen und der grimmige Mund zeigen Ärger."
   },
   {
     name: "Überraschung",
     description: "Ein erstauntes, überraschtes Gefühl",
     color: "#98FB98",
-    parts: {
-      eyes: "😮",
-      mouth: "😯",
-      eyebrows: "😲"
-    },
     feedback: "Perfekt! Das ist Überraschung! Die großen runden Augen und der offene Mund zeigen Erstaunen."
   }
 ];
@@ -94,45 +189,42 @@ const Gefuehlsradar = () => {
   const [draggedPart, setDraggedPart] = useState<string | null>(null);
   
   const canvasRef = useRef<HTMLDivElement>(null);
-  // Pointer-based drag fallback (works on touch and desktop)
   const pointerDragIdRef = useRef<string | null>(null);
   const pointerOffsetRef = useRef<{ dx: number; dy: number }>({ dx: 0, dy: 0 });
-
 
   // Initialize face parts for current emotion
   useEffect(() => {
     if (currentEmotion < emotions.length) {
-      const emotion = emotions[currentEmotion];
       const parts: FacePart[] = [
         {
           id: 'eyes',
           type: 'eyes',
-          emotion: emotion.name,
-          x: Math.random() * 200 + 50,
-          y: Math.random() * 100 + 400,
+          emotion: emotions[currentEmotion].name,
+          x: 50,
+          y: 400,
           placed: false,
-          correctX: 200,
+          correctX: 175,
           correctY: 120
         },
         {
           id: 'eyebrows',
           type: 'eyebrows',
-          emotion: emotion.name,
-          x: Math.random() * 200 + 350,
-          y: Math.random() * 100 + 400,
+          emotion: emotions[currentEmotion].name,
+          x: 350,
+          y: 400,
           placed: false,
-          correctX: 200,
+          correctX: 170,
           correctY: 80
         },
         {
           id: 'mouth',
           type: 'mouth',
-          emotion: emotion.name,
-          x: Math.random() * 200 + 650,
-          y: Math.random() * 100 + 400,
+          emotion: emotions[currentEmotion].name,
+          x: 650,
+          y: 400,
           placed: false,
-          correctX: 200,
-          correctY: 200
+          correctX: 190,
+          correctY: 180
         }
       ];
       setFaceParts(parts);
@@ -148,123 +240,20 @@ const Gefuehlsradar = () => {
     }
   }, [faceParts]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
-          <p className="text-muted-foreground">Lade...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const handleDragStart = (e: React.DragEvent, partId: string) => {
-    console.log('Drag started for:', partId);
-    setDraggedPart(partId);
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', partId);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    console.log('Drop event triggered');
-    
-    if (!draggedPart) {
-      console.log('No dragged part found');
-      return;
-    }
-
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) {
-      console.log('No canvas rect found');
-      return;
-    }
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    console.log('Drop position:', x, y);
-
-    setFaceParts(prev => prev.map(part => {
-      if (part.id === draggedPart) {
-        // Check if close to correct position (within 80px for easier targeting)
-        const distanceX = Math.abs(x - part.correctX);
-        const distanceY = Math.abs(y - part.correctY);
-        console.log(`Distance for ${part.id}:`, distanceX, distanceY);
-        
-        if (distanceX < 80 && distanceY < 80) {
-          // Snap to correct position
-          console.log(`Snapping ${part.id} to correct position`);
-          return { ...part, x: part.correctX, y: part.correctY, placed: true };
-        } else {
-          // Move to drop position
-          console.log(`Moving ${part.id} to drop position`);
-          return { ...part, x, y };
-        }
-      }
-      return part;
-    }));
-
-    setDraggedPart(null);
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
-  const handleDragEnd = (e: React.DragEvent) => {
-    console.log('Drag ended');
-    setDraggedPart(null);
-  };
-
   // Pointer/touch support
   const handlePointerDown = (e: React.PointerEvent, partId: string) => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     const part = faceParts.find(p => p.id === partId);
     if (!part || part.placed) return;
+    
+    e.preventDefault();
     pointerDragIdRef.current = partId;
     setDraggedPart(partId);
+    
     const pointerX = e.clientX - rect.left;
     const pointerY = e.clientY - rect.top;
     pointerOffsetRef.current = { dx: pointerX - part.x, dy: pointerY - part.y };
-  };
-
-  const handlePointerMove = (e: React.PointerEvent) => {
-    const draggingId = pointerDragIdRef.current;
-    if (!draggingId) return;
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = e.clientX - rect.left - pointerOffsetRef.current.dx;
-    const y = e.clientY - rect.top - pointerOffsetRef.current.dy;
-    setFaceParts(prev =>
-      prev.map(part =>
-        part.id === draggingId && !part.placed ? { ...part, x, y } : part
-      )
-    );
-  };
-
-  const handlePointerUp = (e: React.PointerEvent) => {
-    const draggingId = pointerDragIdRef.current;
-    pointerDragIdRef.current = null;
-    if (!draggingId) return;
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    // Snap logic (same threshold as HTML5 DnD)
-    setFaceParts(prev =>
-      prev.map(part => {
-        if (part.id !== draggingId) return part;
-        const distanceX = Math.abs(x - part.correctX);
-        const distanceY = Math.abs(y - part.correctY);
-        if (distanceX < 80 && distanceY < 80) {
-          return { ...part, x: part.correctX, y: part.correctY, placed: true };
-        }
-        return { ...part, x, y };
-      })
-    );
-    setDraggedPart(null);
   };
 
   // Global pointer events for reliable dragging
@@ -272,10 +261,13 @@ const Gefuehlsradar = () => {
     const handleMove = (e: PointerEvent) => {
       const draggingId = pointerDragIdRef.current;
       if (!draggingId) return;
+      
       const rect = canvasRef.current?.getBoundingClientRect();
       if (!rect) return;
-      const x = e.clientX - rect.left - pointerOffsetRef.current.dx;
-      const y = e.clientY - rect.top - pointerOffsetRef.current.dy;
+      
+      const x = Math.max(0, Math.min(rect.width - 80, e.clientX - rect.left - pointerOffsetRef.current.dx));
+      const y = Math.max(0, Math.min(rect.height - 80, e.clientY - rect.top - pointerOffsetRef.current.dy));
+      
       setFaceParts(prev => prev.map(part => (
         part.id === draggingId && !part.placed ? { ...part, x, y } : part
       )));
@@ -285,27 +277,34 @@ const Gefuehlsradar = () => {
       const draggingId = pointerDragIdRef.current;
       pointerDragIdRef.current = null;
       if (!draggingId) return;
+      
       const rect = canvasRef.current?.getBoundingClientRect();
       if (!rect) return;
+      
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
+      
       setFaceParts(prev => prev.map(part => {
         if (part.id !== draggingId) return part;
+        
         const distanceX = Math.abs(x - part.correctX);
         const distanceY = Math.abs(y - part.correctY);
-        if (distanceX < 80 && distanceY < 80) {
+        
+        if (distanceX < 60 && distanceY < 60) {
           return { ...part, x: part.correctX, y: part.correctY, placed: true };
         }
-        return { ...part, x, y };
+        return { ...part, x: Math.max(0, Math.min(rect.width - 80, x - pointerOffsetRef.current.dx)), y: Math.max(0, Math.min(rect.height - 80, y - pointerOffsetRef.current.dy)) };
       }));
+      
       setDraggedPart(null);
     };
 
-    window.addEventListener('pointermove', handleMove);
-    window.addEventListener('pointerup', handleUp);
+    document.addEventListener('pointermove', handleMove);
+    document.addEventListener('pointerup', handleUp);
+    
     return () => {
-      window.removeEventListener('pointermove', handleMove);
-      window.removeEventListener('pointerup', handleUp);
+      document.removeEventListener('pointermove', handleMove);
+      document.removeEventListener('pointerup', handleUp);
     };
   }, []);
 
@@ -327,7 +326,6 @@ const Gefuehlsradar = () => {
       setSelectedAnswer(null);
       setShowFeedback(false);
     } else {
-      // Game complete
       setGamePhase('complete');
       if (user) {
         completeGame({
@@ -345,6 +343,17 @@ const Gefuehlsradar = () => {
     const others = emotions.filter(e => e.name !== current).map(e => e.name);
     return [current, ...others.slice(0, 2)].sort(() => Math.random() - 0.5);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+          <p className="text-muted-foreground">Lade...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (gamePhase === 'complete') {
     return (
@@ -455,12 +464,6 @@ const Gefuehlsradar = () => {
                     <div 
                       ref={canvasRef}
                       className="relative bg-gradient-to-b from-blue-50 to-blue-100 rounded-2xl min-h-[500px] overflow-hidden touch-none select-none"
-                      style={{ 
-                        backgroundImage: `url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 300\"><circle cx=\"200\" cy=\"150\" r=\"80\" fill=\"%23FF8C42\" stroke=\"%23FF6B1A\" stroke-width=\"3\"/></svg>')`,
-                        backgroundSize: '400px 300px',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center 20px'
-                      }}
                     >
                       {/* Ferdy's base face */}
                       <div className="absolute inset-0 flex items-start justify-center pt-20">
@@ -474,10 +477,10 @@ const Gefuehlsradar = () => {
                             {/* Nose */}
                             <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
                             
-                            {/* Drop zones (invisible) */}
-                            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-12 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-10 h-6 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            {/* Drop zones (visible guides) */}
+                            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 -translate-y-1 w-12 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 -translate-y-1 w-16 h-4 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1 w-10 h-6 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
                           </div>
                         </div>
                       </div>
@@ -486,21 +489,30 @@ const Gefuehlsradar = () => {
                       {faceParts.map(part => (
                         <div
                           key={part.id}
-                          className={`absolute cursor-grab active:cursor-grabbing transition-all duration-300 ${
+                          className={`absolute cursor-grab active:cursor-grabbing transition-all duration-200 ${
                             part.placed ? 'scale-110' : 'hover:scale-105'
                           }`}
                           style={{
                             left: part.x,
                             top: part.y,
-                            transform: part.placed ? 'scale(1.1)' : 'scale(1)'
+                            transform: part.placed ? 'scale(1.1)' : 'scale(1)',
+                            zIndex: draggedPart === part.id ? 1000 : 1
                           }}
-                          draggable={false}
                           onPointerDown={(e) => handlePointerDown(e, part.id)}
                         >
-                          <div className={`text-3xl p-2 rounded-lg bg-white/80 shadow-lg border-2 ${
-                            part.placed ? 'border-green-500 bg-green-50' : 'border-gray-300'
-                          }`}>
-                            {emotions[currentEmotion].parts[part.type]}
+                          <div className={`p-3 rounded-lg bg-white/90 shadow-lg border-2 transition-all ${
+                            draggedPart === part.id ? 'border-primary border-4 shadow-xl' : 'border-gray-300'
+                          } ${part.placed ? 'bg-green-50 border-green-400' : ''}`}>
+                            {part.type === 'eyes' && <EyesComponent emotion={emotions[currentEmotion].name} />}
+                            {part.type === 'mouth' && <MouthComponent emotion={emotions[currentEmotion].name} />}
+                            {part.type === 'eyebrows' && <EyebrowsComponent emotion={emotions[currentEmotion].name} />}
+                          </div>
+                          
+                          {/* Part label */}
+                          <div className="text-xs text-center mt-1 bg-white/80 rounded px-2 py-1">
+                            {part.type === 'eyes' && 'Augen'}
+                            {part.type === 'mouth' && 'Mund'}
+                            {part.type === 'eyebrows' && 'Augenbrauen'}
                           </div>
                         </div>
                       ))}
@@ -523,29 +535,26 @@ const Gefuehlsradar = () => {
                           <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
                           
                           {/* Placed parts */}
-                          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-2xl">
-                            {emotions[currentEmotion].parts.eyebrows}
+                          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 -translate-y-1">
+                            <EyebrowsComponent emotion={emotions[currentEmotion].name} />
                           </div>
-                          <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-2xl">
-                            {emotions[currentEmotion].parts.eyes}
+                          <div className="absolute top-8 left-1/2 transform -translate-x-1/2 -translate-y-1">
+                            <EyesComponent emotion={emotions[currentEmotion].name} />
                           </div>
-                          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 text-2xl">
-                            {emotions[currentEmotion].parts.mouth}
+                          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1">
+                            <MouthComponent emotion={emotions[currentEmotion].name} />
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
-                      {getOtherEmotions().map((emotion, index) => (
+                    <div className="grid grid-cols-1 gap-3">
+                      {getOtherEmotions().map((emotion) => (
                         <Button
-                          key={index}
+                          key={emotion}
                           onClick={() => handleAnswerSelect(emotion)}
                           variant="outline"
-                          className="text-lg py-6 hover:scale-105 transition-all duration-200"
-                          style={{
-                            backgroundColor: selectedAnswer === emotion ? emotions.find(e => e.name === emotion)?.color + '20' : undefined
-                          }}
+                          className="p-4 text-lg hover:bg-primary/10"
                         >
                           {emotion}
                         </Button>
@@ -554,35 +563,25 @@ const Gefuehlsradar = () => {
                   </div>
                 )}
 
-                {gamePhase === 'feedback' && showFeedback && (
+                {gamePhase === 'feedback' && (
                   <div className="space-y-6 text-center">
-                    <div className={`text-6xl ${isCorrect ? 'animate-bounce' : 'animate-pulse'}`}>
-                      {isCorrect ? '🎉' : '🤔'}
+                    <div className={`text-6xl ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+                      {isCorrect ? '✅' : '❌'}
                     </div>
                     
-                    <h2 className={`text-2xl font-bold ${isCorrect ? 'text-green-600' : 'text-orange-600'}`}>
+                    <h2 className={`text-2xl font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
                       {isCorrect ? 'Richtig!' : 'Nicht ganz...'}
                     </h2>
                     
-                    <p className="text-lg text-foreground max-w-2xl mx-auto">
+                    <p className="text-foreground">
                       {isCorrect 
                         ? emotions[currentEmotion].feedback
                         : `Das war ${emotions[currentEmotion].name}. ${emotions[currentEmotion].feedback}`
                       }
                     </p>
 
-                    {isCorrect && (
-                      <div className="bg-green-50 p-4 rounded-lg">
-                        <p className="text-green-800 font-semibold">+25 Punkte!</p>
-                      </div>
-                    )}
-
-                    <Button 
-                      onClick={handleNextRound}
-                      size="lg"
-                      className="px-8"
-                    >
-                      {currentEmotion < emotions.length - 1 ? 'Nächstes Puzzle' : 'Spiel beenden'}
+                    <Button onClick={handleNextRound} className="px-8 py-3">
+                      {currentEmotion < emotions.length - 1 ? 'Weiter' : 'Spiel beenden'}
                     </Button>
                   </div>
                 )}
