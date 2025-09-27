@@ -94,6 +94,10 @@ const Gefuehlsradar = () => {
   const [draggedPart, setDraggedPart] = useState<string | null>(null);
   
   const canvasRef = useRef<HTMLDivElement>(null);
+  // Pointer-based drag fallback (works on touch and desktop)
+  const pointerDragIdRef = useRef<string | null>(null);
+  const pointerOffsetRef = useRef<{ dx: number; dy: number }>({ dx: 0, dy: 0 });
+
 
   // Initialize face parts for current emotion
   useEffect(() => {
@@ -210,6 +214,57 @@ const Gefuehlsradar = () => {
 
   const handleDragEnd = (e: React.DragEvent) => {
     console.log('Drag ended');
+    setDraggedPart(null);
+  };
+
+  // Pointer/touch support
+  const handlePointerDown = (e: React.PointerEvent, partId: string) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const part = faceParts.find(p => p.id === partId);
+    if (!part || part.placed) return;
+    pointerDragIdRef.current = partId;
+    setDraggedPart(partId);
+    const pointerX = e.clientX - rect.left;
+    const pointerY = e.clientY - rect.top;
+    pointerOffsetRef.current = { dx: pointerX - part.x, dy: pointerY - part.y };
+    (e.target as HTMLElement)?.setPointerCapture?.(e.pointerId);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    const draggingId = pointerDragIdRef.current;
+    if (!draggingId) return;
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = e.clientX - rect.left - pointerOffsetRef.current.dx;
+    const y = e.clientY - rect.top - pointerOffsetRef.current.dy;
+    setFaceParts(prev =>
+      prev.map(part =>
+        part.id === draggingId && !part.placed ? { ...part, x, y } : part
+      )
+    );
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    const draggingId = pointerDragIdRef.current;
+    pointerDragIdRef.current = null;
+    if (!draggingId) return;
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    // Snap logic (same threshold as HTML5 DnD)
+    setFaceParts(prev =>
+      prev.map(part => {
+        if (part.id !== draggingId) return part;
+        const distanceX = Math.abs(x - part.correctX);
+        const distanceY = Math.abs(y - part.correctY);
+        if (distanceX < 80 && distanceY < 80) {
+          return { ...part, x: part.correctX, y: part.correctY, placed: true };
+        }
+        return { ...part, x, y };
+      })
+    );
     setDraggedPart(null);
   };
 
@@ -358,9 +413,11 @@ const Gefuehlsradar = () => {
                     {/* Game Canvas */}
                     <div 
                       ref={canvasRef}
-                      className="relative bg-gradient-to-b from-blue-50 to-blue-100 rounded-2xl min-h-[500px] overflow-hidden"
+                      className="relative bg-gradient-to-b from-blue-50 to-blue-100 rounded-2xl min-h-[500px] overflow-hidden touch-none select-none"
                       onDrop={handleDrop}
                       onDragOver={handleDragOver}
+                      onPointerMove={handlePointerMove}
+                      onPointerUp={handlePointerUp}
                       style={{ 
                         backgroundImage: `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><circle cx="200" cy="150" r="80" fill="%23FF8C42" stroke="%23FF6B1A" stroke-width="3"/></svg>')`,
                         backgroundSize: '400px 300px',
@@ -403,6 +460,7 @@ const Gefuehlsradar = () => {
                           draggable={!part.placed}
                           onDragStart={(e) => handleDragStart(e, part.id)}
                           onDragEnd={handleDragEnd}
+                          onPointerDown={(e) => handlePointerDown(e, part.id)}
                         >
                           <div className={`text-3xl p-2 rounded-lg bg-white/80 shadow-lg border-2 ${
                             part.placed ? 'border-green-500 bg-green-50' : 'border-gray-300'
