@@ -201,30 +201,30 @@ const Gefuehlsradar = () => {
           type: 'eyes',
           emotion: emotions[currentEmotion].name,
           x: 50,
-          y: 400,
+          y: 500,
           placed: false,
-          correctX: 175,
-          correctY: 120
+          correctX: 307,
+          correctY: 180
         },
         {
           id: 'eyebrows',
           type: 'eyebrows',
           emotion: emotions[currentEmotion].name,
           x: 350,
-          y: 400,
+          y: 500,
           placed: false,
-          correctX: 170,
-          correctY: 80
+          correctX: 302,
+          correctY: 140
         },
         {
           id: 'mouth',
           type: 'mouth',
           emotion: emotions[currentEmotion].name,
           x: 650,
-          y: 400,
+          y: 500,
           placed: false,
-          correctX: 190,
-          correctY: 180
+          correctX: 316,
+          correctY: 240
         }
       ];
       setFaceParts(parts);
@@ -290,7 +290,7 @@ const Gefuehlsradar = () => {
         const distanceX = Math.abs(x - part.correctX);
         const distanceY = Math.abs(y - part.correctY);
         
-        if (distanceX < 60 && distanceY < 60) {
+        if (distanceX < 80 && distanceY < 80) {
           return { ...part, x: part.correctX, y: part.correctY, placed: true };
         }
         return { ...part, x: Math.max(0, Math.min(rect.width - 80, x - pointerOffsetRef.current.dx)), y: Math.max(0, Math.min(rect.height - 80, y - pointerOffsetRef.current.dy)) };
@@ -460,27 +460,27 @@ const Gefuehlsradar = () => {
                       </p>
                     </div>
 
-                    {/* Game Canvas */}
+                      {/* Game Canvas */}
                     <div 
                       ref={canvasRef}
-                      className="relative bg-gradient-to-b from-blue-50 to-blue-100 rounded-2xl min-h-[500px] overflow-hidden touch-none select-none"
+                      className="relative bg-gradient-to-b from-blue-50 to-blue-100 rounded-2xl min-h-[600px] overflow-hidden touch-none select-none"
                     >
                       {/* Ferdy's base face */}
-                      <div className="absolute inset-0 flex items-start justify-center pt-20">
+                      <div className="absolute inset-0 flex items-start justify-center pt-10">
                         <div className="relative">
-                          {/* Face outline */}
-                          <div className="w-32 h-32 bg-orange-400 rounded-full border-4 border-orange-600 relative">
+                          {/* Face outline - much larger */}
+                          <div className="w-64 h-64 bg-orange-400 rounded-full border-4 border-orange-600 relative">
                             {/* Ears */}
-                            <div className="absolute -top-4 -left-2 w-6 h-8 bg-orange-400 rounded-full border-2 border-orange-600 transform -rotate-12"></div>
-                            <div className="absolute -top-4 -right-2 w-6 h-8 bg-orange-400 rounded-full border-2 border-orange-600 transform rotate-12"></div>
+                            <div className="absolute -top-6 -left-4 w-12 h-16 bg-orange-400 rounded-full border-2 border-orange-600 transform -rotate-12"></div>
+                            <div className="absolute -top-6 -right-4 w-12 h-16 bg-orange-400 rounded-full border-2 border-orange-600 transform rotate-12"></div>
                             
                             {/* Nose */}
                             <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
                             
-                            {/* Drop zones (visible guides) */}
-                            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 -translate-y-1 w-12 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 -translate-y-1 w-16 h-4 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1 w-10 h-6 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            {/* Drop zones (visible guides) - larger for bigger face */}
+                            <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1 w-20 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div className="absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1 w-24 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div className="absolute top-36 left-1/2 transform -translate-x-1/2 -translate-y-1 w-16 h-10 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
                           </div>
                         </div>
                       </div>
@@ -506,6 +506,13 @@ const Gefuehlsradar = () => {
                             {part.type === 'eyes' && <EyesComponent emotion={emotions[currentEmotion].name} />}
                             {part.type === 'mouth' && <MouthComponent emotion={emotions[currentEmotion].name} />}
                             {part.type === 'eyebrows' && <EyebrowsComponent emotion={emotions[currentEmotion].name} />}
+                            {!part.placed && (
+                              <div className="text-xs font-medium text-gray-700 text-center mt-1">
+                                {part.type === 'eyes' && 'Augen'}
+                                {part.type === 'mouth' && 'Mund'}
+                                {part.type === 'eyebrows' && 'Augenbrauen'}
+                              </div>
+                            )}
                           </div>
                           
                           {/* Part label */}
