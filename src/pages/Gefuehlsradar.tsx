@@ -192,6 +192,11 @@ const Gefuehlsradar = () => {
   const pointerDragIdRef = useRef<string | null>(null);
   const pointerOffsetRef = useRef<{ dx: number; dy: number }>({ dx: 0, dy: 0 });
 
+  // Drop zone refs for precise snapping
+  const eyebrowsZoneRef = useRef<HTMLDivElement>(null);
+  const eyesZoneRef = useRef<HTMLDivElement>(null);
+  const mouthZoneRef = useRef<HTMLDivElement>(null);
+
   // Initialize face parts for current emotion
   useEffect(() => {
     if (currentEmotion < emotions.length) {
@@ -281,19 +286,34 @@ const Gefuehlsradar = () => {
       const rect = canvasRef.current?.getBoundingClientRect();
       if (!rect) return;
       
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
       setFaceParts(prev => prev.map(part => {
         if (part.id !== draggingId) return part;
         
-        const distanceX = Math.abs(x - part.correctX);
-        const distanceY = Math.abs(y - part.correctY);
-        
-        if (distanceX < 80 && distanceY < 80) {
-          return { ...part, x: part.correctX, y: part.correctY, placed: true };
+        // Determine correct drop zone element for this part
+        const zoneEl = part.type === 'eyes' ? eyesZoneRef.current : part.type === 'eyebrows' ? eyebrowsZoneRef.current : mouthZoneRef.current;
+        const zoneRect = zoneEl?.getBoundingClientRect();
+        if (zoneRect) {
+          const px = e.clientX;
+          const py = e.clientY;
+          // Check if pointer is inside the correct zone
+          const inside = px >= zoneRect.left && px <= zoneRect.right && py >= zoneRect.top && py <= zoneRect.bottom;
+          if (inside) {
+            const centerX = zoneRect.left - rect.left + zoneRect.width / 2;
+            const centerY = zoneRect.top - rect.top + zoneRect.height / 2;
+            const offsets = {
+              eyes: { x: 25, y: 12 },
+              eyebrows: { x: 30, y: 8 },
+              mouth: { x: 20, y: 12 },
+            } as const;
+            const o = offsets[part.type];
+            const newX = centerX - o.x;
+            const newY = centerY - o.y;
+            return { ...part, x: newX, y: newY, correctX: newX, correctY: newY, placed: true };
+          }
         }
-        return { ...part, x: Math.max(0, Math.min(rect.width - 80, x - pointerOffsetRef.current.dx)), y: Math.max(0, Math.min(rect.height - 80, y - pointerOffsetRef.current.dy)) };
+        const boundedX = Math.max(0, Math.min(rect.width - 80, e.clientX - rect.left - pointerOffsetRef.current.dx));
+        const boundedY = Math.max(0, Math.min(rect.height - 80, e.clientY - rect.top - pointerOffsetRef.current.dy));
+        return { ...part, x: boundedX, y: boundedY };
       }));
       
       setDraggedPart(null);
@@ -478,9 +498,9 @@ const Gefuehlsradar = () => {
                             <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
                             
                             {/* Drop zones (visible guides) - larger for bigger face */}
-                            <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1 w-20 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div className="absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1 w-24 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div className="absolute top-36 left-1/2 transform -translate-x-1/2 -translate-y-1 w-16 h-10 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div ref={eyesZoneRef} className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1 w-20 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div ref={eyebrowsZoneRef} className="absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1 w-24 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div ref={mouthZoneRef} className="absolute top-36 left-1/2 transform -translate-x-1/2 -translate-y-1 w-16 h-10 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
                           </div>
                         </div>
                       </div>
@@ -515,12 +535,13 @@ const Gefuehlsradar = () => {
                             )}
                           </div>
                           
-                          {/* Part label */}
-                          <div className="text-xs text-center mt-1 bg-white/80 rounded px-2 py-1">
-                            {part.type === 'eyes' && 'Augen'}
-                            {part.type === 'mouth' && 'Mund'}
-                            {part.type === 'eyebrows' && 'Augenbrauen'}
-                          </div>
+                          {!part.placed && (
+                            <div className="text-xs text-center mt-1 bg-white/80 rounded px-2 py-1">
+                              {part.type === 'eyes' && 'Augen'}
+                              {part.type === 'mouth' && 'Mund'}
+                              {part.type === 'eyebrows' && 'Augenbrauen'}
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
