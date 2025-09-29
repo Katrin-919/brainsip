@@ -312,11 +312,11 @@ const Gefuehlsradar = () => {
           correctX: 316,
           correctY: 240
         },
-        // Wrong emotion parts (distractors)
+        // Different eye variations
         {
-          id: 'eyes-distractor1',
+          id: 'eyes-sad',
           type: 'eyes',
-          emotion: correctEmotion === 'Freude' ? 'Trauer' : 'Freude',
+          emotion: 'Trauer',
           x: 350,
           y: 480,
           placed: false,
@@ -324,9 +324,9 @@ const Gefuehlsradar = () => {
           correctY: 0
         },
         {
-          id: 'eyes-distractor2',
+          id: 'eyes-angry',
           type: 'eyes',
-          emotion: correctEmotion === 'Wut' ? 'Müdigkeit' : 'Wut',
+          emotion: 'Wut',
           x: 450,
           y: 480,
           placed: false,
@@ -334,9 +334,9 @@ const Gefuehlsradar = () => {
           correctY: 0
         },
         {
-          id: 'mouth-distractor1',
-          type: 'mouth',
-          emotion: correctEmotion === 'Trauer' ? 'Verwirrung' : 'Trauer',
+          id: 'eyes-tired',
+          type: 'eyes',
+          emotion: 'Müdigkeit',
           x: 550,
           y: 480,
           placed: false,
@@ -344,19 +344,20 @@ const Gefuehlsradar = () => {
           correctY: 0
         },
         {
-          id: 'mouth-distractor2',
-          type: 'mouth',
-          emotion: 'Banane',
+          id: 'eyes-confused',
+          type: 'eyes',
+          emotion: 'Verwirrung',
           x: 650,
           y: 480,
           placed: false,
           correctX: 0,
           correctY: 0
         },
+        // Different mouth variations
         {
-          id: 'eyebrows-distractor1',
-          type: 'eyebrows',
-          emotion: correctEmotion === 'Überraschung' ? 'Verwirrung' : 'Überraschung',
+          id: 'mouth-sad',
+          type: 'mouth',
+          emotion: 'Trauer',
           x: 50,
           y: 540,
           placed: false,
@@ -364,9 +365,9 @@ const Gefuehlsradar = () => {
           correctY: 0
         },
         {
-          id: 'eyebrows-distractor2',
-          type: 'eyebrows',
-          emotion: 'Hut',
+          id: 'mouth-angry',
+          type: 'mouth',
+          emotion: 'Wut',
           x: 150,
           y: 540,
           placed: false,
@@ -374,9 +375,9 @@ const Gefuehlsradar = () => {
           correctY: 0
         },
         {
-          id: 'eyebrows-distractor3',
-          type: 'eyebrows',
-          emotion: 'Sonnenbrille',
+          id: 'mouth-surprised',
+          type: 'mouth',
+          emotion: 'Überraschung',
           x: 250,
           y: 540,
           placed: false,
@@ -384,11 +385,112 @@ const Gefuehlsradar = () => {
           correctY: 0
         },
         {
-          id: 'mouth-distractor3',
+          id: 'mouth-tired',
           type: 'mouth',
-          emotion: 'Regenbogen',
+          emotion: 'Müdigkeit',
           x: 350,
           y: 540,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'mouth-confused',
+          type: 'mouth',
+          emotion: 'Verwirrung',
+          x: 450,
+          y: 540,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'mouth-banana',
+          type: 'mouth',
+          emotion: 'Banane',
+          x: 550,
+          y: 540,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'mouth-rainbow',
+          type: 'mouth',
+          emotion: 'Regenbogen',
+          x: 650,
+          y: 540,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        // Different eyebrow variations
+        {
+          id: 'eyebrows-sad',
+          type: 'eyebrows',
+          emotion: 'Trauer',
+          x: 50,
+          y: 600,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-angry',
+          type: 'eyebrows',
+          emotion: 'Wut',
+          x: 150,
+          y: 600,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-surprised',
+          type: 'eyebrows',
+          emotion: 'Überraschung',
+          x: 250,
+          y: 600,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-tired',
+          type: 'eyebrows',
+          emotion: 'Müdigkeit',
+          x: 350,
+          y: 600,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-confused',
+          type: 'eyebrows',
+          emotion: 'Verwirrung',
+          x: 450,
+          y: 600,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-hat',
+          type: 'eyebrows',
+          emotion: 'Hut',
+          x: 550,
+          y: 600,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-sunglasses',
+          type: 'eyebrows',
+          emotion: 'Sonnenbrille',
+          x: 650,
+          y: 600,
           placed: false,
           correctX: 0,
           correctY: 0
@@ -463,24 +565,38 @@ const Gefuehlsradar = () => {
       setFaceParts(prev => prev.map(part => {
         if (part.id !== draggingId) return part;
         
-        // Determine correct drop zone element for this part
-        const zoneEl = part.type === 'eyes' ? eyesZoneRef.current : part.type === 'eyebrows' ? eyebrowsZoneRef.current : mouthZoneRef.current;
-        const zoneRect = zoneEl?.getBoundingClientRect();
-        if (zoneRect) {
-          // Use the center of the dragged part to test if it's inside the correct zone
-          const cx = partElRect ? partElRect.left + partElRect.width / 2 : e.clientX;
-          const cy = partElRect ? partElRect.top + partElRect.height / 2 : e.clientY;
-          const inside = cx >= zoneRect.left && cx <= zoneRect.right && cy >= zoneRect.top && cy <= zoneRect.bottom;
-          if (inside) {
-            const centerX = zoneRect.left - rect.left + zoneRect.width / 2;
-            const centerY = zoneRect.top - rect.top + zoneRect.height / 2;
-            const halfW = partElRect ? partElRect.width / 2 : 20;
-            const halfH = partElRect ? partElRect.height / 2 : 12;
-            const newX = centerX - halfW;
-            const newY = centerY - halfH;
-            return { ...part, x: newX, y: newY, correctX: newX, correctY: newY, placed: true };
-          }
+      // Check if this part should be placed (correct emotion and type)
+      const correctEmotion = emotions[currentEmotion].name;
+      const isCorrectPart = part.emotion === correctEmotion && 
+        (part.id.includes(`eyes-${correctEmotion}`) || 
+         part.id.includes(`eyebrows-${correctEmotion}`) || 
+         part.id.includes(`mouth-${correctEmotion}`));
+      
+      if (!isCorrectPart) {
+        // Wrong part - just update position
+        const boundedX = Math.max(0, Math.min(rect.width - 80, e.clientX - rect.left - pointerOffsetRef.current.dx));
+        const boundedY = Math.max(0, Math.min(rect.height - 80, e.clientY - rect.top - pointerOffsetRef.current.dy));
+        return { ...part, x: boundedX, y: boundedY };
+      }
+
+      // Determine correct drop zone element for this part
+      const zoneEl = part.type === 'eyes' ? eyesZoneRef.current : part.type === 'eyebrows' ? eyebrowsZoneRef.current : mouthZoneRef.current;
+      const zoneRect = zoneEl?.getBoundingClientRect();
+      if (zoneRect) {
+        // Use the center of the dragged part to test if it's inside the correct zone
+        const cx = partElRect ? partElRect.left + partElRect.width / 2 : e.clientX;
+        const cy = partElRect ? partElRect.top + partElRect.height / 2 : e.clientY;
+        const inside = cx >= zoneRect.left && cx <= zoneRect.right && cy >= zoneRect.top && cy <= zoneRect.bottom;
+        if (inside) {
+          const centerX = zoneRect.left - rect.left + zoneRect.width / 2;
+          const centerY = zoneRect.top - rect.top + zoneRect.height / 2;
+          const halfW = partElRect ? partElRect.width / 2 : 20;
+          const halfH = partElRect ? partElRect.height / 2 : 12;
+          const newX = centerX - halfW;
+          const newY = centerY - halfH;
+          return { ...part, x: newX, y: newY, correctX: newX, correctY: newY, placed: true };
         }
+      }
         const boundedX = Math.max(0, Math.min(rect.width - 80, e.clientX - rect.left - pointerOffsetRef.current.dx));
         const boundedY = Math.max(0, Math.min(rect.height - 80, e.clientY - rect.top - pointerOffsetRef.current.dy));
         return { ...part, x: boundedX, y: boundedY };
@@ -693,9 +809,9 @@ const Gefuehlsradar = () => {
                           <div className={`p-3 rounded-lg bg-white/90 shadow-lg border-2 transition-all ${
                             draggedPart === part.id ? 'border-primary border-4 shadow-xl' : 'border-gray-300'
                           } ${part.placed ? 'bg-green-50 border-green-400' : ''}`}>
-                            {part.type === 'eyes' && <EyesComponent emotion={emotions[currentEmotion].name} />}
-                            {part.type === 'mouth' && <MouthComponent emotion={emotions[currentEmotion].name} />}
-                            {part.type === 'eyebrows' && <EyebrowsComponent emotion={emotions[currentEmotion].name} />}
+                            {part.type === 'eyes' && <EyesComponent emotion={part.emotion} />}
+                            {part.type === 'mouth' && <MouthComponent emotion={part.emotion} />}
+                            {part.type === 'eyebrows' && <EyebrowsComponent emotion={part.emotion} />}
                             {!part.placed && (
                               <div className="text-xs font-medium text-gray-700 text-center mt-1">
                                 {part.type === 'eyes' && 'Augen'}
