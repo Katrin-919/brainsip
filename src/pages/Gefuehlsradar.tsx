@@ -170,7 +170,34 @@ const emotions: Emotion[] = [
     color: "#98FB98",
     feedback: "Perfekt! Das ist Überraschung! Die großen runden Augen und der offene Mund zeigen Erstaunen."
   }
-];
+]; 
+
+const cuesByEmotion = {
+  Freude: {
+    eyebrows: 'leicht nach oben gezogen, weich',
+    eyes: 'lächelnde Augen, oft leicht zusammengekniffen',
+    mouth: 'gebogenes, offenes Lächeln',
+    lesson: 'Freude erkennst du an lachenden Augen und einem nach oben gebogenen Mund.'
+  },
+  Trauer: {
+    eyebrows: 'innen leicht nach oben, traurig wirkend',
+    eyes: 'müde oder feucht wirkend',
+    mouth: 'nach unten gezogene Mundwinkel',
+    lesson: 'Trauer zeigt sich durch hängende Mundwinkel und weiche Augenbrauen.'
+  },
+  Wut: {
+    eyebrows: 'zusammengezogen und schräg nach unten',
+    eyes: 'angespannt, starrend',
+    mouth: 'angespannt oder zu einer Linie gepresst',
+    lesson: 'Wut erkennst du an zusammengezogenen Augenbrauen und einem festen Mund.'
+  },
+  Überraschung: {
+    eyebrows: 'hochgezogen',
+    eyes: 'weit geöffnet',
+    mouth: 'rund geöffnet',
+    lesson: 'Überraschung siehst du an großen Augen und einem offenen, runden Mund.'
+  }
+} as const;
 
 const Gefuehlsradar = () => {
   const { user, loading } = useAuth();
@@ -196,9 +223,13 @@ const Gefuehlsradar = () => {
   const eyebrowsZoneRef = useRef<HTMLDivElement>(null);
   const eyesZoneRef = useRef<HTMLDivElement>(null);
   const mouthZoneRef = useRef<HTMLDivElement>(null);
+  const partRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Initialize face parts for current emotion
   useEffect(() => {
+    // Set page title for better context
+    document.title = "Gefühlsradar: Gesichtspuzzle Emotionen";
+
     if (currentEmotion < emotions.length) {
       const parts: FacePart[] = [
         {
@@ -286,6 +317,9 @@ const Gefuehlsradar = () => {
       const rect = canvasRef.current?.getBoundingClientRect();
       if (!rect) return;
       
+      const partEl = partRefs.current[draggingId] || null;
+      const partElRect = partEl?.getBoundingClientRect();
+      
       setFaceParts(prev => prev.map(part => {
         if (part.id !== draggingId) return part;
         
@@ -293,21 +327,17 @@ const Gefuehlsradar = () => {
         const zoneEl = part.type === 'eyes' ? eyesZoneRef.current : part.type === 'eyebrows' ? eyebrowsZoneRef.current : mouthZoneRef.current;
         const zoneRect = zoneEl?.getBoundingClientRect();
         if (zoneRect) {
-          const px = e.clientX;
-          const py = e.clientY;
-          // Check if pointer is inside the correct zone
-          const inside = px >= zoneRect.left && px <= zoneRect.right && py >= zoneRect.top && py <= zoneRect.bottom;
+          // Use the center of the dragged part to test if it's inside the correct zone
+          const cx = partElRect ? partElRect.left + partElRect.width / 2 : e.clientX;
+          const cy = partElRect ? partElRect.top + partElRect.height / 2 : e.clientY;
+          const inside = cx >= zoneRect.left && cx <= zoneRect.right && cy >= zoneRect.top && cy <= zoneRect.bottom;
           if (inside) {
             const centerX = zoneRect.left - rect.left + zoneRect.width / 2;
             const centerY = zoneRect.top - rect.top + zoneRect.height / 2;
-            const offsets = {
-              eyes: { x: 25, y: 12 },
-              eyebrows: { x: 30, y: 8 },
-              mouth: { x: 20, y: 12 },
-            } as const;
-            const o = offsets[part.type];
-            const newX = centerX - o.x;
-            const newY = centerY - o.y;
+            const halfW = partElRect ? partElRect.width / 2 : 20;
+            const halfH = partElRect ? partElRect.height / 2 : 12;
+            const newX = centerX - halfW;
+            const newY = centerY - halfH;
             return { ...part, x: newX, y: newY, correctX: newX, correctY: newY, placed: true };
           }
         }
@@ -488,19 +518,18 @@ const Gefuehlsradar = () => {
                       {/* Ferdy's base face */}
                       <div className="absolute inset-0 flex items-start justify-center pt-10">
                         <div className="relative">
-                          {/* Face outline - much larger */}
-                          <div className="w-64 h-64 bg-orange-400 rounded-full border-4 border-orange-600 relative">
+                          <div className="w-80 h-80 bg-orange-400 rounded-full border-4 border-orange-600 relative">
                             {/* Ears */}
                             <div className="absolute -top-6 -left-4 w-12 h-16 bg-orange-400 rounded-full border-2 border-orange-600 transform -rotate-12"></div>
                             <div className="absolute -top-6 -right-4 w-12 h-16 bg-orange-400 rounded-full border-2 border-orange-600 transform rotate-12"></div>
                             
                             {/* Nose */}
-                            <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
+                            <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
                             
-                            {/* Drop zones (visible guides) - larger for bigger face */}
-                            <div ref={eyesZoneRef} className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1 w-20 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div ref={eyebrowsZoneRef} className="absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1 w-24 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div ref={mouthZoneRef} className="absolute top-36 left-1/2 transform -translate-x-1/2 -translate-y-1 w-16 h-10 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            {/* Drop zones (visible guides) - adjusted for bigger face */}
+                            <div ref={eyesZoneRef} className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1 w-24 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div ref={eyebrowsZoneRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1 w-28 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            <div ref={mouthZoneRef} className="absolute top-44 left-1/2 transform -translate-x-1/2 -translate-y-1 w-20 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
                           </div>
                         </div>
                       </div>
@@ -509,6 +538,7 @@ const Gefuehlsradar = () => {
                       {faceParts.map(part => (
                         <div
                           key={part.id}
+                          ref={(el) => { partRefs.current[part.id] = el; }}
                           className={`absolute cursor-grab active:cursor-grabbing transition-all duration-200 ${
                             part.placed ? 'scale-110' : 'hover:scale-105'
                           }`}
@@ -553,6 +583,17 @@ const Gefuehlsradar = () => {
                     <h2 className="text-2xl font-bold text-foreground">
                       Welches Gefühl siehst du?
                     </h2>
+
+                    {/* Auswertung: Lernhinweise zu Mimik */}
+                    <div className="text-left bg-primary/5 border border-primary/20 rounded-lg p-4">
+                      <h3 className="font-semibold text-foreground mb-2">Auswertung: So erkennst du dieses Gefühl</h3>
+                      <ul className="list-disc pl-5 space-y-1 text-sm text-foreground">
+                        <li><span className="font-medium">Augenbrauen:</span> {cuesByEmotion[emotions[currentEmotion].name].eyebrows}</li>
+                        <li><span className="font-medium">Augen:</span> {cuesByEmotion[emotions[currentEmotion].name].eyes}</li>
+                        <li><span className="font-medium">Mund:</span> {cuesByEmotion[emotions[currentEmotion].name].mouth}</li>
+                      </ul>
+                      <p className="mt-2 text-sm text-muted-foreground">Merke: {cuesByEmotion[emotions[currentEmotion].name].lesson}</p>
+                    </div>
                     
                     {/* Show completed face */}
                     <div className="flex justify-center mb-6">
