@@ -70,6 +70,22 @@ const EyesComponent = ({ emotion }: { emotion: string }) => {
           <circle cx="38" cy="15" r="2" fill="black" />
         </svg>
       );
+    case "Müdigkeit":
+      return (
+        <svg width="50" height="20" viewBox="0 0 50 20">
+          <path d="M 2 10 Q 12 15 22 10" stroke="#4A5568" strokeWidth="3" fill="none" />
+          <path d="M 28 10 Q 38 15 48 10" stroke="#4A5568" strokeWidth="3" fill="none" />
+        </svg>
+      );
+    case "Verwirrung":
+      return (
+        <svg width="50" height="25" viewBox="0 0 50 25">
+          <circle cx="12" cy="12" r="6" fill="#4A5568" />
+          <circle cx="38" cy="12" r="8" fill="#4A5568" />
+          <circle cx="12" cy="12" r="2" fill="white" />
+          <circle cx="38" cy="12" r="4" fill="white" />
+        </svg>
+      );
     default:
       return <div className="w-12 h-6 bg-gray-400 rounded"></div>;
   }
@@ -103,6 +119,33 @@ const MouthComponent = ({ emotion }: { emotion: string }) => {
         <svg width="25" height="30" viewBox="0 0 25 30">
           <ellipse cx="12.5" cy="15" rx="10" ry="12" stroke="#2D3748" strokeWidth="3" fill="#2D3748" />
           <ellipse cx="12.5" cy="15" rx="6" ry="8" fill="#E53E3E" />
+        </svg>
+      );
+    case "Müdigkeit":
+      return (
+        <svg width="30" height="15" viewBox="0 0 30 15">
+          <path d="M 5 10 L 25 10" stroke="#2D3748" strokeWidth="2" />
+        </svg>
+      );
+    case "Verwirrung":
+      return (
+        <svg width="25" height="25" viewBox="0 0 25 25">
+          <path d="M 5 15 Q 12.5 8 20 15 Q 12.5 22 5 15" stroke="#2D3748" strokeWidth="2" fill="none" />
+        </svg>
+      );
+    case "Banane":
+      return (
+        <svg width="40" height="15" viewBox="0 0 40 15">
+          <path d="M 5 7 Q 20 2 35 10" stroke="#FFD700" strokeWidth="6" fill="none" />
+          <circle cx="30" cy="9" r="1" fill="#8B4513" />
+        </svg>
+      );
+    case "Regenbogen":
+      return (
+        <svg width="40" height="20" viewBox="0 0 40 20">
+          <path d="M 5 15 Q 20 5 35 15" stroke="#FF0000" strokeWidth="2" fill="none" />
+          <path d="M 7 16 Q 20 8 33 16" stroke="#FFA500" strokeWidth="2" fill="none" />
+          <path d="M 9 17 Q 20 11 31 17" stroke="#FFFF00" strokeWidth="2" fill="none" />
         </svg>
       );
     default:
@@ -140,6 +183,36 @@ const EyebrowsComponent = ({ emotion }: { emotion: string }) => {
           <path d="M 35 5 Q 45 3 55 10" stroke="#8B4513" strokeWidth="3" fill="none" />
         </svg>
       );
+    case "Müdigkeit":
+      return (
+        <svg width="60" height="12" viewBox="0 0 60 12">
+          <path d="M 5 9 Q 15 6 25 9" stroke="#8B4513" strokeWidth="2" fill="none" />
+          <path d="M 35 9 Q 45 6 55 9" stroke="#8B4513" strokeWidth="2" fill="none" />
+        </svg>
+      );
+    case "Verwirrung":
+      return (
+        <svg width="60" height="18" viewBox="0 0 60 18">
+          <path d="M 5 10 Q 15 6 25 12" stroke="#8B4513" strokeWidth="3" fill="none" />
+          <path d="M 35 12 Q 45 8 55 6" stroke="#8B4513" strokeWidth="3" fill="none" />
+        </svg>
+      );
+    case "Hut":
+      return (
+        <svg width="60" height="20" viewBox="0 0 60 20">
+          <rect x="10" y="5" width="40" height="4" fill="#654321" />
+          <rect x="20" y="1" width="20" height="8" fill="#8B4513" />
+          <circle cx="30" cy="3" r="2" fill="#FFD700" />
+        </svg>
+      );
+    case "Sonnenbrille":
+      return (
+        <svg width="60" height="15" viewBox="0 0 60 15">
+          <rect x="5" y="6" width="20" height="8" rx="4" fill="#333" />
+          <rect x="35" y="6" width="20" height="8" rx="4" fill="#333" />
+          <path d="M 25 10 L 35 10" stroke="#333" strokeWidth="2" />
+        </svg>
+      );
     default:
       return <div className="w-12 h-3 bg-gray-400 rounded"></div>;
   }
@@ -170,34 +243,7 @@ const emotions: Emotion[] = [
     color: "#98FB98",
     feedback: "Perfekt! Das ist Überraschung! Die großen runden Augen und der offene Mund zeigen Erstaunen."
   }
-]; 
-
-const cuesByEmotion = {
-  Freude: {
-    eyebrows: 'leicht nach oben gezogen, weich',
-    eyes: 'lächelnde Augen, oft leicht zusammengekniffen',
-    mouth: 'gebogenes, offenes Lächeln',
-    lesson: 'Freude erkennst du an lachenden Augen und einem nach oben gebogenen Mund.'
-  },
-  Trauer: {
-    eyebrows: 'innen leicht nach oben, traurig wirkend',
-    eyes: 'müde oder feucht wirkend',
-    mouth: 'nach unten gezogene Mundwinkel',
-    lesson: 'Trauer zeigt sich durch hängende Mundwinkel und weiche Augenbrauen.'
-  },
-  Wut: {
-    eyebrows: 'zusammengezogen und schräg nach unten',
-    eyes: 'angespannt, starrend',
-    mouth: 'angespannt oder zu einer Linie gepresst',
-    lesson: 'Wut erkennst du an zusammengezogenen Augenbrauen und einem festen Mund.'
-  },
-  Überraschung: {
-    eyebrows: 'hochgezogen',
-    eyes: 'weit geöffnet',
-    mouth: 'rund geöffnet',
-    lesson: 'Überraschung siehst du an großen Augen und einem offenen, runden Mund.'
-  }
-} as const;
+];
 
 const Gefuehlsradar = () => {
   const { user, loading } = useAuth();
@@ -231,50 +277,144 @@ const Gefuehlsradar = () => {
     document.title = "Gefühlsradar: Gesichtspuzzle Emotionen";
 
     if (currentEmotion < emotions.length) {
-      const parts: FacePart[] = [
+      const correctEmotion = emotions[currentEmotion].name;
+      
+      // Create all available parts for more fun selection
+      const allParts: FacePart[] = [
+        // Correct parts for current emotion
         {
-          id: 'eyes',
+          id: `eyes-${correctEmotion}`,
           type: 'eyes',
-          emotion: emotions[currentEmotion].name,
+          emotion: correctEmotion,
           x: 50,
-          y: 500,
+          y: 480,
           placed: false,
           correctX: 307,
           correctY: 180
         },
         {
-          id: 'eyebrows',
+          id: `eyebrows-${correctEmotion}`,
           type: 'eyebrows',
-          emotion: emotions[currentEmotion].name,
-          x: 350,
-          y: 500,
+          emotion: correctEmotion,
+          x: 150,
+          y: 480,
           placed: false,
           correctX: 302,
           correctY: 140
         },
         {
-          id: 'mouth',
+          id: `mouth-${correctEmotion}`,
           type: 'mouth',
-          emotion: emotions[currentEmotion].name,
-          x: 650,
-          y: 500,
+          emotion: correctEmotion,
+          x: 250,
+          y: 480,
           placed: false,
           correctX: 316,
           correctY: 240
+        },
+        // Wrong emotion parts (distractors)
+        {
+          id: 'eyes-distractor1',
+          type: 'eyes',
+          emotion: correctEmotion === 'Freude' ? 'Trauer' : 'Freude',
+          x: 350,
+          y: 480,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyes-distractor2',
+          type: 'eyes',
+          emotion: correctEmotion === 'Wut' ? 'Müdigkeit' : 'Wut',
+          x: 450,
+          y: 480,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'mouth-distractor1',
+          type: 'mouth',
+          emotion: correctEmotion === 'Trauer' ? 'Verwirrung' : 'Trauer',
+          x: 550,
+          y: 480,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'mouth-distractor2',
+          type: 'mouth',
+          emotion: 'Banane',
+          x: 650,
+          y: 480,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-distractor1',
+          type: 'eyebrows',
+          emotion: correctEmotion === 'Überraschung' ? 'Verwirrung' : 'Überraschung',
+          x: 50,
+          y: 540,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-distractor2',
+          type: 'eyebrows',
+          emotion: 'Hut',
+          x: 150,
+          y: 540,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'eyebrows-distractor3',
+          type: 'eyebrows',
+          emotion: 'Sonnenbrille',
+          x: 250,
+          y: 540,
+          placed: false,
+          correctX: 0,
+          correctY: 0
+        },
+        {
+          id: 'mouth-distractor3',
+          type: 'mouth',
+          emotion: 'Regenbogen',
+          x: 350,
+          y: 540,
+          placed: false,
+          correctX: 0,
+          correctY: 0
         }
       ];
-      setFaceParts(parts);
+      
+      setFaceParts(allParts);
     }
   }, [currentEmotion]);
 
-  // Check if puzzle is complete
+  // Check if puzzle is complete (only correct parts need to be placed)
   useEffect(() => {
-    if (faceParts.length > 0 && faceParts.every(part => part.placed)) {
+    const correctEmotion = emotions[currentEmotion].name;
+    const correctParts = faceParts.filter(part => 
+      part.emotion === correctEmotion && 
+      (part.id.includes(`eyes-${correctEmotion}`) || 
+       part.id.includes(`eyebrows-${correctEmotion}`) || 
+       part.id.includes(`mouth-${correctEmotion}`))
+    );
+    
+    if (correctParts.length === 3 && correctParts.every(part => part.placed)) {
       setTimeout(() => {
         setGamePhase('question');
       }, 500);
     }
-  }, [faceParts]);
+  }, [faceParts, currentEmotion]);
 
   // Pointer/touch support
   const handlePointerDown = (e: React.PointerEvent, partId: string) => {
@@ -583,17 +723,6 @@ const Gefuehlsradar = () => {
                     <h2 className="text-2xl font-bold text-foreground">
                       Welches Gefühl siehst du?
                     </h2>
-
-                    {/* Auswertung: Lernhinweise zu Mimik */}
-                    <div className="text-left bg-primary/5 border border-primary/20 rounded-lg p-4">
-                      <h3 className="font-semibold text-foreground mb-2">Auswertung: So erkennst du dieses Gefühl</h3>
-                      <ul className="list-disc pl-5 space-y-1 text-sm text-foreground">
-                        <li><span className="font-medium">Augenbrauen:</span> {cuesByEmotion[emotions[currentEmotion].name].eyebrows}</li>
-                        <li><span className="font-medium">Augen:</span> {cuesByEmotion[emotions[currentEmotion].name].eyes}</li>
-                        <li><span className="font-medium">Mund:</span> {cuesByEmotion[emotions[currentEmotion].name].mouth}</li>
-                      </ul>
-                      <p className="mt-2 text-sm text-muted-foreground">Merke: {cuesByEmotion[emotions[currentEmotion].name].lesson}</p>
-                    </div>
                     
                     {/* Show completed face */}
                     <div className="flex justify-center mb-6">
