@@ -812,13 +812,6 @@ const Gefuehlsradar = () => {
                             {part.type === 'eyes' && <EyesComponent emotion={part.emotion} />}
                             {part.type === 'mouth' && <MouthComponent emotion={part.emotion} />}
                             {part.type === 'eyebrows' && <EyebrowsComponent emotion={part.emotion} />}
-                            {!part.placed && (
-                              <div className="text-xs font-medium text-gray-700 text-center mt-1">
-                                {part.type === 'eyes' && 'Augen'}
-                                {part.type === 'mouth' && 'Mund'}
-                                {part.type === 'eyebrows' && 'Augenbrauen'}
-                              </div>
-                            )}
                           </div>
                           
                           {!part.placed && (
