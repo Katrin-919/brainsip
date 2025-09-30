@@ -271,6 +271,44 @@ const Gefuehlsradar = () => {
   const mouthZoneRef = useRef<HTMLDivElement>(null);
   const partRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
+  // Arrange the parts neatly at the bottom as a responsive grid (per type row)
+  const layoutShelf = () => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect || pointerDragIdRef.current) return;
+
+    const padding = 24;
+    const itemW = 96; // approx width per item
+    const cols = Math.max(3, Math.floor((rect.width - padding * 2) / itemW));
+    const baseY = { eyes: 460, mouth: 540, eyebrows: 620 } as const;
+
+    setFaceParts((prev) => {
+      const next = [...prev];
+      const groups = {
+        eyes: next.filter((p) => p.type === 'eyes' && !p.placed),
+        mouth: next.filter((p) => p.type === 'mouth' && !p.placed),
+        eyebrows: next.filter((p) => p.type === 'eyebrows' && !p.placed),
+      } as const;
+
+      const posMap: Record<string, { x: number; y: number }> = {};
+
+      (['eyes', 'mouth', 'eyebrows'] as const).forEach((type) => {
+        groups[type].forEach((p, i) => {
+          const col = i % cols;
+          const row = Math.floor(i / cols);
+          const x = padding + col * itemW;
+          const y = baseY[type] + row * 84; // row height
+          posMap[p.id] = { x, y };
+        });
+      });
+
+      return next.map((p) => {
+        if (p.placed) return p;
+        const pos = posMap[p.id];
+        return pos ? { ...p, x: pos.x, y: pos.y } : p;
+      });
+    });
+  };
+
   // Initialize face parts for current emotion
   useEffect(() => {
     // Set page title for better context
@@ -498,25 +536,22 @@ const Gefuehlsradar = () => {
       ];
       
       setFaceParts(allParts);
+      // Lay out the parts neatly in rows under the face after initial render
+      setTimeout(() => layoutShelf(), 0);
     }
   }, [currentEmotion]);
 
-  // Check if puzzle is complete (only correct parts need to be placed)
+  // Check if puzzle is complete (any three required parts placed)
   useEffect(() => {
-    const correctEmotion = emotions[currentEmotion].name;
-    const correctParts = faceParts.filter(part => 
-      part.emotion === correctEmotion && 
-      (part.id.includes(`eyes-${correctEmotion}`) || 
-       part.id.includes(`eyebrows-${correctEmotion}`) || 
-       part.id.includes(`mouth-${correctEmotion}`))
-    );
-    
-    if (correctParts.length === 3 && correctParts.every(part => part.placed)) {
+    if (gamePhase !== 'puzzle') return;
+    const placed = faceParts.filter((p) => p.placed);
+    const types = new Set(placed.map((p) => p.type));
+    if (types.has('eyes') && types.has('eyebrows') && types.has('mouth')) {
       setTimeout(() => {
         setGamePhase('question');
-      }, 500);
+      }, 300);
     }
-  }, [faceParts, currentEmotion]);
+  }, [faceParts, gamePhase]);
 
   // Pointer/touch support
   const handlePointerDown = (e: React.PointerEvent, partId: string) => {
@@ -562,26 +597,15 @@ const Gefuehlsradar = () => {
       const partEl = partRefs.current[draggingId] || null;
       const partElRect = partEl?.getBoundingClientRect();
       
-      setFaceParts(prev => prev.map(part => {
-        if (part.id !== draggingId) return part;
-        
-      // Check if this part should be placed (correct emotion and type)
-      const correctEmotion = emotions[currentEmotion].name;
-      const isCorrectPart = part.emotion === correctEmotion && 
-        (part.id.includes(`eyes-${correctEmotion}`) || 
-         part.id.includes(`eyebrows-${correctEmotion}`) || 
-         part.id.includes(`mouth-${correctEmotion}`));
-      
-      if (!isCorrectPart) {
-        // Wrong part - just update position
-        const boundedX = Math.max(0, Math.min(rect.width - 80, e.clientX - rect.left - pointerOffsetRef.current.dx));
-        const boundedY = Math.max(0, Math.min(rect.height - 80, e.clientY - rect.top - pointerOffsetRef.current.dy));
-        return { ...part, x: boundedX, y: boundedY };
-      }
-
-      // Determine correct drop zone element for this part
-      const zoneEl = part.type === 'eyes' ? eyesZoneRef.current : part.type === 'eyebrows' ? eyebrowsZoneRef.current : mouthZoneRef.current;
+      // Determine if dragged part is inside its corresponding drop zone (by type)
+      const prevPart = faceParts.find((p) => p.id === draggingId);
+      const draggedType = prevPart?.type;
+      const zoneEl = draggedType === 'eyes' ? eyesZoneRef.current : draggedType === 'eyebrows' ? eyebrowsZoneRef.current : mouthZoneRef.current;
       const zoneRect = zoneEl?.getBoundingClientRect();
+      let willPlace = false;
+      let snapX = 0;
+      let snapY = 0;
+
       if (zoneRect) {
         // Use the center of the dragged part to test if it's inside the correct zone
         const cx = partElRect ? partElRect.left + partElRect.width / 2 : e.clientX;
@@ -592,15 +616,32 @@ const Gefuehlsradar = () => {
           const centerY = zoneRect.top - rect.top + zoneRect.height / 2;
           const halfW = partElRect ? partElRect.width / 2 : 20;
           const halfH = partElRect ? partElRect.height / 2 : 12;
-          const newX = centerX - halfW;
-          const newY = centerY - halfH;
-          return { ...part, x: newX, y: newY, correctX: newX, correctY: newY, placed: true };
+          snapX = centerX - halfW;
+          snapY = centerY - halfH;
+          willPlace = true;
         }
       }
-        const boundedX = Math.max(0, Math.min(rect.width - 80, e.clientX - rect.left - pointerOffsetRef.current.dx));
-        const boundedY = Math.max(0, Math.min(rect.height - 80, e.clientY - rect.top - pointerOffsetRef.current.dy));
-        return { ...part, x: boundedX, y: boundedY };
-      }));
+
+      setFaceParts((prev) => {
+        return prev.map((part) => {
+          if (part.id === draggingId) {
+            if (willPlace) {
+              return { ...part, x: snapX, y: snapY, correctX: snapX, correctY: snapY, placed: true };
+            } else {
+              const boundedX = Math.max(0, Math.min(rect.width - 80, e.clientX - rect.left - pointerOffsetRef.current.dx));
+              const boundedY = Math.max(0, Math.min(rect.height - 80, e.clientY - rect.top - pointerOffsetRef.current.dy));
+              return { ...part, x: boundedX, y: boundedY };
+            }
+          }
+          // Ensure only one placed part per type
+          if (willPlace && draggedType && part.type === draggedType && part.id !== draggingId && part.placed) {
+            return { ...part, placed: false };
+          }
+          return part;
+        });
+      });
+      
+      setDraggedPart(null);
       
       setDraggedPart(null);
     };
