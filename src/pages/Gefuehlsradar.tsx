@@ -307,9 +307,16 @@ const Gefuehlsradar = () => {
         return pos ? { ...p, x: pos.x, y: pos.y } : p;
       });
     });
-  };
+   };
 
-  // Initialize face parts for current emotion
+   // Relayout on window resize to keep shelf tidy
+   useEffect(() => {
+     const onResize = () => layoutShelf();
+     window.addEventListener('resize', onResize);
+     return () => window.removeEventListener('resize', onResize);
+   }, [faceParts.length]);
+
+   // Initialize face parts for current emotion
   useEffect(() => {
     // Set page title for better context
     document.title = "Gefühlsradar: Gesichtspuzzle Emotionen";
@@ -607,11 +614,23 @@ const Gefuehlsradar = () => {
       let snapY = 0;
 
       if (zoneRect) {
-        // Use the center of the dragged part to test if it's inside the correct zone
-        const cx = partElRect ? partElRect.left + partElRect.width / 2 : e.clientX;
-        const cy = partElRect ? partElRect.top + partElRect.height / 2 : e.clientY;
-        const inside = cx >= zoneRect.left && cx <= zoneRect.right && cy >= zoneRect.top && cy <= zoneRect.bottom;
-        if (inside) {
+        // Use the center of the dragged part to test if it's inside or near the correct zone
+        const cx = partElRect ? partElRect.left + (partElRect.width / 2) : e.clientX;
+        const cy = partElRect ? partElRect.top + (partElRect.height / 2) : e.clientY;
+
+        const inside =
+          cx >= zoneRect.left && cx <= zoneRect.right &&
+          cy >= zoneRect.top && cy <= zoneRect.bottom;
+
+        // Distance-based snapping tolerance
+        const zoneCenterX = zoneRect.left + zoneRect.width / 2;
+        const zoneCenterY = zoneRect.top + zoneRect.height / 2;
+        const dx = cx - zoneCenterX;
+        const dy = cy - zoneCenterY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const near = dist < 80; // tolerance in px
+
+        if (inside || near) {
           const centerX = zoneRect.left - rect.left + zoneRect.width / 2;
           const centerY = zoneRect.top - rect.top + zoneRect.height / 2;
           const halfW = partElRect ? partElRect.width / 2 : 20;
@@ -623,7 +642,7 @@ const Gefuehlsradar = () => {
       }
 
       setFaceParts((prev) => {
-        return prev.map((part) => {
+        const next = prev.map((part) => {
           if (part.id === draggingId) {
             if (willPlace) {
               return { ...part, x: snapX, y: snapY, correctX: snapX, correctY: snapY, placed: true };
@@ -639,10 +658,11 @@ const Gefuehlsradar = () => {
           }
           return part;
         });
+        return next;
       });
-      
-      setDraggedPart(null);
-      
+      // Re-layout the shelf so unplaced parts are tidy again
+      setTimeout(() => layoutShelf(), 0);
+
       setDraggedPart(null);
     };
 
@@ -810,7 +830,7 @@ const Gefuehlsradar = () => {
                       {/* Game Canvas */}
                     <div 
                       ref={canvasRef}
-                      className="relative bg-gradient-to-b from-blue-50 to-blue-100 rounded-2xl min-h-[600px] overflow-hidden touch-none select-none"
+                      className="relative bg-gradient-to-b from-blue-50 to-blue-100 rounded-2xl min-h-[760px] pb-6 overflow-hidden touch-none select-none"
                     >
                       {/* Ferdy's base face */}
                       <div className="absolute inset-0 flex items-start justify-center pt-10">
@@ -824,9 +844,9 @@ const Gefuehlsradar = () => {
                             <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
                             
                             {/* Drop zones (visible guides) - adjusted for bigger face */}
-                            <div ref={eyesZoneRef} className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1 w-24 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div ref={eyebrowsZoneRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1 w-28 h-8 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                            <div ref={mouthZoneRef} className="absolute top-44 left-1/2 transform -translate-x-1/2 -translate-y-1 w-20 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                             <div ref={eyesZoneRef} className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1 w-32 h-16 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                             <div ref={eyebrowsZoneRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1 w-36 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                             <div ref={mouthZoneRef} className="absolute top-44 left-1/2 transform -translate-x-1/2 -translate-y-1 w-28 h-16 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
                           </div>
                         </div>
                       </div>
@@ -847,9 +867,7 @@ const Gefuehlsradar = () => {
                           }}
                           onPointerDown={(e) => handlePointerDown(e, part.id)}
                         >
-                          <div className={`p-3 rounded-lg bg-white/90 shadow-lg border-2 transition-all ${
-                            draggedPart === part.id ? 'border-primary border-4 shadow-xl' : 'border-gray-300'
-                          } ${part.placed ? 'bg-green-50 border-green-400' : ''}`}>
+                          <div className={`p-3 rounded-lg bg-white/90 shadow-lg border-2 transition-all w-24 h-16 flex items-center justify-center ${draggedPart === part.id ? 'border-primary border-4 shadow-xl' : 'border-gray-300'} ${part.placed ? 'bg-green-50 border-green-400' : ''}`}>
                             {part.type === 'eyes' && <EyesComponent emotion={part.emotion} />}
                             {part.type === 'mouth' && <MouthComponent emotion={part.emotion} />}
                             {part.type === 'eyebrows' && <EyebrowsComponent emotion={part.emotion} />}
