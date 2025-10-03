@@ -628,7 +628,7 @@ const Gefuehlsradar = () => {
         const dx = cx - zoneCenterX;
         const dy = cy - zoneCenterY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const near = dist < 80; // tolerance in px
+        const near = dist < 120; // increased tolerance for easier snapping
 
         if (inside || near) {
           const centerX = zoneRect.left - rect.left + zoneRect.width / 2;
@@ -844,12 +844,22 @@ const Gefuehlsradar = () => {
                             <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
                             
                             {/* Drop zones (visible guides) - adjusted for bigger face */}
-                             <div ref={eyesZoneRef} className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1 w-32 h-16 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                             <div ref={eyebrowsZoneRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1 w-36 h-12 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                             <div ref={mouthZoneRef} className="absolute top-44 left-1/2 transform -translate-x-1/2 -translate-y-1 w-28 h-16 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                          </div>
-                        </div>
-                      </div>
+                             <div ref={eyesZoneRef} className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1 w-40 h-20 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                             <div ref={eyebrowsZoneRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1 w-44 h-14 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                             <div ref={mouthZoneRef} className="absolute top-44 left-1/2 transform -translate-x-1/2 -translate-y-1 w-36 h-20 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                           </div>
+                         </div>
+                       </div>
+
+                       {/* Buckets: Labels and subtle backgrounds */}
+                       <div className="absolute inset-x-0 pointer-events-none">
+                         <div className="absolute left-0 right-0 top-[448px] h-[84px] bg-muted/20 rounded-md"></div>
+                         <div className="absolute left-0 right-0 top-[528px] h-[84px] bg-muted/20 rounded-md"></div>
+                         <div className="absolute left-0 right-0 top-[608px] h-[84px] bg-muted/20 rounded-md"></div>
+                         <div className="absolute left-3 top-[438px] text-xs font-semibold uppercase tracking-wide bg-white/80 rounded px-2 py-1 text-foreground shadow-sm">Augen</div>
+                         <div className="absolute left-3 top-[518px] text-xs font-semibold uppercase tracking-wide bg-white/80 rounded px-2 py-1 text-foreground shadow-sm">Münder</div>
+                         <div className="absolute left-3 top-[598px] text-xs font-semibold uppercase tracking-wide bg-white/80 rounded px-2 py-1 text-foreground shadow-sm">Augenbrauen</div>
+                       </div>
 
                       {/* Face parts */}
                       {faceParts.map(part => (
@@ -863,7 +873,7 @@ const Gefuehlsradar = () => {
                             left: part.x,
                             top: part.y,
                             transform: part.placed ? 'scale(1.1)' : 'scale(1)',
-                            zIndex: draggedPart === part.id ? 1000 : 1
+                            zIndex: draggedPart === part.id ? 1000 : (part.placed ? 20 : 2)
                           }}
                           onPointerDown={(e) => handlePointerDown(e, part.id)}
                         >
@@ -873,13 +883,6 @@ const Gefuehlsradar = () => {
                             {part.type === 'eyebrows' && <EyebrowsComponent emotion={part.emotion} />}
                           </div>
                           
-                          {!part.placed && (
-                            <div className="text-xs text-center mt-1 bg-white/80 rounded px-2 py-1">
-                              {part.type === 'eyes' && 'Augen'}
-                              {part.type === 'mouth' && 'Mund'}
-                              {part.type === 'eyebrows' && 'Augenbrauen'}
-                            </div>
-                          )}
                         </div>
                       ))}
                     </div>
