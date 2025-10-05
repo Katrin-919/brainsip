@@ -267,6 +267,43 @@ const Gefuehlsradar = () => {
   const pointerDragIdRef = useRef<string | null>(null);
   const pointerOffsetRef = useRef<{ dx: number; dy: number }>({ dx: 0, dy: 0 });
 
+  // Helpers: map variations to core emotions and compute built emotion
+  const coreEmotions = ['Freude','Trauer','Wut','Überraschung'] as const;
+  type CoreEmotion = typeof coreEmotions[number];
+  const mapToCoreEmotion = (emotion: string): CoreEmotion => {
+    switch (emotion) {
+      case 'Freude':
+      case 'Banane':
+      case 'Regenbogen':
+      case 'Sonnenbrille':
+        return 'Freude';
+      case 'Trauer':
+      case 'Müdigkeit':
+        return 'Trauer';
+      case 'Wut':
+        return 'Wut';
+      case 'Überraschung':
+      case 'Verwirrung':
+      case 'Hut':
+        return 'Überraschung';
+      default:
+        return 'Überraschung';
+    }
+  };
+  const typeWeights: Record<'eyes'|'mouth'|'eyebrows', number> = { mouth: 3, eyes: 2, eyebrows: 2 };
+  const computeBuiltCoreEmotion = (parts: {eyes?: string, mouth?: string, eyebrows?: string}): CoreEmotion => {
+    const counts: Record<CoreEmotion, number> = { Freude: 0, Trauer: 0, Wut: 0, Überraschung: 0 };
+    if (parts.mouth) counts[mapToCoreEmotion(parts.mouth)] += typeWeights.mouth;
+    if (parts.eyes) counts[mapToCoreEmotion(parts.eyes)] += typeWeights.eyes;
+    if (parts.eyebrows) counts[mapToCoreEmotion(parts.eyebrows)] += typeWeights.eyebrows;
+    let best: CoreEmotion = 'Überraschung';
+    let max = -1;
+    (coreEmotions as readonly CoreEmotion[]).forEach((e) => {
+      if (counts[e] > max) { max = counts[e]; best = e; }
+    });
+    return best;
+  };
+
   // Drop zone refs for precise snapping
   const eyebrowsZoneRef = useRef<HTMLDivElement>(null);
   const eyesZoneRef = useRef<HTMLDivElement>(null);
@@ -571,6 +608,14 @@ const Gefuehlsradar = () => {
         mouth: mouthPart?.emotion,
         eyebrows: eyebrowsPart?.emotion
       });
+
+      // Pre-compute the built core emotion for use in the question options and feedback
+      const built = computeBuiltCoreEmotion({
+        eyes: eyesPart?.emotion,
+        mouth: mouthPart?.emotion,
+        eyebrows: eyebrowsPart?.emotion
+      });
+      setBuiltEmotion(built);
       
       setTimeout(() => {
         setGamePhase('question');
@@ -701,37 +746,12 @@ const Gefuehlsradar = () => {
 
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer);
-    
-    // Count only core emotions that are available as answers
-    const coreNames = new Set(emotions.map(e => e.name));
-    const emotionCounts: Record<string, number> = {};
-    
-    Object.values(placedParts).forEach(emotion => {
-      if (emotion && coreNames.has(emotion)) {
-        emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
-      }
-    });
-    
-    // Find the emotion with the most parts
-    let dominantEmotion = '';
-    let maxCount = 0;
-    Object.entries(emotionCounts).forEach(([emotion, count]) => {
-      if (count > maxCount) {
-        maxCount = count;
-        dominantEmotion = emotion;
-      }
-    });
 
-    // Fallback: if none of the placed parts are core emotions, use the round's emotion
-    if (!dominantEmotion) {
-      dominantEmotion = emotions[currentEmotion].name;
-    }
+    // Use precomputed built emotion, or compute it now with weighted mapping
+    const built = builtEmotion || computeBuiltCoreEmotion(placedParts);
+    setBuiltEmotion(built);
 
-    // Remember what the user actually built
-    setBuiltEmotion(dominantEmotion);
-    
-    // The correct answer is the emotion that the user built (dominant emotion among core emotions)
-    const correct = answer === dominantEmotion;
+    const correct = answer === built;
     setIsCorrect(correct);
     if (correct) {
       setScore(prev => prev + 25);
