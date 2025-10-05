@@ -261,6 +261,7 @@ const Gefuehlsradar = () => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [draggedPart, setDraggedPart] = useState<string | null>(null);
   const [placedParts, setPlacedParts] = useState<{eyes?: string, mouth?: string, eyebrows?: string}>({});
+  const [builtEmotion, setBuiltEmotion] = useState<string | null>(null);
   
   const canvasRef = useRef<HTMLDivElement>(null);
   const pointerDragIdRef = useRef<string | null>(null);
@@ -701,12 +702,12 @@ const Gefuehlsradar = () => {
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer);
     
-    // Determine the correct emotion based on what the user actually built
-    // Count how many parts match each emotion
+    // Count only core emotions that are available as answers
+    const coreNames = new Set(emotions.map(e => e.name));
     const emotionCounts: Record<string, number> = {};
     
     Object.values(placedParts).forEach(emotion => {
-      if (emotion) {
+      if (emotion && coreNames.has(emotion)) {
         emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
       }
     });
@@ -720,8 +721,16 @@ const Gefuehlsradar = () => {
         dominantEmotion = emotion;
       }
     });
+
+    // Fallback: if none of the placed parts are core emotions, use the round's emotion
+    if (!dominantEmotion) {
+      dominantEmotion = emotions[currentEmotion].name;
+    }
+
+    // Remember what the user actually built
+    setBuiltEmotion(dominantEmotion);
     
-    // The correct answer is the emotion that the user built (dominant emotion)
+    // The correct answer is the emotion that the user built (dominant emotion among core emotions)
     const correct = answer === dominantEmotion;
     setIsCorrect(correct);
     if (correct) {
@@ -735,6 +744,7 @@ const Gefuehlsradar = () => {
     setShowFeedback(false);
     setSelectedAnswer(null);
     setPlacedParts({});
+    setBuiltEmotion(null);
     
     if (currentEmotion < emotions.length - 1) {
       // Reset to start screen before moving to next emotion
@@ -755,9 +765,12 @@ const Gefuehlsradar = () => {
   };
 
   const getOtherEmotions = () => {
-    const current = emotions[currentEmotion].name;
-    const others = emotions.filter(e => e.name !== current).map(e => e.name);
-    return [current, ...others.slice(0, 2)].sort(() => Math.random() - 0.5);
+    const core = emotions.map(e => e.name);
+    const correct = builtEmotion || emotions[currentEmotion].name;
+    const others = core.filter(name => name !== correct);
+    const shuffled = others.sort(() => Math.random() - 0.5);
+    const options = [correct, ...shuffled.slice(0, 2)];
+    return options.sort(() => Math.random() - 0.5);
   };
 
   if (loading) {
@@ -993,8 +1006,8 @@ const Gefuehlsradar = () => {
                     
                     <p className="text-foreground">
                       {isCorrect 
-                        ? emotions[currentEmotion].feedback
-                        : `Das war ${emotions[currentEmotion].name}. ${emotions[currentEmotion].feedback}`
+                        ? (emotions.find(e => e.name === (builtEmotion || emotions[currentEmotion].name))?.feedback)
+                        : `Das war ${(builtEmotion || emotions[currentEmotion].name)}. ${emotions.find(e => e.name === (builtEmotion || emotions[currentEmotion].name))?.feedback}`
                       }
                     </p>
 
