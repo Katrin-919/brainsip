@@ -937,7 +937,7 @@ const Gefuehlsradar = () => {
                           key={emotion}
                           onClick={() => handleAnswerSelect(emotion)}
                           variant="outline"
-                          className="p-4 text-lg hover:bg-primary/10"
+                          className="p-4 text-lg text-foreground hover:bg-primary/10 hover:text-foreground"
                         >
                           {emotion}
                         </Button>
