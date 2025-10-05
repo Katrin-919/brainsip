@@ -698,11 +698,14 @@ const Gefuehlsradar = () => {
   };
 
   const handleNextRound = () => {
+    setShowFeedback(false);
+    setSelectedAnswer(null);
+    
     if (currentEmotion < emotions.length - 1) {
-      setCurrentEmotion(prev => prev + 1);
+      // Reset to start screen before moving to next emotion
       setGamePhase('puzzle');
-      setSelectedAnswer(null);
-      setShowFeedback(false);
+      setFaceParts([]); // Clear all parts first
+      setCurrentEmotion(prev => prev + 1);
     } else {
       setGamePhase('complete');
       if (user) {
