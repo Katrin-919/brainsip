@@ -700,7 +700,29 @@ const Gefuehlsradar = () => {
 
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer);
-    const correct = answer === emotions[currentEmotion].name;
+    
+    // Determine the correct emotion based on what the user actually built
+    // Count how many parts match each emotion
+    const emotionCounts: Record<string, number> = {};
+    
+    Object.values(placedParts).forEach(emotion => {
+      if (emotion) {
+        emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
+      }
+    });
+    
+    // Find the emotion with the most parts
+    let dominantEmotion = '';
+    let maxCount = 0;
+    Object.entries(emotionCounts).forEach(([emotion, count]) => {
+      if (count > maxCount) {
+        maxCount = count;
+        dominantEmotion = emotion;
+      }
+    });
+    
+    // The correct answer is the emotion that the user built (dominant emotion)
+    const correct = answer === dominantEmotion;
     setIsCorrect(correct);
     if (correct) {
       setScore(prev => prev + 25);
