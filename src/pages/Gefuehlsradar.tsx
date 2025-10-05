@@ -223,25 +223,25 @@ const emotions: Emotion[] = [
     name: "Freude",
     description: "Ein fröhliches, glückliches Gefühl",
     color: "#FFD700",
-    feedback: "Super! Das ist Freude! Das siehst du an den lachenden Augen und dem breiten Lächeln."
+    feedback: "Super! Das siehst du an den lachenden Augen und dem breiten Lächeln."
   },
   {
     name: "Trauer",
     description: "Ein trauriges, niedergeschlagenes Gefühl",
     color: "#87CEEB",
-    feedback: "Richtig! Das ist Trauer. Die hängenden Mundwinkel und Tränen zeigen die Traurigkeit."
+    feedback: "Richtig! Die hängenden Mundwinkel und Tränen zeigen die Traurigkeit."
   },
   {
     name: "Wut",
     description: "Ein ärgerliches, zorniges Gefühl",
     color: "#FF6B6B",
-    feedback: "Genau! Das ist Wut! Die zusammengezogenen Augenbrauen und der grimmige Mund zeigen Ärger."
+    feedback: "Genau! Die zusammengezogenen Augenbrauen und der grimmige Mund zeigen Ärger."
   },
   {
     name: "Überraschung",
     description: "Ein erstauntes, überraschtes Gefühl",
     color: "#98FB98",
-    feedback: "Perfekt! Das ist Überraschung! Die großen runden Augen und der offene Mund zeigen Erstaunen."
+    feedback: "Perfekt! Die großen runden Augen und der offene Mund zeigen Erstaunen."
   }
 ];
 
