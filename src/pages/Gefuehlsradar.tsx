@@ -270,6 +270,11 @@ const Gefuehlsradar = () => {
   const eyesZoneRef = useRef<HTMLDivElement>(null);
   const mouthZoneRef = useRef<HTMLDivElement>(null);
   const partRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  // Keep a live ref of faceParts to avoid stale closures in pointer handlers
+  const facePartsRef = useRef<FacePart[]>([]);
+  useEffect(() => {
+    facePartsRef.current = faceParts;
+  }, [faceParts]);
 
   // Arrange the parts neatly at the bottom as a responsive grid (per type row)
   const layoutShelf = () => {
@@ -605,14 +610,20 @@ const Gefuehlsradar = () => {
       const partElRect = partEl?.getBoundingClientRect();
       
       // Determine if dragged part is inside its corresponding drop zone (by type)
-      const prevPart = faceParts.find((p) => p.id === draggingId);
+      const prevPart = facePartsRef.current.find((p) => p.id === draggingId);
       const draggedType = prevPart?.type;
-      const zoneEl = draggedType === 'eyes' ? eyesZoneRef.current : draggedType === 'eyebrows' ? eyebrowsZoneRef.current : mouthZoneRef.current;
+      const zoneEl =
+        draggedType === 'eyes'
+          ? eyesZoneRef.current
+          : draggedType === 'eyebrows'
+          ? eyebrowsZoneRef.current
+          : draggedType === 'mouth'
+          ? mouthZoneRef.current
+          : null;
       const zoneRect = zoneEl?.getBoundingClientRect();
       let willPlace = false;
       let snapX = 0;
       let snapY = 0;
-
       if (zoneRect) {
         // Use the center of the dragged part to test if it's inside or near the correct zone
         const cx = partElRect ? partElRect.left + (partElRect.width / 2) : e.clientX;
@@ -852,7 +863,7 @@ const Gefuehlsradar = () => {
                        </div>
 
                        {/* Buckets: Labels and subtle backgrounds */}
-                       <div className="absolute inset-x-0 pointer-events-none">
+                       <div className="absolute inset-x-0 pointer-events-none z-10">
                          <div className="absolute left-0 right-0 top-[448px] h-[84px] bg-muted/20 rounded-md"></div>
                          <div className="absolute left-0 right-0 top-[528px] h-[84px] bg-muted/20 rounded-md"></div>
                          <div className="absolute left-0 right-0 top-[608px] h-[84px] bg-muted/20 rounded-md"></div>
