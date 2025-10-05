@@ -260,6 +260,7 @@ const Gefuehlsradar = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [draggedPart, setDraggedPart] = useState<string | null>(null);
+  const [placedParts, setPlacedParts] = useState<{eyes?: string, mouth?: string, eyebrows?: string}>({});
   
   const canvasRef = useRef<HTMLDivElement>(null);
   const pointerDragIdRef = useRef<string | null>(null);
@@ -559,6 +560,17 @@ const Gefuehlsradar = () => {
     const placed = faceParts.filter((p) => p.placed);
     const types = new Set(placed.map((p) => p.type));
     if (types.has('eyes') && types.has('eyebrows') && types.has('mouth')) {
+      // Store which parts were actually placed
+      const eyesPart = placed.find(p => p.type === 'eyes');
+      const mouthPart = placed.find(p => p.type === 'mouth');
+      const eyebrowsPart = placed.find(p => p.type === 'eyebrows');
+      
+      setPlacedParts({
+        eyes: eyesPart?.emotion,
+        mouth: mouthPart?.emotion,
+        eyebrows: eyebrowsPart?.emotion
+      });
+      
       setTimeout(() => {
         setGamePhase('question');
       }, 300);
@@ -700,6 +712,7 @@ const Gefuehlsradar = () => {
   const handleNextRound = () => {
     setShowFeedback(false);
     setSelectedAnswer(null);
+    setPlacedParts({});
     
     if (currentEmotion < emotions.length - 1) {
       // Reset to start screen before moving to next emotion
@@ -917,15 +930,15 @@ const Gefuehlsradar = () => {
                           <div className="absolute -top-4 -right-2 w-6 h-8 bg-orange-400 rounded-full border-2 border-orange-600 transform rotate-12"></div>
                           <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
                           
-                          {/* Placed parts */}
+                          {/* Placed parts - show what user actually built */}
                           <div className="absolute top-4 left-1/2 transform -translate-x-1/2 -translate-y-1">
-                            <EyebrowsComponent emotion={emotions[currentEmotion].name} />
+                            <EyebrowsComponent emotion={placedParts.eyebrows || emotions[currentEmotion].name} />
                           </div>
                           <div className="absolute top-8 left-1/2 transform -translate-x-1/2 -translate-y-1">
-                            <EyesComponent emotion={emotions[currentEmotion].name} />
+                            <EyesComponent emotion={placedParts.eyes || emotions[currentEmotion].name} />
                           </div>
                           <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1">
-                            <MouthComponent emotion={emotions[currentEmotion].name} />
+                            <MouthComponent emotion={placedParts.mouth || emotions[currentEmotion].name} />
                           </div>
                         </div>
                       </div>
