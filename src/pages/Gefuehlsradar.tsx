@@ -323,7 +323,7 @@ const Gefuehlsradar = () => {
     const padding = 24;
     const itemW = 96; // approx width per item
     const cols = Math.max(3, Math.floor((rect.width - padding * 2) / itemW));
-    const baseY = { eyes: 460, mouth: 540, eyebrows: 620 } as const;
+    const baseY = { eyes: 470, mouth: 560, eyebrows: 650 } as const;
 
     setFaceParts((prev) => {
       const next = [...prev];
@@ -917,30 +917,30 @@ const Gefuehlsradar = () => {
                       {/* Ferdy's base face */}
                       <div className="absolute inset-0 flex items-start justify-center pt-10">
                         <div className="relative">
-                          <div className="w-80 h-80 bg-orange-400 rounded-full border-4 border-orange-600 relative">
-                            {/* Ears */}
-                            <div className="absolute -top-6 -left-4 w-12 h-16 bg-orange-400 rounded-full border-2 border-orange-600 transform -rotate-12"></div>
-                            <div className="absolute -top-6 -right-4 w-12 h-16 bg-orange-400 rounded-full border-2 border-orange-600 transform rotate-12"></div>
+                          <div className="w-80 h-80 bg-orange-400 rounded-full border-4 border-orange-600 relative shadow-lg">
+                            {/* Ears - bigger and rounder for cuteness */}
+                            <div className="absolute -top-4 -left-6 w-16 h-20 bg-orange-400 rounded-full border-4 border-orange-600 transform -rotate-12 shadow-md"></div>
+                            <div className="absolute -top-4 -right-6 w-16 h-20 bg-orange-400 rounded-full border-4 border-orange-600 transform rotate-12 shadow-md"></div>
                             
-                            {/* Nose */}
-                            <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-black rounded-full"></div>
+                            {/* Nose - cuter and rounder */}
+                            <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-4 h-3 bg-black rounded-full"></div>
                             
-                            {/* Drop zones (visible guides) - adjusted for bigger face */}
-                             <div ref={eyesZoneRef} className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1 w-40 h-20 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                             <div ref={eyebrowsZoneRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1 w-44 h-14 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
-                             <div ref={mouthZoneRef} className="absolute top-44 left-1/2 transform -translate-x-1/2 -translate-y-1 w-36 h-20 border-2 border-dashed border-gray-400 rounded opacity-50"></div>
+                            {/* Drop zones (visible guides) - more prominent */}
+                             <div ref={eyesZoneRef} className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1 w-40 h-20 border-3 border-dashed border-primary/60 rounded-lg bg-primary/5"></div>
+                             <div ref={eyebrowsZoneRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1 w-44 h-14 border-3 border-dashed border-primary/60 rounded-lg bg-primary/5"></div>
+                             <div ref={mouthZoneRef} className="absolute top-44 left-1/2 transform -translate-x-1/2 -translate-y-1 w-36 h-20 border-3 border-dashed border-primary/60 rounded-lg bg-primary/5"></div>
                            </div>
                          </div>
                        </div>
 
-                       {/* Buckets: Labels and subtle backgrounds */}
+                       {/* Buckets: Labels and subtle backgrounds with better spacing */}
                        <div className="absolute inset-x-0 pointer-events-none z-10">
-                         <div className="absolute left-0 right-0 top-[448px] h-[84px] bg-muted/20 rounded-md"></div>
-                         <div className="absolute left-0 right-0 top-[528px] h-[84px] bg-muted/20 rounded-md"></div>
-                         <div className="absolute left-0 right-0 top-[608px] h-[84px] bg-muted/20 rounded-md"></div>
-                         <div className="absolute left-3 top-[438px] text-xs font-semibold uppercase tracking-wide bg-white/80 rounded px-2 py-1 text-foreground shadow-sm">Augen</div>
-                         <div className="absolute left-3 top-[518px] text-xs font-semibold uppercase tracking-wide bg-white/80 rounded px-2 py-1 text-foreground shadow-sm">Münder</div>
-                         <div className="absolute left-3 top-[598px] text-xs font-semibold uppercase tracking-wide bg-white/80 rounded px-2 py-1 text-foreground shadow-sm">Augenbrauen</div>
+                         <div className="absolute left-0 right-0 top-[468px] h-[74px] bg-muted/20 rounded-md"></div>
+                         <div className="absolute left-0 right-0 top-[558px] h-[74px] bg-muted/20 rounded-md"></div>
+                         <div className="absolute left-0 right-0 top-[648px] h-[74px] bg-muted/20 rounded-md"></div>
+                         <div className="absolute left-3 top-[450px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augen</div>
+                         <div className="absolute left-3 top-[540px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Münder</div>
+                         <div className="absolute left-3 top-[630px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augenbrauen</div>
                        </div>
 
                       {/* Face parts */}
