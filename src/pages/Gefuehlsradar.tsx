@@ -951,13 +951,13 @@ const Gefuehlsradar = () => {
                             <div className="absolute -top-4 -left-6 w-16 h-20 bg-orange-400 rounded-full border-4 border-orange-600 transform -rotate-12 shadow-md"></div>
                             <div className="absolute -top-4 -right-6 w-16 h-20 bg-orange-400 rounded-full border-4 border-orange-600 transform rotate-12 shadow-md"></div>
                             
-                            {/* Nose - positioned below the eyes */}
-                            <div className="absolute top-36 left-1/2 transform -translate-x-1/2 w-4 h-3 bg-black rounded-full"></div>
+                            {/* Nose - positioned below the eyes with higher z-index to stay visible */}
+                            <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-5 h-4 bg-black rounded-full z-50"></div>
                             
-                            {/* Drop zones (visible guides) - highly visible with strong borders and backgrounds */}
-                             <div ref={eyebrowsZoneRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1 w-44 h-14 border-4 border-dashed border-primary/90 rounded-lg bg-primary/15 shadow-md"></div>
-                             <div ref={eyesZoneRef} className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1 w-40 h-20 border-4 border-dashed border-primary/90 rounded-lg bg-primary/15 shadow-md"></div>
-                             <div ref={mouthZoneRef} className="absolute top-44 left-1/2 transform -translate-x-1/2 -translate-y-1 w-36 h-20 border-4 border-dashed border-primary/90 rounded-lg bg-primary/15 shadow-md"></div>
+                            {/* Drop zones (visible guides) - clearly separated with more spacing */}
+                             <div ref={eyebrowsZoneRef} className="absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1 w-44 h-14 border-4 border-dashed border-primary/90 rounded-lg bg-primary/15 shadow-md"></div>
+                             <div ref={eyesZoneRef} className="absolute top-32 left-1/2 transform -translate-x-1/2 -translate-y-1 w-40 h-20 border-4 border-dashed border-primary/90 rounded-lg bg-primary/15 shadow-md"></div>
+                             <div ref={mouthZoneRef} className="absolute top-56 left-1/2 transform -translate-x-1/2 -translate-y-1 w-36 h-20 border-4 border-dashed border-primary/90 rounded-lg bg-primary/15 shadow-md"></div>
                            </div>
                          </div>
                        </div>
