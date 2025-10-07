@@ -262,6 +262,7 @@ const Gefuehlsradar = () => {
   const [draggedPart, setDraggedPart] = useState<string | null>(null);
   const [placedParts, setPlacedParts] = useState<{eyes?: string, mouth?: string, eyebrows?: string}>({});
   const [builtEmotion, setBuiltEmotion] = useState<string | null>(null);
+  const [questionOptions, setQuestionOptions] = useState<string[]>([]);
   
   const canvasRef = useRef<HTMLDivElement>(null);
   const pointerDragIdRef = useRef<string | null>(null);
@@ -321,6 +322,23 @@ const Gefuehlsradar = () => {
     return mapToCoreEmotion(label);
   };
 
+  // Build answer options deterministically from a given core emotion
+  const generateOptionsFromCore = (core: CoreEmotion): string[] => {
+    const correctPool = emotionSynonyms[core];
+    const correctLabel = correctPool[Math.floor(Math.random() * correctPool.length)];
+
+    const otherCores = (coreEmotions as readonly CoreEmotion[]).filter(c => c !== core);
+    const distractorPool = otherCores.flatMap(c => emotionSynonyms[c]);
+    const shuffled = [...distractorPool].sort(() => Math.random() - 0.5);
+
+    const distractors: string[] = [];
+    for (const l of shuffled) {
+      if (l !== correctLabel && !distractors.includes(l)) distractors.push(l);
+      if (distractors.length === 2) break;
+    }
+
+    return [correctLabel, ...distractors].sort(() => Math.random() - 0.5);
+  };
   // Drop zone refs for precise snapping
   const eyebrowsZoneRef = useRef<HTMLDivElement>(null);
   const eyesZoneRef = useRef<HTMLDivElement>(null);
@@ -633,6 +651,7 @@ const Gefuehlsradar = () => {
         eyebrows: eyebrowsPart?.emotion
       });
       setBuiltEmotion(built);
+      setQuestionOptions(generateOptionsFromCore(built));
       
       setTimeout(() => {
         setGamePhase('question');
@@ -782,6 +801,7 @@ const Gefuehlsradar = () => {
     setSelectedAnswer(null);
     setPlacedParts({});
     setBuiltEmotion(null);
+    setQuestionOptions([]);
     
     if (currentEmotion < emotions.length - 1) {
       // Reset to start screen before moving to next emotion
@@ -1029,7 +1049,7 @@ const Gefuehlsradar = () => {
                     </div>
 
                     <div className="grid grid-cols-1 gap-3">
-                      {getOtherEmotions().map((emotion) => (
+                      {(questionOptions.length ? questionOptions : generateOptionsFromCore((builtEmotion || emotions[currentEmotion].name) as CoreEmotion)).map((emotion) => (
                         <Button
                           key={emotion}
                           onClick={() => handleAnswerSelect(emotion)}
