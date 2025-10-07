@@ -303,6 +303,23 @@ const Gefuehlsradar = () => {
     });
     return best;
   };
+  
+  // Synonyms for varied answer labels per core emotion
+  const emotionSynonyms: Record<CoreEmotion, string[]> = {
+    Freude: ['Freude','Fröhlichkeit','Glück','Heiterkeit','Zufriedenheit','Spaß'],
+    Trauer: ['Trauer','Traurigkeit','Weinen','Kummer','Niedergeschlagenheit','Enttäuschung'],
+    Wut: ['Wut','Ärger','Zorn','Genervtsein','Frustration','Gereiztheit'],
+    Überraschung: ['Überraschung','Erstaunen','Verwunderung','Verblüffung','Erschrecken','Verwirrung'],
+  };
+
+  // Map a visible label back to its core emotion
+  const mapLabelToCore = (label: string): CoreEmotion => {
+    for (const core of coreEmotions) {
+      if (emotionSynonyms[core].includes(label)) return core;
+    }
+    // Fallback to existing mapping for rare cases
+    return mapToCoreEmotion(label);
+  };
 
   // Drop zone refs for precise snapping
   const eyebrowsZoneRef = useRef<HTMLDivElement>(null);
@@ -751,7 +768,7 @@ const Gefuehlsradar = () => {
     const built = builtEmotion || computeBuiltCoreEmotion(placedParts);
     setBuiltEmotion(built);
 
-    const correct = answer === built;
+    const correct = mapLabelToCore(answer) === built;
     setIsCorrect(correct);
     if (correct) {
       setScore(prev => prev + 25);
@@ -785,12 +802,24 @@ const Gefuehlsradar = () => {
   };
 
   const getOtherEmotions = () => {
-    const core = emotions.map(e => e.name);
-    const correct = builtEmotion || emotions[currentEmotion].name;
-    const others = core.filter(name => name !== correct);
-    const shuffled = others.sort(() => Math.random() - 0.5);
-    const options = [correct, ...shuffled.slice(0, 2)];
-    return options.sort(() => Math.random() - 0.5);
+    const correctCore = (builtEmotion || emotions[currentEmotion].name) as CoreEmotion;
+
+    // Pick a random visible label for the correct core emotion
+    const correctPool = emotionSynonyms[correctCore];
+    const correctLabel = correctPool[Math.floor(Math.random() * correctPool.length)];
+
+    // Build a large distractor pool from other cores' synonyms
+    const otherCores = (coreEmotions as readonly CoreEmotion[]).filter(c => c !== correctCore);
+    const distractorPool = otherCores.flatMap(c => emotionSynonyms[c]);
+    const shuffled = [...distractorPool].sort(() => Math.random() - 0.5);
+
+    const distractors: string[] = [];
+    for (const l of shuffled) {
+      if (l !== correctLabel && !distractors.includes(l)) distractors.push(l);
+      if (distractors.length === 2) break;
+    }
+
+    return [correctLabel, ...distractors].sort(() => Math.random() - 0.5);
   };
 
   if (loading) {
