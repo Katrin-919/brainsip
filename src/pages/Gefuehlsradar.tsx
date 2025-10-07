@@ -700,12 +700,11 @@ const Gefuehlsradar = () => {
       const rect = canvasRef.current?.getBoundingClientRect();
       if (!rect) return;
       
-      const partEl = partRefs.current[draggingId] || null;
-      const partElRect = partEl?.getBoundingClientRect();
-      
       // Determine if dragged part is inside its corresponding drop zone (by type)
       const prevPart = facePartsRef.current.find((p) => p.id === draggingId);
       const draggedType = prevPart?.type;
+      if (!prevPart) return;
+      
       const zoneEl =
         draggedType === 'eyes'
           ? eyesZoneRef.current
@@ -714,34 +713,34 @@ const Gefuehlsradar = () => {
           : draggedType === 'mouth'
           ? mouthZoneRef.current
           : null;
+      
       const zoneRect = zoneEl?.getBoundingClientRect();
       let willPlace = false;
       let snapX = 0;
       let snapY = 0;
-      if (zoneRect) {
-        // Use the center of the dragged part to test if it's inside or near the correct zone
-        const cx = partElRect ? partElRect.left + (partElRect.width / 2) : e.clientX;
-        const cy = partElRect ? partElRect.top + (partElRect.height / 2) : e.clientY;
+      if (zoneRect && rect) {
+        // Use the part's state position (more reliable than DOM rect during drag)
+        // Convert to viewport coordinates  
+        const partCenterX = rect.left + prevPart.x + 40; // 40 is half of typical part width (80px)
+        const partCenterY = rect.top + prevPart.y + 28; // 28 is half of typical part height (56px)
 
         const inside =
-          cx >= zoneRect.left && cx <= zoneRect.right &&
-          cy >= zoneRect.top && cy <= zoneRect.bottom;
+          partCenterX >= zoneRect.left && partCenterX <= zoneRect.right &&
+          partCenterY >= zoneRect.top && partCenterY <= zoneRect.bottom;
 
         // Distance-based snapping tolerance
         const zoneCenterX = zoneRect.left + zoneRect.width / 2;
         const zoneCenterY = zoneRect.top + zoneRect.height / 2;
-        const dx = cx - zoneCenterX;
-        const dy = cy - zoneCenterY;
+        const dx = partCenterX - zoneCenterX;
+        const dy = partCenterY - zoneCenterY;
         const dist = Math.sqrt(dx * dx + dy * dy);
         const near = dist < 120; // increased tolerance for easier snapping
 
         if (inside || near) {
           const centerX = zoneRect.left - rect.left + zoneRect.width / 2;
           const centerY = zoneRect.top - rect.top + zoneRect.height / 2;
-          const halfW = partElRect ? partElRect.width / 2 : 20;
-          const halfH = partElRect ? partElRect.height / 2 : 12;
-          snapX = centerX - halfW;
-          snapY = centerY - halfH;
+          snapX = centerX - 40; // Center the part (40 is half width)
+          snapY = centerY - 28; // Center the part (28 is half height)
           willPlace = true;
         }
       }
