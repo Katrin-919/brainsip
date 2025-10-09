@@ -987,7 +987,7 @@ const Gefuehlsradar = () => {
                           <div className="absolute left-0 right-0 top-[708px] h-[74px] bg-muted/20 rounded-md"></div>
                           <div className="absolute left-3 top-[420px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augen</div>
                           <div className="absolute left-3 top-[540px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Münder</div>
-                          <div className="absolute left-3 top-[650px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augenbrauen</div>
+                          <div className="absolute left-3 top-[620px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augenbrauen</div>
                         </div>
 
                       {/* Face parts */}
