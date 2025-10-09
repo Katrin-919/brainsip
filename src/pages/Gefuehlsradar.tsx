@@ -983,7 +983,6 @@ const Gefuehlsradar = () => {
 
                        {/* Buckets: Labels and subtle backgrounds with better spacing */}
                        <div className="absolute inset-x-0 pointer-events-none z-10">
-                         <div className="absolute left-0 right-0 top-[468px] h-[74px] bg-muted/20 rounded-md"></div>
                          <div className="absolute left-0 right-0 top-[558px] h-[74px] bg-muted/20 rounded-md"></div>
                          <div className="absolute left-0 right-0 top-[648px] h-[74px] bg-muted/20 rounded-md"></div>
                          <div className="absolute left-3 top-[450px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augen</div>
