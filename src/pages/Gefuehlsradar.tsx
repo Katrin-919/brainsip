@@ -417,16 +417,6 @@ const Gefuehlsradar = () => {
           correctY: 180
         },
         {
-          id: `eyebrows-${correctEmotion}`,
-          type: 'eyebrows',
-          emotion: correctEmotion,
-          x: 150,
-          y: 480,
-          placed: false,
-          correctX: 302,
-          correctY: 140
-        },
-        {
           id: `mouth-${correctEmotion}`,
           type: 'mouth',
           emotion: correctEmotion,
