@@ -981,13 +981,19 @@ const Gefuehlsradar = () => {
                          </div>
                        </div>
 
-                        {/* Buckets: Labels and subtle backgrounds with better spacing */}
+                        {/* Buckets: Labels positioned outside puzzle pieces with clear spacing */}
                         <div className="absolute inset-x-0 pointer-events-none z-10">
-                          <div className="absolute left-0 right-0 top-[588px] h-[74px] bg-muted/20 rounded-md"></div>
-                          <div className="absolute left-0 right-0 top-[708px] h-[74px] bg-muted/20 rounded-md"></div>
-                          <div className="absolute left-3 top-[420px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augen</div>
-                          <div className="absolute left-3 top-[540px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Münder</div>
-                          <div className="absolute left-3 top-[620px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augenbrauen</div>
+                          {/* Eyes section - no background needed, label comes before puzzle pieces */}
+                          
+                          {/* Mouths section background */}
+                          <div className="absolute left-0 right-0 top-[540px] h-[100px] bg-muted/20 rounded-md"></div>
+                          
+                          {/* Eyebrows section background */}
+                          <div className="absolute left-0 right-0 top-[680px] h-[100px] bg-muted/20 rounded-md"></div>
+                          
+                          {/* Labels positioned above their respective sections */}
+                          <div className="absolute left-3 top-[500px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Münder</div>
+                          <div className="absolute left-3 top-[640px] text-sm font-bold uppercase tracking-wide bg-white/90 rounded px-3 py-1.5 text-foreground shadow-md">Augenbrauen</div>
                         </div>
 
                       {/* Face parts */}
