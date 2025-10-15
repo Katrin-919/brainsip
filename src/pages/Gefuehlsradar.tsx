@@ -358,7 +358,7 @@ const Gefuehlsradar = () => {
     const padding = 24;
     const itemW = 96; // approx width per item
     const cols = Math.max(3, Math.floor((rect.width - padding * 2) / itemW));
-    const baseY = { eyes: 470, mouth: 590, eyebrows: 710 } as const;
+    const baseY = { eyes: 230, mouth: 410, eyebrows: 590 } as const;
 
     setFaceParts((prev) => {
       const next = [...prev];
