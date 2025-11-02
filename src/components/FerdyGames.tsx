@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Heart } from "lucide-react";
+import emotionaleIntelligenzImg from "@/assets/emotionale-intelligenz.png";
 
 const games = [
   {
@@ -56,15 +56,11 @@ export const FerdyGames = () => {
             >
               {/* Game Image */}
               <div className="h-48 bg-gradient-to-br from-accent/20 to-accent/40 flex items-center justify-center border-b-4 border-accent overflow-hidden">
-                {game.id === 'emotionale-intelligenz' ? (
-                  <Heart className="w-16 h-16 text-accent" />
-                ) : (
-                  <img 
-                    src={game.image} 
-                    alt={game.title}
-                    className="w-full h-full object-cover"
-                  />
-                )}
+                <img 
+                  src={game.id === 'emotionale-intelligenz' ? emotionaleIntelligenzImg : game.image} 
+                  alt={game.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               <CardContent className="p-6">
