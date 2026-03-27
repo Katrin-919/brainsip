@@ -26,21 +26,12 @@ const testimonials = [
 
 export const FerdyTestimonials = () => {
   return (
-    <section
-      id="testimonials"
-      className="py-20 md:py-28"
-      style={{ background: "hsl(35 50% 93%)" }}
-    >
+    <section id="testimonials" className="py-20 md:py-28" style={{ background: "hsl(35 50% 93%)" }}>
       <div className="max-w-7xl mx-auto px-4 md:px-10">
-
         <div className="text-center mb-14 animate-fade-in-up">
           <div className="ferdy-badge mx-auto mb-4">💬 Feedback</div>
-          <h2
-            className="text-3xl md:text-5xl text-foreground"
-            style={{ fontFamily: "'Baloo 2', cursive" }}
-          >
-            Was unsere kleinen{" "}
-            <span className="text-primary">Abenteurer</span> sagen
+          <h2 className="text-3xl md:text-5xl text-foreground" style={{ fontFamily: "'Baloo 2', cursive" }}>
+            Was unsere kleinen <span className="text-primary">Abenteurer</span> sagen
           </h2>
         </div>
 
@@ -52,28 +43,17 @@ export const FerdyTestimonials = () => {
               style={{ animationDelay: `${i * 0.15}s` }}
             >
               {/* Quote icon */}
-              <Quote
-                size={28}
-                className="text-foreground/10 absolute top-5 right-5"
-                fill="currentColor"
-              />
+              <Quote size={28} className="text-foreground/10 absolute top-5 right-5" fill="currentColor" />
 
               {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {[...Array(t.stars)].map((_, j) => (
-                  <Star
-                    key={j}
-                    size={14}
-                    fill="hsl(var(--ferdy-yellow))"
-                    color="hsl(var(--ferdy-yellow))"
-                  />
+                  <Star key={j} size={14} fill="hsl(var(--ferdy-yellow))" color="hsl(var(--ferdy-yellow))" />
                 ))}
               </div>
 
               {/* Quote */}
-              <p className="text-foreground/80 leading-relaxed mb-5 text-base italic">
-                "{t.quote}"
-              </p>
+              <p className="text-foreground/80 leading-relaxed mb-5 text-base italic">"{t.quote}"</p>
 
               {/* Author */}
               <div className="flex items-center gap-3">
