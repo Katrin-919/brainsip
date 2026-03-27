@@ -19,7 +19,6 @@ export const FerdyCTA = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-
           {/* Text */}
           <div className="text-white space-y-6 animate-fade-in-left">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold bg-white/20 text-white">
@@ -29,8 +28,8 @@ export const FerdyCTA = () => {
               Bereit für dein Abenteuer mit Ferdy?
             </h2>
             <p className="text-lg text-white/85 leading-relaxed">
-              Registriere dich kostenlos und starte noch heute dein erstes Lernabenteuer!
-              Ferdy freut sich schon darauf, dich kennenzulernen. 🦊
+              Registriere dich kostenlos und starte noch heute dein erstes Lernabenteuer! Ferdy freut sich schon darauf,
+              dich kennenzulernen. 🦊
             </p>
             <div className="flex flex-wrap gap-4 pt-2">
               <Button
@@ -68,7 +67,7 @@ export const FerdyCTA = () => {
                   key={i}
                   className="absolute text-2xl animate-float-slow"
                   style={{
-                    top:  `${[10, -5, 80, 90][i]}%`,
+                    top: `${[10, -5, 80, 90][i]}%`,
                     left: `${[-10, 90, -15, 95][i]}%`,
                     animationDelay: `${i * 0.5}s`,
                   }}
