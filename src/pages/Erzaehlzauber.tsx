@@ -167,10 +167,11 @@ const Erzaehlzauber = () => {
                 <div
                   className="w-full"
                   style={{
-                    height: "220px",
+                    height: "240px",
                     backgroundImage: `url('${FERDY_GIF}')`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center top",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
                   }}
                 />
               </div>
