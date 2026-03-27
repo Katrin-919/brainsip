@@ -132,7 +132,7 @@ const Denkweiser = () => {
 
   // ── render ────────────────────────────────────────────────
   return (
-    <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #FFF8F0 0%, #EEF6FF 100%)" }}>
+    <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #F0FFF4 0%, #EEF6FF 100%)" }}>
       <FerdyHeader isLoggedIn={isLoggedIn} displayName={displayName} />
 
       <main className="pt-24 pb-12 px-4 md:px-8">
@@ -141,7 +141,7 @@ const Denkweiser = () => {
           <button
             onClick={() => navigate("/loesungsorientierung")}
             className="flex items-center gap-2 text-sm font-semibold mb-6 hover:text-primary transition-colors"
-            style={{ color: "#7A5C40" }}
+            style={{ color: "#2E7D32" }}
           >
             <ArrowLeft size={16} /> Zurück zur Übersicht
           </button>
@@ -152,7 +152,7 @@ const Denkweiser = () => {
               {/* Ferdy */}
               <div
                 className="rounded-3xl overflow-hidden shadow-lg"
-                style={{ background: "linear-gradient(135deg,#FFF3E8,#FFF8F0)" }}
+                style={{ background: "linear-gradient(135deg,#E8F5E9,#F0FFF4)" }}
               >
                 <div
                   className="w-full"
@@ -166,9 +166,9 @@ const Denkweiser = () => {
               </div>
 
               {/* Info card */}
-              <Card className="p-5 rounded-3xl border-0" style={{ boxShadow: "0 4px 20px rgba(249,115,22,0.1)" }}>
+              <Card className="p-5 rounded-3xl border-0" style={{ boxShadow: "0 4px 20px rgba(76,175,80,0.1)" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <Lightbulb size={18} style={{ color: "#F97316" }} />
+                  <Lightbulb size={18} style={{ color: "#4CAF50" }} />
                   <h3 className="font-bold text-foreground" style={{ fontFamily: "'Baloo 2', cursive" }}>
                     Denkweiser
                   </h3>
@@ -179,8 +179,8 @@ const Denkweiser = () => {
                   voranbringt.
                 </p>
 
-                <div className="rounded-2xl p-3 mb-4 text-sm" style={{ background: "#FFF3E8" }}>
-                  <p className="font-semibold mb-1" style={{ color: "#C2470A" }}>
+                <div className="rounded-2xl p-3 mb-4 text-sm" style={{ background: "#E8F5E9" }}>
+                  <p className="font-semibold mb-1" style={{ color: "#2E7D32" }}>
                     💡 Tipp
                   </p>
                   <p className="text-foreground/70">
@@ -196,7 +196,7 @@ const Denkweiser = () => {
                     "10 Fragen · direkt Feedback",
                   ].map((t) => (
                     <li key={t} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#F97316" }} />
+                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#4CAF50" }} />
                       {t}
                     </li>
                   ))}
@@ -207,10 +207,10 @@ const Denkweiser = () => {
               {phase !== "start" && phase !== "results" && (
                 <Card
                   className="p-4 rounded-3xl border-0 text-center"
-                  style={{ boxShadow: "0 4px 20px rgba(249,115,22,0.1)" }}
+                  style={{ boxShadow: "0 4px 20px rgba(76,175,80,0.1)" }}
                 >
                   <p className="text-xs font-semibold text-foreground/50 mb-1">Punkte bisher</p>
-                  <p className="text-3xl font-extrabold" style={{ fontFamily: "'Baloo 2', cursive", color: "#F97316" }}>
+                  <p className="text-3xl font-extrabold" style={{ fontFamily: "'Baloo 2', cursive", color: "#4CAF50" }}>
                     {correctCount}
                     <span className="text-base text-foreground/30">/{currentIndex}</span>
                   </p>
@@ -226,10 +226,10 @@ const Denkweiser = () => {
               >
                 {/* Progress bar */}
                 {(phase === "playing" || phase === "feedback") && (
-                  <div className="h-2 w-full" style={{ background: "#FFF3E8" }}>
+                  <div className="h-2 w-full" style={{ background: "#E8F5E9" }}>
                     <div
                       className="h-2 transition-all duration-500"
-                      style={{ width: `${progress}%`, background: "linear-gradient(90deg,#F97316,#FACC15)" }}
+                      style={{ width: `${progress}%`, background: "linear-gradient(90deg,#4CAF50,#81C784)" }}
                     />
                   </div>
                 )}
@@ -258,7 +258,7 @@ const Denkweiser = () => {
                           onClick={loadQuestions}
                           size="lg"
                           className="rounded-full px-10 font-bold text-white"
-                          style={{ background: "#F97316", boxShadow: "0 6px 20px rgba(249,115,22,0.4)" }}
+                          style={{ background: "#4CAF50", boxShadow: "0 6px 20px rgba(76,175,80,0.4)" }}
                         >
                           Spiel starten 🚀
                         </Button>
@@ -273,7 +273,7 @@ const Denkweiser = () => {
                       <div className="flex items-center justify-between">
                         <span
                           className="text-xs font-bold px-3 py-1 rounded-full"
-                          style={{ background: "#FFF3E8", color: "#C2470A" }}
+                          style={{ background: "#E8F5E9", color: "#2E7D32" }}
                         >
                           Frage {currentIndex + 1} von {questions.length}
                         </span>
@@ -327,9 +327,9 @@ const Denkweiser = () => {
                               labelColor = "white";
                             }
                           } else if (isSelected) {
-                            borderColor = "#F97316";
-                            bg = "#FFF8F0";
-                            labelBg = "#F97316";
+                            borderColor = "#4CAF50";
+                            bg = "#F0FFF4";
+                            labelBg = "#4CAF50";
                             labelColor = "white";
                           }
 
@@ -387,8 +387,8 @@ const Denkweiser = () => {
                             disabled={!selectedAnswer}
                             className="rounded-full px-8 font-bold text-white"
                             style={{
-                              background: selectedAnswer ? "#F97316" : undefined,
-                              boxShadow: selectedAnswer ? "0 4px 14px rgba(249,115,22,0.4)" : undefined,
+                              background: selectedAnswer ? "#4CAF50" : undefined,
+                              boxShadow: selectedAnswer ? "0 4px 14px rgba(76,175,80,0.4)" : undefined,
                             }}
                           >
                             Bestätigen
@@ -397,7 +397,7 @@ const Denkweiser = () => {
                           <Button
                             onClick={handleNext}
                             className="rounded-full px-8 font-bold text-white flex items-center gap-2"
-                            style={{ background: "#F97316", boxShadow: "0 4px 14px rgba(249,115,22,0.4)" }}
+                            style={{ background: "#4CAF50", boxShadow: "0 4px 14px rgba(76,175,80,0.4)" }}
                           >
                             {currentIndex + 1 === questions.length ? "Auswertung sehen" : "Weiter"}
                             <ArrowRight size={16} />
@@ -429,14 +429,14 @@ const Denkweiser = () => {
                         <div
                           className="w-36 h-36 rounded-full flex flex-col items-center justify-center"
                           style={{
-                            background: `conic-gradient(#F97316 ${scorePercent * 3.6}deg, #FFF3E8 0deg)`,
-                            boxShadow: "0 0 0 8px #FFF3E8",
+                            background: `conic-gradient(#4CAF50 ${scorePercent * 3.6}deg, #E8F5E9 0deg)`,
+                            boxShadow: "0 0 0 8px #E8F5E9",
                           }}
                         >
                           <div className="w-28 h-28 rounded-full bg-white flex flex-col items-center justify-center">
                             <span
                               className="text-4xl font-extrabold"
-                              style={{ fontFamily: "'Baloo 2', cursive", color: "#F97316" }}
+                              style={{ fontFamily: "'Baloo 2', cursive", color: "#4CAF50" }}
                             >
                               {scorePercent}%
                             </span>
@@ -445,7 +445,7 @@ const Denkweiser = () => {
                         </div>
                       </div>
 
-                      <div className="rounded-2xl p-5 max-w-md mx-auto" style={{ background: "#FFF3E8" }}>
+                      <div className="rounded-2xl p-5 max-w-md mx-auto" style={{ background: "#E8F5E9" }}>
                         <p className="font-bold text-foreground">{resultText()}</p>
                       </div>
 
@@ -454,14 +454,14 @@ const Denkweiser = () => {
                           onClick={resetGame}
                           variant="outline"
                           className="rounded-full px-8 font-bold flex items-center gap-2 border-2"
-                          style={{ borderColor: "#F97316", color: "#F97316" }}
+                          style={{ borderColor: "#4CAF50", color: "#4CAF50" }}
                         >
                           <RotateCcw size={15} /> Nochmal spielen
                         </Button>
                         <Button
                           onClick={() => navigate("/loesungsorientierung")}
                           className="rounded-full px-8 font-bold text-white"
-                          style={{ background: "#F97316", boxShadow: "0 4px 14px rgba(249,115,22,0.4)" }}
+                          style={{ background: "#4CAF50", boxShadow: "0 4px 14px rgba(76,175,80,0.4)" }}
                         >
                           Andere Spiele entdecken
                         </Button>
