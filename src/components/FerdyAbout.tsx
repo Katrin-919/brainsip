@@ -1,6 +1,7 @@
 import { CheckCircle } from "lucide-react";
 
-const FERDY_DANCE_GIF = "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_dancearound.gif";
+const FERDY_DANCE_GIF =
+  "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_dancearound.gif";
 
 const highlights = [
   "Spielerisch wichtige Lebenskompetenzen lernen",
@@ -14,14 +15,14 @@ export const FerdyAbout = () => {
     <section id="about" className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-10">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-
           {/* Image */}
           <div className="relative flex justify-center animate-fade-in-left order-2 md:order-1">
             <div
               className="absolute w-72 h-72 rounded-full opacity-20"
               style={{
                 background: "radial-gradient(circle, hsl(199 89% 48%), transparent)",
-                top: "10%", left: "10%",
+                top: "10%",
+                left: "10%",
               }}
             />
             <div className="relative z-10 animate-float">
@@ -38,7 +39,12 @@ export const FerdyAbout = () => {
             </div>
             {/* Stats card */}
             <div className="absolute -bottom-4 -right-4 bg-white rounded-2xl p-4 shadow-xl border border-orange-100 animate-pop-in">
-              <div className="text-3xl font-extrabold" style={{ color: "hsl(25 95% 53%)", fontFamily: "'Baloo 2', cursive" }}>16+</div>
+              <div
+                className="text-3xl font-extrabold"
+                style={{ color: "hsl(25 95% 53%)", fontFamily: "'Baloo 2', cursive" }}
+              >
+                16+
+              </div>
               <div className="text-xs font-semibold text-foreground/60">Lernspiele</div>
             </div>
           </div>
@@ -53,9 +59,8 @@ export const FerdyAbout = () => {
               Wer ist Ferdy der Fuchs?
             </h2>
             <p className="text-lg text-foreground/70 leading-relaxed">
-              Ferdy ist ein neugieriger, schlauer Fuchs, der Kinder auf ihren Lernabenteuern begleitet.
-              Mit Geschichten, Rätseln und Spielen zeigt er, wie man Probleme mutig anpackt und
-              Gefühle versteht.
+              Ferdy ist ein neugieriger, schlauer Fuchs, der Kinder auf ihren Lernabenteuern begleitet. Mit Geschichten,
+              Rätseln und Spielen zeigt er, wie man Probleme mutig anpackt und Gefühle versteht.
             </p>
             <ul className="space-y-3">
               {highlights.map((item) => (
