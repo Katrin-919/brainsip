@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Sparkles, Star } from "lucide-react";
+import { Sparkles, Star, Gamepad2, Brain, Heart } from "lucide-react";
+
+const FERDY_IMG = "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_startseite.png";
 
 export const FerdyHero = () => {
   const navigate = useNavigate();
@@ -10,73 +12,84 @@ export const FerdyHero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
-
-      {/* Warm gradient background */}
+    <section className="relative overflow-hidden" style={{ minHeight: "100vh", paddingTop: "80px" }}>
+      {/* Background gradient */}
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(135deg, hsl(35 80% 96%) 0%, hsl(199 80% 93%) 50%, hsl(142 60% 93%) 100%)",
+          background: "linear-gradient(160deg, #FFF8F0 0%, #E8F6FF 50%, #F0FFF4 100%)",
         }}
       />
 
-      {/* Decorative dots */}
-      <div className="absolute inset-0 ferdy-dots-bg opacity-60" />
+      {/* Subtle dot pattern */}
+      <div className="absolute inset-0 ferdy-dots-bg opacity-40" />
 
-      {/* Floating blobs */}
+      {/* Decorative soft blobs — kept small and behind content */}
       <div
-        className="absolute top-20 right-10 w-72 h-72 rounded-full opacity-20 animate-float-slow"
-        style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent)" }}
+        className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-15 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #F97316, transparent 70%)", transform: "translate(30%, -20%)" }}
       />
       <div
-        className="absolute bottom-20 left-10 w-56 h-56 rounded-full opacity-15 animate-float"
-        style={{ background: "radial-gradient(circle, hsl(var(--secondary)), transparent)" }}
+        className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-10 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #0EA5E9, transparent 70%)", transform: "translate(-30%, 20%)" }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 w-full">
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-          {/* === Left: Text Content === */}
-          <div className="space-y-6 animate-fade-in-left">
-
+      {/* === Main content === */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-10">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 py-12 md:py-16">
+          {/* ── LEFT: Text ── */}
+          <div className="flex-1 space-y-6 text-center md:text-left animate-fade-in-left">
             {/* Badge */}
-            <div className="ferdy-badge animate-pop-in">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold"
+              style={{ background: "#FFF3E8", color: "#C2470A" }}
+            >
               <Sparkles size={14} />
               Lernen mit Spaß & Abenteuer!
             </div>
 
             {/* Headline */}
             <h1
-              className="text-4xl md:text-5xl lg:text-6xl leading-tight text-foreground"
+              className="text-4xl sm:text-5xl lg:text-6xl leading-tight text-foreground"
               style={{ fontFamily: "'Baloo 2', cursive", fontWeight: 800 }}
             >
-              Lernaben&shy;teuer mit{" "}
-              <span className="animate-shimmer-text">Ferdy dem Fuchs</span>
+              Lernabenteuer
+              <br />
+              mit{" "}
+              <span
+                style={{
+                  background: "linear-gradient(90deg, #F97316, #FACC15)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Ferdy dem Fuchs
+              </span>
             </h1>
 
-            <p className="text-lg md:text-xl text-foreground/70 leading-relaxed">
-              Tauche ein in eine Welt voller Rätsel, Gefühle und Entdeckungen –
-              und werde mit jedem Spiel ein Stückchen klüger. 🦊
+            <p className="text-lg text-foreground/65 leading-relaxed max-w-lg mx-auto md:mx-0">
+              Rätsel, Gefühle, Abenteuer – spiel dich schlau und werde jeden Tag ein bisschen besser! 🦊
             </p>
 
-            {/* Star ratings */}
-            <div className="flex items-center gap-2">
+            {/* Stars */}
+            <div className="flex items-center gap-2 justify-center md:justify-start">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={18} fill="hsl(var(--ferdy-yellow))" color="hsl(var(--ferdy-yellow))" />
+                <Star key={i} size={16} fill="#FACC15" color="#FACC15" />
               ))}
-              <span className="text-sm font-semibold text-foreground/60 ml-1">
-                Über 500 Kinder spielen bereits mit Ferdy
+              <span className="text-sm font-semibold text-foreground/55 ml-1">
+                500+ Kinder spielen bereits mit Ferdy
               </span>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-4 pt-2">
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
               <Button
                 size="lg"
-                className="rounded-full px-8 font-bold text-base animate-pulse-ring"
+                className="rounded-full px-8 font-bold text-base text-white"
                 style={{
-                  background: "hsl(var(--primary))",
-                  boxShadow: "var(--shadow-button)",
+                  background: "#F97316",
+                  boxShadow: "0 6px 20px rgba(249,115,22,0.45)",
                 }}
                 onClick={() => navigate("/loesungsorientierung")}
               >
@@ -85,60 +98,68 @@ export const FerdyHero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8 font-bold text-base border-2 border-primary/30 text-primary hover:bg-primary hover:text-white"
+                className="rounded-full px-8 font-bold text-base"
+                style={{ borderColor: "#F97316", color: "#F97316" }}
                 onClick={scrollToGames}
               >
                 Alle Spiele entdecken
               </Button>
             </div>
+
+            {/* Mini feature pills */}
+            <div className="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
+              {[
+                { icon: <Brain size={14} />, label: "16 Lernspiele", bg: "#FFF3E8", col: "#C2470A" },
+                { icon: <Heart size={14} />, label: "Gefühle verstehen", bg: "#FFF0F5", col: "#BE185D" },
+                { icon: <Gamepad2 size={14} />, label: "Kostenlos starten", bg: "#F0FFF4", col: "#15803D" },
+              ].map((p) => (
+                <span
+                  key={p.label}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+                  style={{ background: p.bg, color: p.col }}
+                >
+                  {p.icon} {p.label}
+                </span>
+              ))}
+            </div>
           </div>
 
-          {/* === Right: Ferdy Image === */}
-          <div className="relative flex justify-center items-center animate-fade-in-right">
-            {/* Glow circle behind ferdy */}
+          {/* ── RIGHT: Ferdy image ── */}
+          <div
+            className="flex-shrink-0 flex items-end justify-center animate-fade-in-right"
+            style={{ width: "min(380px, 45vw)", minWidth: "260px" }}
+          >
+            {/* Glow behind Ferdy */}
             <div
-              className="absolute w-80 h-80 rounded-full opacity-30"
+              className="absolute rounded-full pointer-events-none"
               style={{
-                background: "radial-gradient(circle, hsl(var(--primary)), transparent 70%)",
+                width: "320px",
+                height: "320px",
+                background: "radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%)",
+                bottom: "0",
               }}
             />
-
-            {/* Ferdy image */}
-            <div className="relative z-10 animate-float">
-              <img
-                src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_startseite.png"
-                alt="Ferdy der Fuchs"
-                className="w-full max-w-md object-contain drop-shadow-2xl"
-                style={{ filter: "drop-shadow(0 20px 40px rgba(249,115,22,0.3))" }}
-              />
-            </div>
-
-            {/* Floating mini cards */}
+            {/* Ferdy image — fills container, anchored at bottom */}
             <div
-              className="absolute top-8 -left-4 bg-white rounded-2xl px-4 py-3 shadow-lg animate-float-slow"
-              style={{ animationDelay: "0.5s" }}
-            >
-              <div className="text-2xl mb-0.5">🧠</div>
-              <div className="text-xs font-bold text-foreground">16 Spiele</div>
-            </div>
-            <div
-              className="absolute bottom-12 -right-2 bg-white rounded-2xl px-4 py-3 shadow-lg animate-float-slow"
-              style={{ animationDelay: "1s" }}
-            >
-              <div className="text-2xl mb-0.5">⭐</div>
-              <div className="text-xs font-bold text-foreground">Kostenlos starten</div>
-            </div>
+              className="relative animate-float"
+              style={{
+                width: "100%",
+                paddingBottom: "110%" /* tall enough to show full fox */,
+                backgroundImage: `url('${FERDY_IMG}')`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "bottom center",
+                filter: "drop-shadow(0 16px 32px rgba(249,115,22,0.22))",
+              }}
+            />
           </div>
         </div>
       </div>
 
       {/* Wave bottom */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path
-            d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"
-            fill="hsl(35 50% 93%)"
-          />
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0,35 C360,70 1080,0 1440,35 L1440,70 L0,70 Z" fill="hsl(35,50%,93%)" />
         </svg>
       </div>
     </section>
