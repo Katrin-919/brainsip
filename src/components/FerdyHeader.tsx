@@ -38,28 +38,22 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
 
   const navLinks = [
     { label: "Startseite", action: () => navigate("/") },
-    { label: "Spiele",     action: () => scrollToSection("games") },
+    { label: "Spiele", action: () => scrollToSection("games") },
     { label: "Über Ferdy", action: () => scrollToSection("about") },
     { label: "Für Eltern", action: () => scrollToSection("parents") },
-    { label: "Feedback",   action: () => scrollToSection("testimonials") },
+    { label: "Feedback", action: () => scrollToSection("testimonials") },
     ...(isLoggedIn ? [{ label: "Mein Profil", action: () => navigate("/profile") }] : []),
   ];
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md py-2"
-          : "bg-transparent py-4"
+        scrolled ? "bg-white/95 backdrop-blur-md shadow-md py-2" : "bg-transparent py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-10 flex items-center justify-between">
-
         {/* Logo */}
-        <button
-          onClick={() => navigate("/")}
-          className="flex items-center gap-3 group"
-        >
+        <button onClick={() => navigate("/")} className="flex items-center gap-3 group">
           <div className="w-11 h-11 rounded-2xl overflow-hidden shadow-md group-hover:scale-105 transition-transform duration-200 bg-orange-100">
             <img
               src="https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/ferdy_goodbye.png"
@@ -92,9 +86,7 @@ export const FerdyHeader = ({ isLoggedIn = false, displayName }: FerdyHeaderProp
         <div className="hidden md:flex items-center gap-3">
           {isLoggedIn ? (
             <>
-              <span className="text-sm font-semibold text-foreground/70">
-                Hallo, {displayName} 👋
-              </span>
+              <span className="text-sm font-semibold text-foreground/70">Hallo, {displayName} 👋</span>
               <Button
                 size="sm"
                 variant="outline"
