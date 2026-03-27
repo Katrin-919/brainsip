@@ -5,32 +5,48 @@ import { ArrowRight } from "lucide-react";
 
 const games = [
   {
-    id: "loesungsorientierung", title: "Lösungsorientierung",
+    id: "loesungsorientierung",
+    title: "Lösungsorientierung",
     description: "Löse knifflige Rätsel und werde Meister der Problemlösung!",
     image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/loesungsorientierung.png",
-    route: "/loesungsorientierung", emoji: "🧩", color: "from-orange-100 to-amber-50",
-    tag: "Denken", tagClass: "bg-orange-100 text-orange-600",
+    route: "/loesungsorientierung",
+    emoji: "🧩",
+    color: "from-orange-100 to-amber-50",
+    tag: "Denken",
+    tagClass: "bg-orange-100 text-orange-600",
   },
   {
-    id: "mindset", title: "Mindset",
+    id: "mindset",
+    title: "Mindset",
     description: "Stärke deine Denkweise mit spannenden interaktiven Spielen!",
     image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/mindset.jpg",
-    route: "/mindset", emoji: "💡", color: "from-yellow-100 to-amber-50",
-    tag: "Wachstum", tagClass: "bg-yellow-100 text-yellow-700",
+    route: "/mindset",
+    emoji: "💡",
+    color: "from-yellow-100 to-amber-50",
+    tag: "Wachstum",
+    tagClass: "bg-yellow-100 text-yellow-700",
   },
   {
-    id: "konfliktloesung", title: "Konfliktlösung",
+    id: "konfliktloesung",
+    title: "Konfliktlösung",
     description: "Hol dir smarte Tipps, um Konflikte im Alltag noch besser zu lösen!",
     image: "https://kbbcixkekoqoukzzdkxk.supabase.co/storage/v1/object/public/images/konflikt.png",
-    route: "/konfliktloesung", emoji: "🤝", color: "from-blue-100 to-sky-50",
-    tag: "Kommunikation", tagClass: "bg-blue-100 text-blue-600",
+    route: "/konfliktloesung",
+    emoji: "🤝",
+    color: "from-blue-100 to-sky-50",
+    tag: "Kommunikation",
+    tagClass: "bg-blue-100 text-blue-600",
   },
   {
-    id: "emotionale-intelligenz", title: "Emotionale Intelligenz",
+    id: "emotionale-intelligenz",
+    title: "Emotionale Intelligenz",
     description: "Lerne deine Gefühle zu verstehen und zu regulieren!",
-    image: null, route: "/emotionale-intelligenz", emoji: "❤️",
+    image: null,
+    route: "/emotionale-intelligenz",
+    emoji: "❤️",
     color: "from-pink-100 to-rose-50",
-    tag: "Gefühle", tagClass: "bg-pink-100 text-pink-600",
+    tag: "Gefühle",
+    tagClass: "bg-pink-100 text-pink-600",
   },
 ];
 
@@ -40,14 +56,10 @@ export const FerdyGames = () => {
   return (
     <section id="games" className="py-20 md:py-28" style={{ background: "hsl(35 50% 93%)" }}>
       <div className="max-w-7xl mx-auto px-4 md:px-10">
-
         {/* Heading */}
         <div className="text-center mb-14 animate-fade-in-up">
           <div className="ferdy-badge mx-auto mb-4">🎮 Lernspiele</div>
-          <h2
-            className="text-3xl md:text-5xl text-foreground mb-4"
-            style={{ fontFamily: "'Baloo 2', cursive" }}
-          >
+          <h2 className="text-3xl md:text-5xl text-foreground mb-4" style={{ fontFamily: "'Baloo 2', cursive" }}>
             Deine Lernabenteuer
           </h2>
           <p className="text-lg text-foreground/60 max-w-xl mx-auto">
@@ -65,7 +77,9 @@ export const FerdyGames = () => {
               onClick={() => navigate(game.route)}
             >
               {/* Image area */}
-              <div className={`relative h-44 bg-gradient-to-br ${game.color} flex items-center justify-center overflow-hidden`}>
+              <div
+                className={`relative h-44 bg-gradient-to-br ${game.color} flex items-center justify-center overflow-hidden`}
+              >
                 {game.image ? (
                   <img
                     src={game.id === "emotionale-intelligenz" ? emotionaleIntelligenzImg : game.image}
@@ -87,7 +101,9 @@ export const FerdyGames = () => {
 
               {/* Content */}
               <div className="p-5">
-                <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold mb-3 ${game.tagClass}`}>
+                <div
+                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold mb-3 ${game.tagClass}`}
+                >
                   {game.tag}
                 </div>
                 <h3
@@ -96,9 +112,7 @@ export const FerdyGames = () => {
                 >
                   {game.title}
                 </h3>
-                <p className="text-sm text-foreground/60 leading-relaxed mb-4">
-                  {game.description}
-                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed mb-4">{game.description}</p>
                 <div className="flex items-center text-primary text-sm font-bold gap-1 group-hover:gap-2 transition-all">
                   Entdecken <ArrowRight size={14} />
                 </div>
