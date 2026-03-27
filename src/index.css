@@ -2,47 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap");
-
-/* =============================================
-   FERDY DER FUCHS â€“ Design System v2
-   Warm, playful, trustworthy for children
-   ============================================= */
+/* Ferdy der Fuchs Design System - All colors, gradients, fonts, etc defined here. 
+All colors MUST be HSL.
+*/
 
 @layer base {
   :root {
-    --background: 35 60% 97%;
-    --foreground: 20 30% 18%;
+    /* Ferdy Color Palette */
+    --background: 180 22% 89%; /* Equivalent to #e0e5e5 */
+    --foreground: 210 25% 23%; /* Equivalent to #2c3e50 */
+
     --card: 0 0% 100%;
-    --card-foreground: 20 30% 18%;
+    --card-foreground: 210 25% 23%;
+
     --popover: 0 0% 100%;
-    --popover-foreground: 20 30% 18%;
-    --primary: 25 95% 53%;
+    --popover-foreground: 210 25% 23%;
+
+    --primary: 122 39% 49%; /* Equivalent to #4CAF50 - Ferdy green accent */
     --primary-foreground: 0 0% 100%;
-    --secondary: 199 89% 48%;
+
+    --secondary: 194 33% 78%; /* Equivalent to #a3c5d3 - Ferdy blue */
     --secondary-foreground: 0 0% 100%;
-    --muted: 35 50% 93%;
-    --muted-foreground: 20 20% 40%;
-    --accent: 142 71% 45%;
+
+    --muted: 200 40% 94%; /* Equivalent to #eef3f7 - light blue-gray */
+    --muted-foreground: 210 25% 23%;
+
+    --accent: 122 39% 49%; /* Same as primary - Ferdy green */
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 35 30% 88%;
-    --input: 35 30% 88%;
-    --ring: 25 95% 53%;
-    --radius: 1rem;
-    --ferdy-orange: 25 95% 53%;
-    --ferdy-orange-light: 35 100% 92%;
-    --ferdy-blue: 199 89% 48%;
-    --ferdy-blue-light: 199 89% 93%;
-    --ferdy-green: 142 71% 45%;
-    --ferdy-green-light: 142 71% 93%;
-    --ferdy-yellow: 45 96% 64%;
-    --ferdy-purple: 262 80% 65%;
-    --ferdy-pink: 330 80% 65%;
-    --shadow-card: 0 4px 20px rgba(249, 115, 22, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
-    --shadow-card-hover: 0 12px 40px rgba(249, 115, 22, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
-    --shadow-button: 0 4px 14px rgba(249, 115, 22, 0.4);
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 122 39% 49%;
+
+    --radius: 0.5rem;
+
+    /* Ferdy specific gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
+    --gradient-section: linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
+
+    /* Ferdy shadows */
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 15px 40px rgba(0, 0, 0, 0.2);
+    --shadow-elegant: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -56,20 +64,28 @@
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
+
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 25 95% 53%;
+
+    --primary: 122 39% 49%; /* Keep Ferdy green in dark mode */
     --primary-foreground: 0 0% 100%;
+
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
+
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
+
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -88,185 +104,55 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
-    font-family: "Nunito", sans-serif;
+    font-family: "Poppins", sans-serif;
     scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
   }
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: "Baloo 2", cursive;
-    font-weight: 800;
-  }
-}
 
-@layer components {
+  /* Ferdy specific utilities */
+  .ferdy-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .ferdy-gradient-section {
+    background: var(--gradient-section);
+  }
+
   .ferdy-shadow-card {
     box-shadow: var(--shadow-card);
   }
+
   .ferdy-shadow-card-hover {
     box-shadow: var(--shadow-card-hover);
   }
+
   .ferdy-transition {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition-smooth);
   }
 
-  .ferdy-card {
-    @apply bg-white rounded-3xl overflow-hidden ferdy-transition;
-    box-shadow: var(--shadow-card);
-  }
-  .ferdy-card:hover {
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-6px);
-  }
-
-  .ferdy-badge {
-    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold;
-    background: hsl(var(--ferdy-orange-light));
-    color: hsl(var(--ferdy-orange));
-  }
-
-  .ferdy-dots-bg {
-    background-image: radial-gradient(hsl(var(--ferdy-orange) / 0.12) 1.5px, transparent 1.5px);
-    background-size: 24px 24px;
-  }
-
-  .ferdy-heading-line::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 4px;
-    border-radius: 9999px;
-    background: hsl(var(--primary));
-    margin: 12px auto 0;
-  }
-}
-
-@layer utilities {
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  /* Animation keyframes */
   @keyframes fadeInLeft {
     from {
       opacity: 0;
-      transform: translateX(-40px);
+      transform: translateX(-50px);
     }
     to {
       opacity: 1;
       transform: translateX(0);
-    }
-  }
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-12px);
-    }
-  }
-  @keyframes wiggle {
-    0%,
-    100% {
-      transform: rotate(-3deg);
-    }
-    50% {
-      transform: rotate(3deg);
-    }
-  }
-  @keyframes popIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    70% {
-      transform: scale(1.05);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  @keyframes shimmer {
-    from {
-      background-position: -200% center;
-    }
-    to {
-      background-position: 200% center;
-    }
-  }
-  @keyframes pulse-ring {
-    0% {
-      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
-    }
-    70% {
-      box-shadow: 0 0 0 14px rgba(249, 115, 22, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
     }
   }
 
-  .animate-fade-in-up {
-    animation: fadeInUp 0.7s ease-out both;
-  }
-  .animate-fade-in-up-delay-1 {
-    animation: fadeInUp 0.7s ease-out 0.15s both;
-  }
-  .animate-fade-in-up-delay-2 {
-    animation: fadeInUp 0.7s ease-out 0.3s both;
-  }
-  .animate-fade-in-up-delay-3 {
-    animation: fadeInUp 0.7s ease-out 0.45s both;
-  }
   .animate-fade-in-left {
-    animation: fadeInLeft 0.8s ease-out both;
-  }
-  .animate-fade-in-right {
-    animation: fadeInRight 0.8s ease-out both;
-  }
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-  .animate-float-slow {
-    animation: float 4.5s ease-in-out infinite;
-  }
-  .animate-wiggle {
-    animation: wiggle 2s ease-in-out infinite;
-  }
-  .animate-pop-in {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
-  .animate-pulse-ring {
-    animation: pulse-ring 2s ease-out infinite;
+    animation: fadeInLeft 1s ease-out;
   }
 
-  .animate-shimmer-text {
-    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(45 96% 64%) 40%, hsl(var(--primary)) 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3s linear infinite;
+  .animate-fade-in-left-delay {
+    animation: fadeInLeft 1.2s ease-out;
+  }
+
+  .animate-fade-in-left-delay-2 {
+    animation: fadeInLeft 1.4s ease-out;
   }
 }
